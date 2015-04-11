@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A36AB1BC1AD8D1B6000BA9AB /* xmpPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A36AB1B61AD8D1B6000BA9AB /* xmpPlayer.m */; };
+		A36AB1BD1AD8D1B6000BA9AB /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = A36AB1B81AD8D1B6000BA9AB /* TPCircularBuffer.c */; };
+		A36AB1BE1AD8D1B6000BA9AB /* libxmp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A36AB1BB1AD8D1B6000BA9AB /* libxmp.a */; };
+		A36AB1C41AD8D1DF000BA9AB /* Module.m in Sources */ = {isa = PBXBuildFile; fileRef = A36AB1C31AD8D1DF000BA9AB /* Module.m */; };
 		A38721181AD2FFA200A01234 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A38721171AD2FFA200A01234 /* AppDelegate.m */; };
 		A387211A1AD2FFA200A01234 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A38721191AD2FFA200A01234 /* main.m */; };
 		A387211D1AD2FFA200A01234 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A387211C1AD2FFA200A01234 /* ViewController.m */; };
@@ -34,6 +38,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A36AB1B51AD8D1B6000BA9AB /* xmpPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmpPlayer.h; sourceTree = "<group>"; };
+		A36AB1B61AD8D1B6000BA9AB /* xmpPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = xmpPlayer.m; sourceTree = "<group>"; };
+		A36AB1B71AD8D1B6000BA9AB /* xmpPlayerErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmpPlayerErrors.h; sourceTree = "<group>"; };
+		A36AB1B81AD8D1B6000BA9AB /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
+		A36AB1B91AD8D1B6000BA9AB /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
+		A36AB1BA1AD8D1B6000BA9AB /* xmp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmp.h; sourceTree = "<group>"; };
+		A36AB1BB1AD8D1B6000BA9AB /* libxmp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libxmp.a; sourceTree = "<group>"; };
+		A36AB1C21AD8D1DF000BA9AB /* Module.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Module.h; sourceTree = "<group>"; };
+		A36AB1C31AD8D1DF000BA9AB /* Module.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Module.m; sourceTree = "<group>"; };
 		A38721111AD2FFA100A01234 /* dcTrecker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dcTrecker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A38721151AD2FFA200A01234 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A38721161AD2FFA200A01234 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -61,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A36AB1BE1AD8D1B6000BA9AB /* libxmp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +88,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A36AB1BF1AD8D1BC000BA9AB /* xmpPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				A36AB1B51AD8D1B6000BA9AB /* xmpPlayer.h */,
+				A36AB1B61AD8D1B6000BA9AB /* xmpPlayer.m */,
+				A36AB1B71AD8D1B6000BA9AB /* xmpPlayerErrors.h */,
+			);
+			name = xmpPlayer;
+			sourceTree = "<group>";
+		};
+		A36AB1C01AD8D1C8000BA9AB /* TPCircularBuffer */ = {
+			isa = PBXGroup;
+			children = (
+				A36AB1B81AD8D1B6000BA9AB /* TPCircularBuffer.c */,
+				A36AB1B91AD8D1B6000BA9AB /* TPCircularBuffer.h */,
+			);
+			name = TPCircularBuffer;
+			sourceTree = "<group>";
+		};
+		A36AB1C11AD8D1D0000BA9AB /* libxmp */ = {
+			isa = PBXGroup;
+			children = (
+				A36AB1BA1AD8D1B6000BA9AB /* xmp.h */,
+				A36AB1BB1AD8D1B6000BA9AB /* libxmp.a */,
+			);
+			name = libxmp;
+			sourceTree = "<group>";
+		};
+		A36AB1C51AD8D1E2000BA9AB /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				A36AB1C21AD8D1DF000BA9AB /* Module.h */,
+				A36AB1C31AD8D1DF000BA9AB /* Module.m */,
+			);
+			name = Module;
+			sourceTree = "<group>";
+		};
 		A38721081AD2FFA100A01234 = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +161,10 @@
 		A38721141AD2FFA200A01234 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A36AB1C01AD8D1C8000BA9AB /* TPCircularBuffer */,
+				A36AB1C11AD8D1D0000BA9AB /* libxmp */,
+				A36AB1BF1AD8D1BC000BA9AB /* xmpPlayer */,
+				A36AB1C51AD8D1E2000BA9AB /* Module */,
 				A38721151AD2FFA200A01234 /* Info.plist */,
 				A38721191AD2FFA200A01234 /* main.m */,
 			);
@@ -255,8 +310,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A36AB1BC1AD8D1B6000BA9AB /* xmpPlayer.m in Sources */,
 				A387211D1AD2FFA200A01234 /* ViewController.m in Sources */,
 				A387211A1AD2FFA200A01234 /* main.m in Sources */,
+				A36AB1C41AD8D1DF000BA9AB /* Module.m in Sources */,
+				A36AB1BD1AD8D1B6000BA9AB /* TPCircularBuffer.c in Sources */,
 				A38721181AD2FFA200A01234 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,6 +432,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = dcTrecker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/dcTrecker",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -385,6 +447,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = dcTrecker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/dcTrecker",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -444,6 +510,7 @@
 				A38721331AD2FFA200A01234 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A38721341AD2FFA200A01234 /* Build configuration list for PBXNativeTarget "dcTreckerTests" */ = {
 			isa = XCConfigurationList;
@@ -452,6 +519,7 @@
 				A38721361AD2FFA200A01234 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
