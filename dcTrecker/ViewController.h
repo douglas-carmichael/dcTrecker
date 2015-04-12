@@ -7,9 +7,18 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "xmpPlayer.h"
+#import "Module.h"
+
+xmpPlayer *ourPlayer;
+Module *ourModule;
 
 @interface ViewController : NSViewController
-
+{
+    IBOutlet NSTextField *moduleName;
+    IBOutlet NSTextField *moduleTime;
+    IBOutlet NSTextField *modulePosition;
+}
 
 @end
 

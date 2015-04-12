@@ -12,6 +12,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    ourPlayer = [[xmpPlayer alloc] init];
+    ourModule = [[Module alloc] init];
 
     // Do any additional setup after loading the view.
 }

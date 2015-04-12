@@ -595,6 +595,14 @@
                                             <rect key="frame" x="258" y="42" width="170" height="27"/>
                                             <sliderCell key="cell" state="on" alignment="left" maxValue="10" doubleValue="10" tickMarkPosition="below" numberOfTickMarks="10" allowsTickMarkValuesOnly="YES" sliderType="linear" id="7ak-j8-EHY"/>
                                         </slider>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BWJ-QH-sLI">
+                                            <rect key="frame" x="65" y="133" width="120" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="Q1K-tp-vgs">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
                                     </subviews>
                                 </view>
                                 <constraints>
@@ -617,6 +625,7 @@
                                     <constraint firstItem="rDf-AM-kqz" firstAttribute="leading" secondItem="Cfg-Tn-StA" secondAttribute="leading" constant="60" id="il0-qf-ywt"/>
                                     <constraint firstItem="FMn-oW-uB7" firstAttribute="top" secondItem="GVa-qO-Lyz" secondAttribute="bottom" constant="24" id="iuz-Gm-nkE"/>
                                     <constraint firstItem="rDf-AM-kqz" firstAttribute="top" secondItem="Cfg-Tn-StA" secondAttribute="top" constant="55" id="mcD-7M-fT6"/>
+                                    <constraint firstItem="BWJ-QH-sLI" firstAttribute="centerX" secondItem="FMn-oW-uB7" secondAttribute="centerX" constant="-97" id="o0r-DE-3ug"/>
                                     <constraint firstItem="FMn-oW-uB7" firstAttribute="leading" secondItem="qC0-OR-1Gp" secondAttribute="leading" id="t9F-tX-zh8"/>
                                     <constraint firstItem="qC0-OR-1Gp" firstAttribute="baseline" secondItem="A2Q-b4-U6X" secondAttribute="baseline" id="vra-O8-BmY"/>
                                     <constraint firstItem="rDf-AM-kqz" firstAttribute="top" secondItem="A2Q-b4-U6X" secondAttribute="bottom" constant="8" symbolic="YES" id="zAR-eN-8C6"/>
@@ -632,6 +641,11 @@
                             <constraint firstItem="Cfg-Tn-StA" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="vLb-U6-ieh"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="moduleName" destination="A2Q-b4-U6X" id="8Tn-Ek-hQ5"/>
+                        <outlet property="modulePosition" destination="BWJ-QH-sLI" id="P9k-ML-9Fb"/>
+                        <outlet property="moduleTime" destination="rDf-AM-kqz" id="vA3-Uv-cM8"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
