@@ -25,6 +25,7 @@
 		A38721441AD3028C00A01234 /* preferences.png in Resources */ = {isa = PBXBuildFile; fileRef = A387213C1AD3028C00A01234 /* preferences.png */; };
 		A38721451AD3028C00A01234 /* prevTrack.png in Resources */ = {isa = PBXBuildFile; fileRef = A387213D1AD3028C00A01234 /* prevTrack.png */; };
 		A38721461AD3028C00A01234 /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = A387213E1AD3028C00A01234 /* stop.png */; };
+		A3CD4D2F1ADBBF650005F9E3 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3CD4D2E1ADBBF650005F9E3 /* PlaylistViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,8 @@
 		A387213C1AD3028C00A01234 /* preferences.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = preferences.png; sourceTree = "<group>"; };
 		A387213D1AD3028C00A01234 /* prevTrack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = prevTrack.png; sourceTree = "<group>"; };
 		A387213E1AD3028C00A01234 /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stop.png; sourceTree = "<group>"; };
+		A3CD4D2D1ADBBF650005F9E3 /* PlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistViewController.h; sourceTree = "<group>"; };
+		A3CD4D2E1ADBBF650005F9E3 /* PlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +153,8 @@
 				A38721171AD2FFA200A01234 /* AppDelegate.m */,
 				A387211B1AD2FFA200A01234 /* ViewController.h */,
 				A387211C1AD2FFA200A01234 /* ViewController.m */,
+				A3CD4D2D1ADBBF650005F9E3 /* PlaylistViewController.h */,
+				A3CD4D2E1ADBBF650005F9E3 /* PlaylistViewController.m */,
 				A387211E1AD2FFA200A01234 /* Images.xcassets */,
 				A38721201AD2FFA200A01234 /* Main.storyboard */,
 				A38721471AD3029100A01234 /* Icons */,
@@ -312,6 +317,7 @@
 			files = (
 				A36AB1BC1AD8D1B6000BA9AB /* xmpPlayer.m in Sources */,
 				A387211D1AD2FFA200A01234 /* ViewController.m in Sources */,
+				A3CD4D2F1ADBBF650005F9E3 /* PlaylistViewController.m in Sources */,
 				A387211A1AD2FFA200A01234 /* main.m in Sources */,
 				A36AB1C41AD8D1DF000BA9AB /* Module.m in Sources */,
 				A36AB1BD1AD8D1B6000BA9AB /* TPCircularBuffer.c in Sources */,
