@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A308C6301ADC5485004FD271 /* PlaylistManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A308C62F1ADC5485004FD271 /* PlaylistManager.m */; };
 		A36AB1BC1AD8D1B6000BA9AB /* xmpPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A36AB1B61AD8D1B6000BA9AB /* xmpPlayer.m */; };
 		A36AB1BD1AD8D1B6000BA9AB /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = A36AB1B81AD8D1B6000BA9AB /* TPCircularBuffer.c */; };
 		A36AB1BE1AD8D1B6000BA9AB /* libxmp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A36AB1BB1AD8D1B6000BA9AB /* libxmp.a */; };
@@ -26,6 +27,7 @@
 		A38721451AD3028C00A01234 /* prevTrack.png in Resources */ = {isa = PBXBuildFile; fileRef = A387213D1AD3028C00A01234 /* prevTrack.png */; };
 		A38721461AD3028C00A01234 /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = A387213E1AD3028C00A01234 /* stop.png */; };
 		A3CD4D2F1ADBBF650005F9E3 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3CD4D2E1ADBBF650005F9E3 /* PlaylistViewController.m */; };
+		A3E770A91ADCF5B600AD4F8C /* MenuResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E770A81ADCF5B600AD4F8C /* MenuResponder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A308C62E1ADC5485004FD271 /* PlaylistManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistManager.h; sourceTree = "<group>"; };
+		A308C62F1ADC5485004FD271 /* PlaylistManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistManager.m; sourceTree = "<group>"; };
 		A36AB1B51AD8D1B6000BA9AB /* xmpPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmpPlayer.h; sourceTree = "<group>"; };
 		A36AB1B61AD8D1B6000BA9AB /* xmpPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = xmpPlayer.m; sourceTree = "<group>"; };
 		A36AB1B71AD8D1B6000BA9AB /* xmpPlayerErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmpPlayerErrors.h; sourceTree = "<group>"; };
@@ -70,6 +74,8 @@
 		A387213E1AD3028C00A01234 /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stop.png; sourceTree = "<group>"; };
 		A3CD4D2D1ADBBF650005F9E3 /* PlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistViewController.h; sourceTree = "<group>"; };
 		A3CD4D2E1ADBBF650005F9E3 /* PlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistViewController.m; sourceTree = "<group>"; };
+		A3E770A71ADCF5B600AD4F8C /* MenuResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuResponder.h; sourceTree = "<group>"; };
+		A3E770A81ADCF5B600AD4F8C /* MenuResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuResponder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +159,10 @@
 				A38721171AD2FFA200A01234 /* AppDelegate.m */,
 				A387211B1AD2FFA200A01234 /* ViewController.h */,
 				A387211C1AD2FFA200A01234 /* ViewController.m */,
+				A3E770A71ADCF5B600AD4F8C /* MenuResponder.h */,
+				A3E770A81ADCF5B600AD4F8C /* MenuResponder.m */,
+				A308C62E1ADC5485004FD271 /* PlaylistManager.h */,
+				A308C62F1ADC5485004FD271 /* PlaylistManager.m */,
 				A3CD4D2D1ADBBF650005F9E3 /* PlaylistViewController.h */,
 				A3CD4D2E1ADBBF650005F9E3 /* PlaylistViewController.m */,
 				A387211E1AD2FFA200A01234 /* Images.xcassets */,
@@ -316,6 +326,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A36AB1BC1AD8D1B6000BA9AB /* xmpPlayer.m in Sources */,
+				A308C6301ADC5485004FD271 /* PlaylistManager.m in Sources */,
+				A3E770A91ADCF5B600AD4F8C /* MenuResponder.m in Sources */,
 				A387211D1AD2FFA200A01234 /* ViewController.m in Sources */,
 				A3CD4D2F1ADBBF650005F9E3 /* PlaylistViewController.m in Sources */,
 				A387211A1AD2FFA200A01234 /* main.m in Sources */,

@@ -24,4 +24,14 @@
     // Update the view, if already loaded.
 }
 
+-(IBAction)openPlaylist:(id)sender
+{
+    
+}
+
+-(IBAction)savePlaylist:(id)sender
+{
+    
+}
+
 @end

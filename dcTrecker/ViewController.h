@@ -20,5 +20,8 @@ Module *ourModule;
     IBOutlet NSTextField *modulePosition;
 }
 
+-(IBAction)openPlaylist:(id)sender;
+-(IBAction)savePlaylist:(id)sender;
+
 @end
 
