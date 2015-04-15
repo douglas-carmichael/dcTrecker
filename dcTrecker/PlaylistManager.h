@@ -8,7 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import "Module.h"
+#import "xmp.h"
 
 @interface PlaylistManager : NSObject
+{
+    NSMutableArray *playlistArray;
+    Module *ourModule;
+}
+
+-(void)clearPlaylist;
+-(void)addModule:(NSURL *)moduleURL;
 
 @end

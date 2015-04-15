@@ -10,6 +10,11 @@
 
 @implementation MenuResponder
 
+-(IBAction)newPlaylist:(id)sender
+{
+    NSLog(@"newPlaylist");
+}
+
 -(IBAction)openDocument:(id)sender
 {
     NSLog(@"openDocument");

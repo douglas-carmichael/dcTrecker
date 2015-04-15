@@ -34,4 +34,8 @@
     
 }
 
+-(IBAction)playbackControl:(id)sender
+{
+    NSLog(@"sender tag: %ld", (long)[sender tag]);
+}
 @end

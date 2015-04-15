@@ -712,19 +712,25 @@
                                                 <rect key="frame" x="1" y="1" width="226" height="49"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jVc-VH-tuC">
+                                                    <button fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="jVc-VH-tuC">
                                                         <rect key="frame" x="138" y="7" width="38" height="36"/>
                                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="forward" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="qGV-KX-JxG">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
+                                                        <connections>
+                                                            <action selector="playbackControl:" target="XfG-lQ-9wD" id="R21-9m-eG6"/>
+                                                        </connections>
                                                     </button>
-                                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IDG-DE-wbt">
+                                                    <button fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="IDG-DE-wbt">
                                                         <rect key="frame" x="53" y="7" width="38" height="36"/>
                                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="back" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="dYi-QN-vlg">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
+                                                        <connections>
+                                                            <action selector="playbackControl:" target="XfG-lQ-9wD" id="AUU-WY-l7Z"/>
+                                                        </connections>
                                                     </button>
                                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wkj-cE-39m">
                                                         <rect key="frame" x="6" y="7" width="48" height="36"/>
@@ -732,20 +738,29 @@
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
+                                                        <connections>
+                                                            <action selector="playbackControl:" target="XfG-lQ-9wD" id="u79-J1-KYo"/>
+                                                        </connections>
                                                     </button>
-                                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aIL-vk-fS2">
+                                                    <button fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="aIL-vk-fS2">
                                                         <rect key="frame" x="95" y="7" width="38" height="36"/>
                                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="play" imagePosition="only" alignment="center" alternateImage="pause" imageScaling="proportionallyDown" inset="2" id="Xlv-ZG-x1U">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
+                                                        <connections>
+                                                            <action selector="playbackControl:" target="XfG-lQ-9wD" id="knf-RF-jz0"/>
+                                                        </connections>
                                                     </button>
-                                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="96b-X2-tQv">
+                                                    <button fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="96b-X2-tQv">
                                                         <rect key="frame" x="178" y="7" width="37" height="36"/>
                                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="nextTrack" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="c1g-VV-ajo">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
+                                                        <connections>
+                                                            <action selector="playbackControl:" target="XfG-lQ-9wD" id="4GW-2D-Dt9"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </view>

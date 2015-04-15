@@ -10,6 +10,7 @@
 
 @interface MenuResponder : NSResponder
 
+-(IBAction)newPlaylist:(id)sender;
 -(IBAction)openDocument:(id)sender;
 -(IBAction)saveDocument:(id)sender;
 -(IBAction)saveDocumentAs:(id)sender;

@@ -14,9 +14,19 @@
 {
     self = [super init];
     if (self) {
-        
+        playlistArray = [[NSMutableArray alloc] init];
+        ourModule = [[Module alloc] init];
     }
     return self;
 }
 
+-(void)clearPlaylist
+{
+    [playlistArray removeAllObjects];
+}
+
+-(void)addModule:(NSURL *)moduleURL
+{
+    NSLog(@"module URL path: %@", [moduleURL path]);
+}
 @end

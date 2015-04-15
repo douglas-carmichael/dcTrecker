@@ -21,7 +21,30 @@
 
 -(IBAction)addToPlaylist:(id)sender
 {
-    NSLog(@"Add to playlist not implemented yet!");
+    NSError *ourError = nil;
+    NSOpenPanel *ourPanel = [NSOpenPanel openPanel];
+    Module *ourModule = [[Module alloc] init];
+    
+    [ourPanel setCanChooseDirectories:NO];
+    [ourPanel setCanChooseFiles:YES];
+    [ourPanel setCanCreateDirectories:NO];
+    [ourPanel setAllowsMultipleSelection:NO];
+    if ([ourPanel runModal] == NSModalResponseOK)
+    {
+        [ourModule setFilePath:[ourPanel URL]];
+        if(ourError)
+        {
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert addButtonWithTitle:@"OK"];
+            [alert setMessageText:@"Cannot load module."];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert beginSheetModalForWindow:[[self view] window] completionHandler:nil];
+            return;
+        }
+        
+    }
+
+    NSLog(@"add path: %@", [ourPanel URL]);
 }
 
 -(IBAction)removeFromPlaylist:(id)sender
