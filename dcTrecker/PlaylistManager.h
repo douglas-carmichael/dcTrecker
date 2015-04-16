@@ -7,16 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 #import "Module.h"
 #import "xmp.h"
 
-@interface PlaylistManager : NSObject
+@interface PlaylistManager : NSObject <NSTableViewDataSource, NSTableViewDelegate>
 {
     NSMutableArray *playlistArray;
+    IBOutlet NSTableView *playlistTable;
     Module *ourModule;
 }
 
+
 -(void)clearPlaylist;
--(void)addModule:(NSURL *)moduleURL;
+-(void)addModule:(Module *)moduleToAdd;
+-(void)removeModule:(NSURL *)moduleURL;
+-(void)dumpPlaylist;
+-(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
+-(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;
 
 @end

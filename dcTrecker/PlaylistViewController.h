@@ -8,14 +8,16 @@
 
 #import <Cocoa/Cocoa.h>
 #import "Module.h"
+#import "PlaylistManager.h"
 
 @interface PlaylistViewController : NSViewController
 
 {
-    IBOutlet NSTableView *playlistTable;
+    PlaylistManager *ourPlaylist;
     
 }
 -(IBAction)addToPlaylist:(id)sender;
 -(IBAction)removeFromPlaylist:(id)sender;
+-(IBAction)dumpPlaylist:(id)sender;
 
 @end

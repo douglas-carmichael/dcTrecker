@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
+    ourPlaylist = [[PlaylistManager alloc] init];
 }
 
 -(IBAction)addToPlaylist:(id)sender
@@ -44,11 +45,18 @@
         
     }
 
-    NSLog(@"add path: %@", [ourPanel URL]);
+    [ourPlaylist addModule:ourModule];
+}
+
+-(IBAction)dumpPlaylist:(id)sender
+{
+    [ourPlaylist dumpPlaylist];
 }
 
 -(IBAction)removeFromPlaylist:(id)sender
 {
     NSLog(@"Remove from playlist not implemented yet!");
 }
+
+
 @end

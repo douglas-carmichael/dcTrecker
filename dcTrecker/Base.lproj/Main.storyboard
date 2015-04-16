@@ -356,19 +356,6 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Playlist" id="hRx-6e-Zll">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Playlist" id="Rsr-aY-Cgx">
-                                    <items>
-                                        <menuItem title="Add Module..." id="SkI-3l-MdT">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem title="Delete Module" id="XUf-2H-cZW">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
                             <menuItem title="Window" id="aUF-d1-5bR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
@@ -504,7 +491,7 @@
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn width="140.4140625" minWidth="40" maxWidth="1000" id="Zv5-7B-IgD">
+                                                <tableColumn identifier="Title" width="140.4140625" minWidth="40" maxWidth="1000" id="Zv5-7B-IgD">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Title">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -536,7 +523,7 @@
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn width="120.91015625" minWidth="40" maxWidth="1000" id="q9C-nf-e25">
+                                                <tableColumn identifier="Time" width="120.91015625" minWidth="40" maxWidth="1000" id="q9C-nf-e25">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Time">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -568,7 +555,7 @@
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn width="257.9140625" minWidth="10" maxWidth="3.4028234663852886e+38" id="Tnk-X3-KUh">
+                                                <tableColumn identifier="Type" width="257.9140625" minWidth="10" maxWidth="3.4028234663852886e+38" id="Tnk-X3-KUh">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Type">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -601,6 +588,9 @@
                                                     </prototypeCellViews>
                                                 </tableColumn>
                                             </tableColumns>
+                                            <connections>
+                                                <outlet property="dataSource" destination="LM6-aQ-nWl" id="Lev-cs-H4j"/>
+                                            </connections>
                                         </tableView>
                                     </subviews>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -618,6 +608,16 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ATM-KF-26r">
+                                <rect key="frame" x="199" y="10" width="106" height="23"/>
+                                <buttonCell key="cell" type="smallSquare" title="Dump" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4sG-pM-DTE">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="dumpPlaylist:" target="eil-7S-fi4" id="aoo-Fz-82r"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="IdW-Vv-Wd8" firstAttribute="leading" secondItem="vKq-it-ono" secondAttribute="leading" constant="67" id="1vY-uG-cSu"/>
@@ -633,11 +633,13 @@
                             <constraint firstItem="IdW-Vv-Wd8" firstAttribute="leading" secondItem="FRa-ba-04M" secondAttribute="trailing" constant="8" symbolic="YES" id="xCD-lT-ywm"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="playlistTable" destination="1P6-Tw-kee" id="Vuh-Le-dDx"/>
-                    </connections>
                 </viewController>
                 <customObject id="omR-uL-j47" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="LM6-aQ-nWl" customClass="PlaylistManager">
+                    <connections>
+                        <outlet property="playlistTable" destination="1P6-Tw-kee" id="RUB-vG-Hri"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="917.5" y="570.5"/>
         </scene>

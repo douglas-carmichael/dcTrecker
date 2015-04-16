@@ -25,8 +25,50 @@
     [playlistArray removeAllObjects];
 }
 
--(void)addModule:(NSURL *)moduleURL
+-(void)addModule:(Module *)moduleToAdd
 {
-    NSLog(@"module URL path: %@", [moduleURL path]);
+    NSLog(@"module URL path: %@", [moduleToAdd filePath]);
+    NSLog(@"array count before add: %lu", (unsigned long)playlistArray.count);
+    [playlistArray addObject:moduleToAdd];
+    NSLog(@"array count after add: %lu", (unsigned long)playlistArray.count);
+    [self->playlistTable reloadData];
 }
+
+-(void)removeModule:(NSURL *)moduleURL
+{
+    Module *removeProto = [[Module alloc] init];
+    [removeProto setFilePath:moduleURL];
+    [playlistArray removeObject:removeProto];
+}
+
+-(void)dumpPlaylist
+{
+    NSLog(@"%@", playlistArray);
+    for (Module *PLModule in playlistArray)
+    {
+        NSLog(@"dumped path: %@", [PLModule filePath]);
+        
+    }
+}
+
+-(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
+{
+    NSLog(@"numberOfRowsInTableView: %lu", (unsigned long)playlistArray.count);
+    return playlistArray.count;
+}
+
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+    NSLog(@"called idTableView");
+    NSLog(@"tableColumn.identifier: %@", tableColumn.identifier);
+    if([tableColumn.identifier isEqualToString:@"Title"])
+    {
+        Module *ourObject = [playlistArray objectAtIndex:row];
+        NSLog(@"Returning data.");
+        return [ourObject moduleName];
+    }
+    NSLog(@"Returning nil.");
+    return nil;
+}
+
 @end
