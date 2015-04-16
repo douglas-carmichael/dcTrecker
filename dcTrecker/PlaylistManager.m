@@ -27,7 +27,10 @@
 
 -(void)addModule:(Module *)moduleToAdd
 {
+    
+    // Display our module's path
     NSLog(@"module URL path: %@", [moduleToAdd filePath]);
+
     NSLog(@"array count before add: %lu", (unsigned long)playlistArray.count);
     [playlistArray addObject:moduleToAdd];
     NSLog(@"array count after add: %lu", (unsigned long)playlistArray.count);

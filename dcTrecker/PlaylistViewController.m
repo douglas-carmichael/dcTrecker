@@ -22,7 +22,6 @@
 
 -(IBAction)addToPlaylist:(id)sender
 {
-    NSError *ourError = nil;
     NSOpenPanel *ourPanel = [NSOpenPanel openPanel];
     Module *ourModule = [[Module alloc] init];
     
@@ -32,8 +31,12 @@
     [ourPanel setAllowsMultipleSelection:NO];
     if ([ourPanel runModal] == NSModalResponseOK)
     {
-        [ourModule setFilePath:[ourPanel URL]];
-        if(ourError)
+        struct xmp_test_info moduleTestInfo;
+        int status;
+        NSURL *moduleURL = [ourPanel URL];
+        NSLog(@"%s", [moduleURL.path UTF8String]);
+        status = xmp_test_module((char *)[moduleURL.path UTF8String], &moduleTestInfo);
+        if(status != 0)
         {
             NSAlert *alert = [[NSAlert alloc] init];
             [alert addButtonWithTitle:@"OK"];
@@ -43,9 +46,13 @@
             return;
         }
         
+        [ourModule setFilePath:[ourPanel URL]];
+        [ourModule setModuleName:[NSString stringWithFormat:@"%s", moduleTestInfo.name]];
+        [ourModule setModuleType:[NSString stringWithFormat:@"%s", moduleTestInfo.type]];
+        [ourPlaylist addModule:ourModule];
+
     }
 
-    [ourPlaylist addModule:ourModule];
 }
 
 -(IBAction)dumpPlaylist:(id)sender
