@@ -46,7 +46,7 @@
     NSLog(@"%@", playlistArray);
     for (Module *PLModule in playlistArray)
     {
-        NSLog(@"dumped path: %@", [PLModule filePath]);
+        NSLog(@"dumped path: %@", [PLModule filePath].path);
         
     }
 }
@@ -54,7 +54,7 @@
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
     NSLog(@"numberOfRowsInTableView: %lu", (unsigned long)playlistArray.count);
-    return playlistArray.count;
+    return self->playlistArray.count;
 }
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
@@ -65,7 +65,7 @@
     {
         Module *ourObject = [playlistArray objectAtIndex:row];
         NSLog(@"Returning data.");
-        return [ourObject moduleName];
+        return [ourObject filePath];
     }
     NSLog(@"Returning nil.");
     return nil;

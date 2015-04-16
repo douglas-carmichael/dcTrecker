@@ -590,6 +590,7 @@
                                             </tableColumns>
                                             <connections>
                                                 <outlet property="dataSource" destination="LM6-aQ-nWl" id="Lev-cs-H4j"/>
+                                                <outlet property="delegate" destination="LM6-aQ-nWl" id="P5L-e8-Lls"/>
                                             </connections>
                                         </tableView>
                                     </subviews>
