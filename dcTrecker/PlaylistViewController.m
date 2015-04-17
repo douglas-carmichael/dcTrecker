@@ -50,7 +50,7 @@
         [ourModule setModuleName:[NSString stringWithFormat:@"%s", moduleTestInfo.name]];
         [ourModule setModuleType:[NSString stringWithFormat:@"%s", moduleTestInfo.type]];
         [ourPlaylist addModule:ourModule];
-
+        [playlistTable reloadData];
     }
 
 }
@@ -65,5 +65,31 @@
     NSLog(@"Remove from playlist not implemented yet!");
 }
 
+-(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
+{
+    NSLog(@"numberOfRowsInTableView called.");
+    return [ourPlaylist playlistCount];
+}
+
+-(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+
+        NSLog(@"called idTableView");
+        NSLog(@"tableColumn.identifier: %@", tableColumn.identifier);
+        Module *ourObject = [ourPlaylist getModuleAtIndex:row];
+        if([tableColumn.identifier isEqualToString:@"Title"])
+        {
+            NSLog(@"Returning data.");
+            return [ourObject moduleName];
+        } else
+        {
+            if([tableColumn.identifier isEqualToString:@"Type"])
+            {
+                return [ourObject moduleType];
+            }
+        }
+        NSLog(@"Returning nil.");
+        return nil;
+}
 
 @end

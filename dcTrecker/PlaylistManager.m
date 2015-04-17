@@ -34,7 +34,11 @@
     NSLog(@"array count before add: %lu", (unsigned long)playlistArray.count);
     [playlistArray addObject:moduleToAdd];
     NSLog(@"array count after add: %lu", (unsigned long)playlistArray.count);
-    [self->playlistTable reloadData];
+}
+
+-(Module *)getModuleAtIndex:(NSInteger)ourRow
+{
+    return [playlistArray objectAtIndex:ourRow];
 }
 
 -(void)removeModule:(NSURL *)moduleURL
@@ -54,24 +58,9 @@
     }
 }
 
--(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
+-(NSInteger)playlistCount
 {
-    NSLog(@"numberOfRowsInTableView: %lu", (unsigned long)playlistArray.count);
-    return self->playlistArray.count;
-}
-
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
-{
-    NSLog(@"called idTableView");
-    NSLog(@"tableColumn.identifier: %@", tableColumn.identifier);
-    if([tableColumn.identifier isEqualToString:@"Title"])
-    {
-        Module *ourObject = [playlistArray objectAtIndex:row];
-        NSLog(@"Returning data.");
-        return [ourObject filePath];
-    }
-    NSLog(@"Returning nil.");
-    return nil;
+    return playlistArray.count;
 }
 
 @end

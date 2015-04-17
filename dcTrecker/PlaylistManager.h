@@ -14,7 +14,6 @@
 @interface PlaylistManager : NSObject <NSTableViewDataSource, NSTableViewDelegate>
 {
     NSMutableArray *playlistArray;
-    IBOutlet NSTableView *playlistTable;
     Module *ourModule;
 }
 
@@ -22,8 +21,8 @@
 -(void)clearPlaylist;
 -(void)addModule:(Module *)moduleToAdd;
 -(void)removeModule:(NSURL *)moduleURL;
+-(Module *)getModuleAtIndex:(NSInteger)row;
+-(NSInteger)playlistCount;
 -(void)dumpPlaylist;
--(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
--(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;
 
 @end

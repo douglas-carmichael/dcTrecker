@@ -10,14 +10,17 @@
 #import "Module.h"
 #import "PlaylistManager.h"
 
-@interface PlaylistViewController : NSViewController
+@interface PlaylistViewController : NSViewController <NSTableViewDataSource, NSTableViewDelegate>
 
 {
     PlaylistManager *ourPlaylist;
+    IBOutlet NSTableView *playlistTable;
     
 }
 -(IBAction)addToPlaylist:(id)sender;
 -(IBAction)removeFromPlaylist:(id)sender;
 -(IBAction)dumpPlaylist:(id)sender;
+-(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
+-(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;
 
 @end
