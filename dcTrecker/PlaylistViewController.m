@@ -52,7 +52,7 @@
         [ourPlaylist addModule:ourModule];
         [playlistTable reloadData];
     }
-
+    
 }
 
 -(IBAction)dumpPlaylist:(id)sender
@@ -73,23 +73,30 @@
 
 -(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
-
-        NSLog(@"called idTableView");
-        NSLog(@"tableColumn.identifier: %@", tableColumn.identifier);
-        Module *ourObject = [ourPlaylist getModuleAtIndex:row];
-        if([tableColumn.identifier isEqualToString:@"Title"])
-        {
-            NSLog(@"Returning data.");
+    
+    NSLog(@"called idTableView for row: %li", (long)row);
+    NSLog(@"tableColumn.identifier: %@", tableColumn.identifier);
+    Module *ourObject = [ourPlaylist getModuleAtIndex:row];
+    if([tableColumn.identifier isEqualToString:@"Title"])
+    {
+            NSLog(@"Returning module name: %@", [ourObject moduleName]);
             return [ourObject moduleName];
-        } else
+    } else
+    {
+        if([tableColumn.identifier isEqualToString:@"Type"])
         {
-            if([tableColumn.identifier isEqualToString:@"Type"])
-            {
-                return [ourObject moduleType];
-            }
+            NSLog(@"Returning module type: %@", [ourObject moduleType]);
+            return [ourObject moduleType];
         }
-        NSLog(@"Returning nil.");
-        return nil;
+        if ([tableColumn.identifier isEqualToString:@"Time"])
+        {
+            NSLog(@"Returning dummy time value.");
+            NSString *dummyTime = @"0:00";
+            return dummyTime;
+        }
+    }
+    NSLog(@"Returning nil.");
+    return nil;
 }
 
 @end
