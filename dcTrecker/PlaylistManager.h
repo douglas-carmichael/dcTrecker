@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
 #import "Module.h"
-#import "xmp.h"
+#import "xmpPlayer.h"
 
 @interface PlaylistManager : NSObject
 {
@@ -20,8 +20,9 @@
 
 -(void)clearPlaylist;
 -(void)addModule:(Module *)moduleToAdd;
--(void)removeModule:(NSURL *)moduleURL;
--(Module *)getModuleAtIndex:(NSInteger)row;
+-(void)removeModuleAtIndex:(NSInteger)ourRow;
+-(Module *)getModuleAtIndex:(NSInteger)ourRow;
+-(NSString *)getModuleLength:(NSInteger)ourRow;
 -(NSInteger)playlistCount;
 -(void)dumpPlaylist;
 

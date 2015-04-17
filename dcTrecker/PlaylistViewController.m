@@ -34,7 +34,6 @@
         struct xmp_test_info moduleTestInfo;
         int status;
         NSURL *moduleURL = [ourPanel URL];
-        NSLog(@"%s", [moduleURL.path UTF8String]);
         status = xmp_test_module((char *)[moduleURL.path UTF8String], &moduleTestInfo);
         if(status != 0)
         {
@@ -62,41 +61,42 @@
 
 -(IBAction)removeFromPlaylist:(id)sender
 {
-    NSLog(@"Remove from playlist not implemented yet!");
+    if (currentRow >= 0)
+    {
+        [ourPlaylist removeModuleAtIndex:currentRow];
+        [playlistTable reloadData];
+    }
 }
 
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
-    NSLog(@"numberOfRowsInTableView called.");
     return [ourPlaylist playlistCount];
 }
 
 -(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
-    
-    NSLog(@"called idTableView for row: %li", (long)row);
-    NSLog(@"tableColumn.identifier: %@", tableColumn.identifier);
     Module *ourObject = [ourPlaylist getModuleAtIndex:row];
     if([tableColumn.identifier isEqualToString:@"Title"])
     {
-            NSLog(@"Returning module name: %@", [ourObject moduleName]);
             return [ourObject moduleName];
     } else
     {
         if([tableColumn.identifier isEqualToString:@"Type"])
         {
-            NSLog(@"Returning module type: %@", [ourObject moduleType]);
             return [ourObject moduleType];
         }
         if ([tableColumn.identifier isEqualToString:@"Time"])
         {
-            NSLog(@"Returning dummy time value.");
-            NSString *dummyTime = @"0:00";
-            return dummyTime;
+            NSString *ourModuleLength = [ourPlaylist getModuleLength:row];
+            return ourModuleLength;
         }
     }
-    NSLog(@"Returning nil.");
     return nil;
 }
 
+-(void)tableViewSelectionDidChange:(NSNotification *)notification
+{
+    NSTableView *tableView = notification.object;
+    currentRow = tableView.selectedRow;
+}
 @end
