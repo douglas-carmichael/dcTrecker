@@ -60,7 +60,7 @@
                                     <items>
                                         <menuItem title="New Playlist" keyEquivalent="n" id="Was-JA-tGl">
                                             <connections>
-                                                <action selector="newDocument:" target="Ady-hI-5gd" id="4Si-XN-c54"/>
+                                                <action selector="newPlaylist:" target="5hg-fU-Ojh" id="GD1-am-Q1D"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Open…" keyEquivalent="o" id="IAo-SY-fd9">
