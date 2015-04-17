@@ -11,7 +11,7 @@
 #import "Module.h"
 #import "xmp.h"
 
-@interface PlaylistManager : NSObject <NSTableViewDataSource, NSTableViewDelegate>
+@interface PlaylistManager : NSObject
 {
     NSMutableArray *playlistArray;
     Module *ourModule;
