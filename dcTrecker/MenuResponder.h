@@ -7,8 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "PlaylistManager.h"
 
 @interface MenuResponder : NSResponder
+{
+    PlaylistManager *ourPlaylist;
+}
 
 -(IBAction)newPlaylist:(id)sender;
 -(IBAction)openDocument:(id)sender;

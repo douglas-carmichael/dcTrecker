@@ -10,9 +10,17 @@
 
 @implementation MenuResponder
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        ourPlaylist = [PlaylistManager sharedPlaylist];
+    }
+    return self;
+}
 -(IBAction)newPlaylist:(id)sender
 {
-    NSLog(@"newPlaylist");
+    [ourPlaylist clearPlaylist];
 }
 
 -(IBAction)openDocument:(id)sender

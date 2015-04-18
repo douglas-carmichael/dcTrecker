@@ -24,6 +24,7 @@
 -(Module *)getModuleAtIndex:(NSInteger)ourRow;
 -(NSString *)getModuleLength:(NSInteger)ourRow;
 -(NSInteger)playlistCount;
+-(BOOL)isEmpty;
 -(void)dumpPlaylist;
 
 @end

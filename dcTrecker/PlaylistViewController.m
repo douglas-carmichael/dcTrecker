@@ -20,6 +20,12 @@
     ourPlaylist = [PlaylistManager sharedPlaylist];
 }
 
+-(void)viewDidAppear
+{
+    [super viewDidAppear];
+    [playlistTable reloadData];
+}
+
 -(IBAction)addToPlaylist:(id)sender
 {
     NSOpenPanel *ourPanel = [NSOpenPanel openPanel];
@@ -75,6 +81,12 @@
 
 -(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
+    // Check for an empty array, and return nil if it is
+    if ([ourPlaylist isEmpty] == YES)
+    {
+        return nil;
+    }
+    
     Module *ourObject = [ourPlaylist getModuleAtIndex:row];
     if([tableColumn.identifier isEqualToString:@"Title"])
     {

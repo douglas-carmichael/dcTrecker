@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import "xmpPlayer.h"
-#import "Module.h"
 #import "PlaylistManager.h"
 
 @interface ViewController : NSViewController

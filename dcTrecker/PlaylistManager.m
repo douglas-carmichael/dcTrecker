@@ -45,6 +45,15 @@
     return [playlistArray objectAtIndex:ourRow];
 }
 
+-(BOOL)isEmpty
+{
+    if ([playlistArray count] == 0)
+    {
+        return YES;
+    }
+    return NO;
+}
+
 -(NSString *)getModuleLength:(NSInteger)ourRow
 {
     xmp_context our_context;
