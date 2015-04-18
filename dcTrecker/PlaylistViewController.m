@@ -23,7 +23,10 @@
 -(void)viewDidAppear
 {
     [super viewDidAppear];
-    [playlistTable reloadData];
+    if ([ourPlaylist isEmpty] == YES)
+    {
+        [playlistTable reloadData];
+    }
 }
 
 -(IBAction)addToPlaylist:(id)sender
