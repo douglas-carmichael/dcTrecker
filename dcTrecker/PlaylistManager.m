@@ -10,6 +10,16 @@
 
 @implementation PlaylistManager
 
++(id)sharedPlaylist
+{
+    static PlaylistManager *sharedPlaylist = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedPlaylist = [[self alloc] init];
+    });
+    return sharedPlaylist;
+}
+
 - (id)init
 {
     self = [super init];

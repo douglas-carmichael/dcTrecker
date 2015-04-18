@@ -17,7 +17,7 @@
     Module *ourModule;
 }
 
-
++(id)sharedPlaylist;
 -(void)clearPlaylist;
 -(void)addModule:(Module *)moduleToAdd;
 -(void)removeModuleAtIndex:(NSInteger)ourRow;
