@@ -18,15 +18,12 @@
     [super viewDidLoad];
     // Do view setup here.
     ourPlaylist = [PlaylistManager sharedPlaylist];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable) name:@"dcT_ReloadPlaylist" object:nil];
 }
 
--(void)viewDidAppear
+-(void)reloadTable
 {
-    [super viewDidAppear];
-    if ([ourPlaylist isEmpty] == YES)
-    {
-        [playlistTable reloadData];
-    }
+    [playlistTable reloadData];
 }
 
 -(IBAction)addToPlaylist:(id)sender
@@ -72,8 +69,11 @@
 {
     if (currentRow >= 0)
     {
-        [ourPlaylist removeModuleAtIndex:currentRow];
-        [playlistTable reloadData];
+        if ([ourPlaylist isEmpty] == NO)
+        {
+            [ourPlaylist removeModuleAtIndex:currentRow];
+            [playlistTable reloadData];
+        }
     }
 }
 

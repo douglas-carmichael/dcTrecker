@@ -17,6 +17,7 @@
     IBOutlet NSTableView *playlistTable;
     NSInteger currentRow;
 }
+-(void)reloadTable;
 -(IBAction)addToPlaylist:(id)sender;
 -(IBAction)removeFromPlaylist:(id)sender;
 -(IBAction)dumpPlaylist:(id)sender;

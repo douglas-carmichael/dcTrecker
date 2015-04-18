@@ -21,6 +21,8 @@
 -(IBAction)newPlaylist:(id)sender
 {
     [ourPlaylist clearPlaylist];
+    NSString *notificationName = @"dcT_ReloadPlaylist";
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
 }
 
 -(IBAction)openDocument:(id)sender
