@@ -9,19 +9,17 @@
 #import <Cocoa/Cocoa.h>
 #import "xmpPlayer.h"
 #import "Module.h"
-
-xmpPlayer *ourPlayer;
-Module *ourModule;
+#import "PlaylistManager.h"
 
 @interface ViewController : NSViewController
 {
+    xmpPlayer *ourPlayer;
+    Module *ourModule;
+    PlaylistManager *ourPlaylist;
     IBOutlet NSTextField *moduleName;
     IBOutlet NSTextField *moduleTime;
     IBOutlet NSTextField *modulePosition;
 }
-
--(IBAction)openPlaylist:(id)sender;
--(IBAction)savePlaylist:(id)sender;
 
 @end
 

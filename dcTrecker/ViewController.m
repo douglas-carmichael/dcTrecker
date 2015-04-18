@@ -14,7 +14,7 @@
     [super viewDidLoad];
     ourPlayer = [[xmpPlayer alloc] init];
     ourModule = [[Module alloc] init];
-
+    ourPlaylist = [PlaylistManager sharedPlaylist];
     // Do any additional setup after loading the view.
 }
 
@@ -22,16 +22,6 @@
     [super setRepresentedObject:representedObject];
 
     // Update the view, if already loaded.
-}
-
--(IBAction)openPlaylist:(id)sender
-{
-    
-}
-
--(IBAction)savePlaylist:(id)sender
-{
-    
 }
 
 -(IBAction)playbackControl:(id)sender
