@@ -15,10 +15,13 @@
     xmpPlayer *ourPlayer;
     Module *ourModule;
     PlaylistManager *ourPlaylist;
+    NSInteger *currentModule;
     IBOutlet NSTextField *moduleName;
     IBOutlet NSTextField *moduleTime;
     IBOutlet NSTextField *modulePosition;
 }
+
+-(IBAction)volumeSet:(id)sender;
 
 @end
 

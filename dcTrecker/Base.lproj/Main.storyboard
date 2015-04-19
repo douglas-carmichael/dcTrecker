@@ -722,7 +722,10 @@
                                         </textField>
                                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CN3-lF-AYT">
                                             <rect key="frame" x="258" y="42" width="170" height="27"/>
-                                            <sliderCell key="cell" state="on" alignment="left" maxValue="10" doubleValue="10" tickMarkPosition="below" numberOfTickMarks="10" allowsTickMarkValuesOnly="YES" sliderType="linear" id="7ak-j8-EHY"/>
+                                            <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="10" doubleValue="10" tickMarkPosition="below" numberOfTickMarks="10" allowsTickMarkValuesOnly="YES" sliderType="linear" id="7ak-j8-EHY"/>
+                                            <connections>
+                                                <action selector="volumeSet:" target="XfG-lQ-9wD" id="pSz-0U-Q48"/>
+                                            </connections>
                                         </slider>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BWJ-QH-sLI">
                                             <rect key="frame" x="65" y="133" width="120" height="17"/>
