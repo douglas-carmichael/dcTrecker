@@ -15,13 +15,16 @@
     xmpPlayer *ourPlayer;
     Module *ourModule;
     PlaylistManager *ourPlaylist;
-    NSInteger *currentModule;
+    NSInteger currentModule;
     IBOutlet NSTextField *moduleName;
     IBOutlet NSTextField *moduleTime;
     IBOutlet NSTextField *modulePosition;
 }
 
+@property (assign) BOOL dragTimeline;
+
 -(IBAction)volumeSet:(id)sender;
+
 
 @end
 

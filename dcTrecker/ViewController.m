@@ -37,12 +37,9 @@
             break;
         case 2:
             NSLog(@"Play.");
-            [self loadModule:0];
-            if ([ourPlayer isLoaded])
+            if (![ourPlayer isPlaying])
             {
-                dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND,0), ^{
-                    [ourPlayer playModule:nil];
-                });
+                [self playThroughPlaylist];
             }
             break;
         case 3:
@@ -53,6 +50,20 @@
             break;
         default:
             break;
+    }
+}
+
+-(void)playThroughPlaylist
+{
+    if (![ourPlayer isPlaying])
+    {
+        while (currentModule <= ([ourPlaylist playlistCount]) - 1)
+        {
+            NSLog(@"playing module: %ld", (long)currentModule);
+            Module *myModule = [[Module alloc] init];
+            myModule = [ourPlaylist getModuleAtIndex:currentModule];
+            currentModule++;
+        }
     }
 }
 
