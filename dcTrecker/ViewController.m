@@ -39,7 +39,14 @@
             NSLog(@"Play.");
             if (![ourPlayer isPlaying])
             {
+                [sender setState:NSOnState];
+                usleep(1000);
                 [self playThroughPlaylist];
+                [sender setState:NSOffState];
+            }
+            if ([ourPlayer isPlaying])
+            {
+                [ourPlayer stopPlayer];
             }
             break;
         case 3:
@@ -65,6 +72,11 @@
             currentModule++;
         }
     }
+}
+
+-(void)setModPosition:(NSInteger)currPosition
+{
+    [ourPlayer jumpPosition:currPosition];
 }
 
 -(IBAction)volumeSet:(id)sender;

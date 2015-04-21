@@ -693,7 +693,7 @@
                                                     <button fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="aIL-vk-fS2">
                                                         <rect key="frame" x="95" y="7" width="38" height="36"/>
                                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="play" imagePosition="only" alignment="center" alternateImage="pause" imageScaling="proportionallyDown" inset="2" id="Xlv-ZG-x1U">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>

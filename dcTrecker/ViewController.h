@@ -24,7 +24,7 @@
 @property (assign) BOOL dragTimeline;
 
 -(IBAction)volumeSet:(id)sender;
-
+-(void)setModPosition:(NSInteger)currPosition;
 
 @end
 

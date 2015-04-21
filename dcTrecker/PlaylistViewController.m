@@ -113,5 +113,6 @@
 {
     NSTableView *tableView = notification.object;
     currentRow = tableView.selectedRow;
+    NSLog(@"Selected row: %li", (long)currentRow);
 }
 @end
