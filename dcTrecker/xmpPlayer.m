@@ -230,6 +230,14 @@
     
 }
 
+-(void)unloadModule
+{
+    if (xmp_get_player(class_context, XMP_STATE_LOADED) != 0)
+    {
+        xmp_release_module(class_context);
+    }
+    return;
+}
 
 -(void)nextPlayPosition
 {

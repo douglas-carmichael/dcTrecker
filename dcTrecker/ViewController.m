@@ -40,15 +40,14 @@
             if (![ourPlayer isPlaying])
             {
                 [sender setState:NSOnState];
-                usleep(1000);
                 [self playThroughPlaylist];
-                [sender setState:NSOffState];
+                break;
             }
             if ([ourPlayer isPlaying])
             {
                 [ourPlayer stopPlayer];
+                break;
             }
-            break;
         case 3:
             NSLog(@"Next Position.");
             break;
@@ -62,16 +61,19 @@
 
 -(void)playThroughPlaylist
 {
-    if (![ourPlayer isPlaying])
-    {
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
         while (currentModule <= ([ourPlaylist playlistCount]) - 1)
         {
             NSLog(@"playing module: %ld", (long)currentModule);
             Module *myModule = [[Module alloc] init];
             myModule = [ourPlaylist getModuleAtIndex:currentModule];
+            NSLog(@"module name: %@", [myModule moduleName]);
+            [ourPlayer loadModule:myModule error:nil];
+            [ourPlayer playModule:nil];
+            [ourPlayer unloadModule];
             currentModule++;
         }
-    }
+    });
 }
 
 -(void)setModPosition:(NSInteger)currPosition

@@ -52,6 +52,7 @@
 
 -(void)loadModule:(Module *)ourModule error:(NSError *__autoreleasing *)error;
 -(void)playModule:(NSError **)error;
+-(void)unloadModule;
 -(void)pauseResume;
 -(void)stopPlayer;
 -(void)nextPlayPosition;
