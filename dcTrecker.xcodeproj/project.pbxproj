@@ -13,6 +13,7 @@
 		A36AB1BD1AD8D1B6000BA9AB /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = A36AB1B81AD8D1B6000BA9AB /* TPCircularBuffer.c */; };
 		A36AB1BE1AD8D1B6000BA9AB /* libxmp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A36AB1BB1AD8D1B6000BA9AB /* libxmp.a */; };
 		A36AB1C41AD8D1DF000BA9AB /* Module.m in Sources */ = {isa = PBXBuildFile; fileRef = A36AB1C31AD8D1DF000BA9AB /* Module.m */; };
+		A379FF101AEB9B45000009C1 /* PlaybackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A379FF0F1AEB9B45000009C1 /* PlaybackManager.m */; };
 		A38721181AD2FFA200A01234 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A38721171AD2FFA200A01234 /* AppDelegate.m */; };
 		A387211A1AD2FFA200A01234 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A38721191AD2FFA200A01234 /* main.m */; };
 		A387211D1AD2FFA200A01234 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A387211C1AD2FFA200A01234 /* ViewController.m */; };
@@ -55,6 +56,8 @@
 		A36AB1BB1AD8D1B6000BA9AB /* libxmp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libxmp.a; sourceTree = "<group>"; };
 		A36AB1C21AD8D1DF000BA9AB /* Module.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Module.h; sourceTree = "<group>"; };
 		A36AB1C31AD8D1DF000BA9AB /* Module.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Module.m; sourceTree = "<group>"; };
+		A379FF0E1AEB9B45000009C1 /* PlaybackManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaybackManager.h; path = ../PlaybackManager.h; sourceTree = "<group>"; };
+		A379FF0F1AEB9B45000009C1 /* PlaybackManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaybackManager.m; path = ../PlaybackManager.m; sourceTree = "<group>"; };
 		A38721111AD2FFA100A01234 /* dcTrecker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dcTrecker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A38721151AD2FFA200A01234 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A38721161AD2FFA200A01234 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -166,6 +169,8 @@
 				A3E770A81ADCF5B600AD4F8C /* MenuResponder.m */,
 				A33EC3061AE5B74B002FF14B /* TimeScrubberSlider.h */,
 				A33EC3071AE5B74B002FF14B /* TimeScrubberSlider.m */,
+				A379FF0E1AEB9B45000009C1 /* PlaybackManager.h */,
+				A379FF0F1AEB9B45000009C1 /* PlaybackManager.m */,
 				A308C62E1ADC5485004FD271 /* PlaylistManager.h */,
 				A308C62F1ADC5485004FD271 /* PlaylistManager.m */,
 				A3CD4D2D1ADBBF650005F9E3 /* PlaylistViewController.h */,
@@ -334,6 +339,7 @@
 				A308C6301ADC5485004FD271 /* PlaylistManager.m in Sources */,
 				A3E770A91ADCF5B600AD4F8C /* MenuResponder.m in Sources */,
 				A33EC3081AE5B74B002FF14B /* TimeScrubberSlider.m in Sources */,
+				A379FF101AEB9B45000009C1 /* PlaybackManager.m in Sources */,
 				A387211D1AD2FFA200A01234 /* ViewController.m in Sources */,
 				A3CD4D2F1ADBBF650005F9E3 /* PlaylistViewController.m in Sources */,
 				A387211A1AD2FFA200A01234 /* main.m in Sources */,

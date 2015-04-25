@@ -19,6 +19,7 @@
     IBOutlet NSTextField *moduleName;
     IBOutlet NSTextField *moduleTime;
     IBOutlet NSTextField *modulePosition;
+    IBOutlet NSSlider *musicSlider;
 }
 
 @property (assign) BOOL dragTimeline;

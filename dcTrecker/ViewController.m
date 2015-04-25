@@ -33,23 +33,41 @@
             NSLog(@"Previous Track.");
             break;
         case 1:
-            NSLog(@"Previous Position.");
+            [ourPlayer prevPlayPosition];
             break;
         case 2:
             NSLog(@"Play.");
+            if ([ourPlaylist playlistCount] == 0)
+            {
+                NSLog(@"playlist 0.");
+                break;
+            }
             if (![ourPlayer isPlaying])
             {
                 [sender setState:NSOnState];
-                [self playThroughPlaylist];
+                dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
+                    while (currentModule <= ([ourPlaylist playlistCount]) - 1)
+                    {
+                        NSLog(@"playing module: %ld", (long)currentModule);
+                        Module *myModule = [[Module alloc] init];
+                        myModule = [ourPlaylist getModuleAtIndex:currentModule];
+                        NSLog(@"module name: %@", [myModule moduleName]);
+                        [ourPlayer loadModule:myModule error:nil];
+                        [ourPlayer playModule:nil];
+                        [ourPlayer unloadModule];
+                        currentModule++;
+                    }
+                });
                 break;
             }
             if ([ourPlayer isPlaying])
             {
+                [sender setState:NSOffState];
                 [ourPlayer stopPlayer];
                 break;
             }
         case 3:
-            NSLog(@"Next Position.");
+            [ourPlayer nextPlayPosition];
             break;
         case 4:
             NSLog(@"Next Track.");
@@ -61,19 +79,7 @@
 
 -(void)playThroughPlaylist
 {
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
-        while (currentModule <= ([ourPlaylist playlistCount]) - 1)
-        {
-            NSLog(@"playing module: %ld", (long)currentModule);
-            Module *myModule = [[Module alloc] init];
-            myModule = [ourPlaylist getModuleAtIndex:currentModule];
-            NSLog(@"module name: %@", [myModule moduleName]);
-            [ourPlayer loadModule:myModule error:nil];
-            [ourPlayer playModule:nil];
-            [ourPlayer unloadModule];
-            currentModule++;
-        }
-    });
+
 }
 
 -(void)setModPosition:(NSInteger)currPosition
