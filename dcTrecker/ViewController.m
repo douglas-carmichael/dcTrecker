@@ -14,6 +14,7 @@
     [super viewDidLoad];
     ourPlayer = [[xmpPlayer alloc] init];
     ourModule = [[Module alloc] init];
+    ourQueue = [[NSOperationQueue alloc] init];
     ourPlaylist = [PlaylistManager sharedPlaylist];
     currentModule = 0;
     // Do any additional setup after loading the view.
@@ -27,6 +28,8 @@
 
 -(IBAction)playbackControl:(id)sender
 {
+    PlaybackOperation *ourPlayOp;
+    
     NSLog(@"Playlist count: %li", (long)[ourPlaylist playlistCount]);
     switch ([sender tag]) {
         case 0:
@@ -68,6 +71,8 @@
             }
         case 3:
             [ourPlayer nextPlayPosition];
+            ourPlayOp = [[PlaybackOperation alloc] initWithModule:[ourPlaylist getModuleAtIndex:0]];
+            [ourQueue addOperation:ourPlayOp];
             break;
         case 4:
             NSLog(@"Next Track.");

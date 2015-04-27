@@ -7,14 +7,16 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "xmpPlayer.h"
+//#import "xmpPlayer.h"
 #import "PlaylistManager.h"
+#import "PlaybackOperation.h"
 
 @interface ViewController : NSViewController
 {
     xmpPlayer *ourPlayer;
     Module *ourModule;
     PlaylistManager *ourPlaylist;
+    NSOperationQueue *ourQueue;
     NSInteger currentModule;
     IBOutlet NSTextField *moduleName;
     IBOutlet NSTextField *moduleTime;
