@@ -21,6 +21,7 @@
 
 -(void)mouseDown:(NSEvent *)theEvent
 {
+    NSLog(@"mouseDown called.");
     [delegate setDragTimeline:NO];
     [super mouseDown:theEvent];
     [self mouseUp:theEvent];
@@ -29,6 +30,7 @@
 
 -(void)mouseUp:(NSEvent *)theEvent
 {
+    NSLog(@"mouseUp called.");
     [delegate setModPosition:[self intValue]];
     [delegate setDragTimeline:YES];
 }

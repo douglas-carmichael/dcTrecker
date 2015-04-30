@@ -12,17 +12,23 @@
 
 @synthesize ourModule, ourQueue;
 
--(id)initWithModule:(Module *)myModule
+-(id)initWithModule:(Module *)myModule modPlayer:(xmpPlayer *)myPlayer
 {
     self = [super init];
-    ourPlayer = [[xmpPlayer alloc] init];
-    [ourPlayer loadModule:myModule error:nil];
+    NSLog(@"Module name: %@", [myModule moduleName]);
+    [myPlayer loadModule:myModule error:nil];
+    ourPlayer = myPlayer;
     return self;
 };
 
 -(void)main
 {
-    [ourPlayer playModule:nil];
+        [ourPlayer playModule:nil];
 }
 
+-(void)cancel
+{
+    NSLog(@"Cancel method called.");
+    [ourPlayer stopPlayer];
+}
 @end

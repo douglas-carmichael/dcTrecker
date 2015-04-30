@@ -34,6 +34,7 @@
     switch ([sender tag]) {
         case 0:
             NSLog(@"Previous Track.");
+            [ourPlayer jumpPosition:5];
             break;
         case 1:
             [ourPlayer prevPlayPosition];
@@ -71,24 +72,46 @@
             }
         case 3:
             [ourPlayer nextPlayPosition];
-            ourPlayOp = [[PlaybackOperation alloc] initWithModule:[ourPlaylist getModuleAtIndex:0]];
+            ourPlayOp = [[PlaybackOperation alloc] initWithModule:[ourPlaylist getModuleAtIndex:0] modPlayer:ourPlayer];
             [ourQueue addOperation:ourPlayOp];
+            usleep(10000);
+            [self setDragTimeline:YES];
+            if ([ourPlayer isPlaying])
+            {
+                NSLog(@"We are playing!");
+                dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND,0), ^{
+                    NSInteger totalTime = [ourPlaylist getModuleAtIndex:0].modTotalTime;
+                    NSLog(@"Total time: %ld", (long)totalTime);
+                    [musicSlider setMaxValue:totalTime];
+                    NSLog(@"slider max: %f", [musicSlider maxValue]);
+                    while([ourPlayer isPlaying])
+                    {
+                        usleep(10000);
+                        if ([self dragTimeline])
+                        {
+                            NSInteger sliderValue = [ourPlayer playerTime];
+                            [musicSlider setIntegerValue:sliderValue];
+                            [modulePosition setStringValue:[ourPlayer getTimeString:[ourPlayer playerTime]]];
+                        }
+                    }
+                    [musicSlider setIntValue:0];
+                    [modulePosition setStringValue:@""];
+                });
+
+            }
             break;
         case 4:
             NSLog(@"Next Track.");
+            [ourQueue cancelAllOperations];
             break;
         default:
             break;
     }
 }
 
--(void)playThroughPlaylist
-{
-
-}
-
 -(void)setModPosition:(NSInteger)currPosition
 {
+    NSLog(@"setModPosition called: %li", (long)currPosition);
     [ourPlayer jumpPosition:currPosition];
 }
 

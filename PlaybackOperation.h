@@ -11,6 +11,7 @@
 #import "xmpPlayer.h"
 
 xmpPlayer *ourPlayer;
+dispatch_group_t ourGroup;
 
 @interface PlaybackOperation : NSOperation
 {
@@ -23,6 +24,7 @@ xmpPlayer *ourPlayer;
 @property (retain) Module *ourModule;
 @property (retain) NSOperationQueue *ourQueue;
 
--(id)initWithModule:(Module *)myModule;
+-(id)initWithModule:(Module *)myModule modPlayer:(xmpPlayer *)myPlayer;
+-(void)cancel;
 
 @end
