@@ -19,7 +19,6 @@
     NSInteger currentModule;
     IBOutlet NSTextField *moduleName;
     IBOutlet NSTextField *moduleTime;
-    IBOutlet NSTextField *modulePosition;
     IBOutlet NSSlider *musicSlider;
 }
 

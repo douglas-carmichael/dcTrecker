@@ -30,11 +30,9 @@
 {
     PlaybackOperation *ourPlayOp;
     
-    NSLog(@"Playlist count: %li", (long)[ourPlaylist playlistCount]);
     switch ([sender tag]) {
         case 0:
             NSLog(@"Previous Track.");
-            [ourPlayer jumpPosition:5];
             break;
         case 1:
             [ourPlayer prevPlayPosition];
@@ -44,24 +42,37 @@
             if ([ourPlaylist playlistCount] == 0)
             {
                 NSLog(@"playlist 0.");
+                NSLog(@"Breaking out.");
                 break;
             }
             if (![ourPlayer isPlaying])
             {
+                NSLog(@"Entering playback code.");
                 [sender setState:NSOnState];
-                dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
-                    while (currentModule <= ([ourPlaylist playlistCount]) - 1)
-                    {
-                        NSLog(@"playing module: %ld", (long)currentModule);
-                        Module *myModule = [[Module alloc] init];
-                        myModule = [ourPlaylist getModuleAtIndex:currentModule];
-                        NSLog(@"module name: %@", [myModule moduleName]);
-                        [ourPlayer loadModule:myModule error:nil];
-                        [ourPlayer playModule:nil];
-                        [ourPlayer unloadModule];
-                        currentModule++;
-                    }
-                });
+                Module *playModule = [ourPlaylist getModuleAtIndex:currentModule];
+                [moduleName setStringValue:[playModule moduleName]];
+                ourPlayOp = [[PlaybackOperation alloc] initWithModule:playModule modPlayer:ourPlayer];
+                [ourQueue setQualityOfService:NSOperationQualityOfServiceUserInitiated];
+                [ourQueue addOperation:ourPlayOp];
+                usleep(10000);
+                if ([ourPlayer isPlaying])
+                {
+                    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE,0), ^{
+                        NSInteger totalTime = playModule.modTotalTime;
+                        [musicSlider setMaxValue:totalTime];
+                        while([ourPlayer isPlaying])
+                        {
+                            usleep(10000);
+                            NSInteger sliderValue = [ourPlayer playerTime];
+                            [musicSlider setIntegerValue:sliderValue];
+                            [moduleTime setStringValue:[ourPlayer getTimeString:[ourPlayer playerTime]]];
+                        }
+                        [sender setState:NSOffState];
+                        [musicSlider setIntegerValue:0];
+                        [moduleTime setStringValue:@""];
+                        [moduleName setStringValue:@""];
+                    });
+                }
                 break;
             }
             if ([ourPlayer isPlaying])
@@ -72,29 +83,6 @@
             }
         case 3:
             [ourPlayer nextPlayPosition];
-            ourPlayOp = [[PlaybackOperation alloc] initWithModule:[ourPlaylist getModuleAtIndex:0] modPlayer:ourPlayer];
-            [ourQueue addOperation:ourPlayOp];
-            usleep(10000);
-            if ([ourPlayer isPlaying])
-            {
-                NSLog(@"We are playing!");
-                dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND,0), ^{
-                    NSInteger totalTime = [ourPlaylist getModuleAtIndex:0].modTotalTime;
-                    NSLog(@"Total time: %ld", (long)totalTime);
-                    [musicSlider setMaxValue:totalTime];
-                    NSLog(@"slider max: %f", [musicSlider maxValue]);
-                    while([ourPlayer isPlaying])
-                    {
-                        usleep(10000);
-                            NSInteger sliderValue = [ourPlayer playerTime];
-                            [musicSlider setIntegerValue:sliderValue];
-                            [modulePosition setStringValue:[ourPlayer getTimeString:[ourPlayer playerTime]]];
-                    }
-                    [musicSlider setIntegerValue:0];
-                    [modulePosition setStringValue:@""];
-                });
-                
-            }
             break;
         case 4:
             NSLog(@"Next Track.");
@@ -105,11 +93,6 @@
     }
 }
 
--(void)setModPosition:(NSInteger)currPosition
-{
-    NSLog(@"setModPosition called: %li", (long)currPosition);
-    [ourPlayer jumpPosition:currPosition];
-}
 
 -(IBAction)volumeSet:(id)sender;
 {
