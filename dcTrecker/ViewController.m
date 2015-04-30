@@ -41,13 +41,11 @@
             NSLog(@"Play.");
             if ([ourPlaylist playlistCount] == 0)
             {
-                NSLog(@"playlist 0.");
-                NSLog(@"Breaking out.");
+                [sender setState:NSOffState];
                 break;
             }
             if (![ourPlayer isPlaying])
             {
-                NSLog(@"Entering playback code.");
                 [sender setState:NSOnState];
                 Module *playModule = [ourPlaylist getModuleAtIndex:currentModule];
                 [moduleName setStringValue:[playModule moduleName]];
