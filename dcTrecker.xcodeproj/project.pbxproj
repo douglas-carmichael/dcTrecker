@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A308C6301ADC5485004FD271 /* PlaylistManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A308C62F1ADC5485004FD271 /* PlaylistManager.m */; };
-		A33EC3081AE5B74B002FF14B /* TimeScrubberSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = A33EC3071AE5B74B002FF14B /* TimeScrubberSlider.m */; };
 		A36AB1BC1AD8D1B6000BA9AB /* xmpPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A36AB1B61AD8D1B6000BA9AB /* xmpPlayer.m */; };
 		A36AB1BD1AD8D1B6000BA9AB /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = A36AB1B81AD8D1B6000BA9AB /* TPCircularBuffer.c */; };
 		A36AB1BE1AD8D1B6000BA9AB /* libxmp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A36AB1BB1AD8D1B6000BA9AB /* libxmp.a */; };
@@ -45,8 +44,6 @@
 /* Begin PBXFileReference section */
 		A308C62E1ADC5485004FD271 /* PlaylistManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistManager.h; sourceTree = "<group>"; };
 		A308C62F1ADC5485004FD271 /* PlaylistManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistManager.m; sourceTree = "<group>"; };
-		A33EC3061AE5B74B002FF14B /* TimeScrubberSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeScrubberSlider.h; sourceTree = "<group>"; };
-		A33EC3071AE5B74B002FF14B /* TimeScrubberSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeScrubberSlider.m; sourceTree = "<group>"; };
 		A36AB1B51AD8D1B6000BA9AB /* xmpPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmpPlayer.h; sourceTree = "<group>"; };
 		A36AB1B61AD8D1B6000BA9AB /* xmpPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = xmpPlayer.m; sourceTree = "<group>"; };
 		A36AB1B71AD8D1B6000BA9AB /* xmpPlayerErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmpPlayerErrors.h; sourceTree = "<group>"; };
@@ -167,8 +164,6 @@
 				A387211C1AD2FFA200A01234 /* ViewController.m */,
 				A3E770A71ADCF5B600AD4F8C /* MenuResponder.h */,
 				A3E770A81ADCF5B600AD4F8C /* MenuResponder.m */,
-				A33EC3061AE5B74B002FF14B /* TimeScrubberSlider.h */,
-				A33EC3071AE5B74B002FF14B /* TimeScrubberSlider.m */,
 				A308C62E1ADC5485004FD271 /* PlaylistManager.h */,
 				A308C62F1ADC5485004FD271 /* PlaylistManager.m */,
 				A3DDEE071AEDEA5F0014530E /* PlaybackOperation.h */,
@@ -338,7 +333,6 @@
 				A36AB1BC1AD8D1B6000BA9AB /* xmpPlayer.m in Sources */,
 				A308C6301ADC5485004FD271 /* PlaylistManager.m in Sources */,
 				A3E770A91ADCF5B600AD4F8C /* MenuResponder.m in Sources */,
-				A33EC3081AE5B74B002FF14B /* TimeScrubberSlider.m in Sources */,
 				A387211D1AD2FFA200A01234 /* ViewController.m in Sources */,
 				A3CD4D2F1ADBBF650005F9E3 /* PlaylistViewController.m in Sources */,
 				A387211A1AD2FFA200A01234 /* main.m in Sources */,

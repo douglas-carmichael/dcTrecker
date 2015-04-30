@@ -639,7 +639,7 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FMn-oW-uB7" customClass="TimeScrubberSlider">
+                                        <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FMn-oW-uB7">
                                             <rect key="frame" x="16" y="90" width="412" height="21"/>
                                             <sliderCell key="cell" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="WbG-1e-vp5"/>
                                             <connections>

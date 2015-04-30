@@ -7,7 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-//#import "xmpPlayer.h"
 #import "PlaylistManager.h"
 #import "PlaybackOperation.h"
 
@@ -24,10 +23,7 @@
     IBOutlet NSSlider *musicSlider;
 }
 
-@property (assign) BOOL dragTimeline;
-
 -(IBAction)volumeSet:(id)sender;
--(void)setModPosition:(NSInteger)currPosition;
 
 @end
 

@@ -75,7 +75,6 @@
             ourPlayOp = [[PlaybackOperation alloc] initWithModule:[ourPlaylist getModuleAtIndex:0] modPlayer:ourPlayer];
             [ourQueue addOperation:ourPlayOp];
             usleep(10000);
-            [self setDragTimeline:YES];
             if ([ourPlayer isPlaying])
             {
                 NSLog(@"We are playing!");
@@ -87,17 +86,14 @@
                     while([ourPlayer isPlaying])
                     {
                         usleep(10000);
-                        if ([self dragTimeline])
-                        {
                             NSInteger sliderValue = [ourPlayer playerTime];
                             [musicSlider setIntegerValue:sliderValue];
                             [modulePosition setStringValue:[ourPlayer getTimeString:[ourPlayer playerTime]]];
-                        }
                     }
-                    [musicSlider setIntValue:0];
+                    [musicSlider setIntegerValue:0];
                     [modulePosition setStringValue:@""];
                 });
-
+                
             }
             break;
         case 4:
