@@ -636,9 +636,12 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FMn-oW-uB7">
+                                        <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FMn-oW-uB7" customClass="TimeScrubberSlider">
                                             <rect key="frame" x="16" y="90" width="412" height="21"/>
                                             <sliderCell key="cell" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="WbG-1e-vp5"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="XfG-lQ-9wD" id="4Cn-Cd-Czc"/>
+                                            </connections>
                                         </slider>
                                         <box autoresizesSubviews="NO" title="Box" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="3Hb-3o-CfL">
                                             <rect key="frame" x="15" y="17" width="228" height="51"/>
@@ -764,6 +767,7 @@
                         <outlet property="moduleName" destination="A2Q-b4-U6X" id="8Tn-Ek-hQ5"/>
                         <outlet property="moduleTime" destination="rDf-AM-kqz" id="vA3-Uv-cM8"/>
                         <outlet property="musicSlider" destination="FMn-oW-uB7" id="UGX-SB-BAG"/>
+                        <outlet property="playButton" destination="aIL-vk-fS2" id="Go6-DK-m7c"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

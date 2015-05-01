@@ -22,7 +22,7 @@
 
 - (void)setRepresentedObject:(id)representedObject {
     [super setRepresentedObject:representedObject];
-
+    
     // Update the view, if already loaded.
 }
 
@@ -47,6 +47,7 @@
             if (![ourPlayer isPlaying])
             {
                 [sender setState:NSOnState];
+                [self setDragTimeline:YES];
                 Module *playModule = [ourPlaylist getModuleAtIndex:currentModule];
                 [moduleName setStringValue:[playModule moduleName]];
                 ourPlayOp = [[PlaybackOperation alloc] initWithModule:playModule modPlayer:ourPlayer];
@@ -61,9 +62,12 @@
                         while([ourPlayer isPlaying])
                         {
                             usleep(10000);
-                            NSInteger sliderValue = [ourPlayer playerTime];
-                            [musicSlider setIntegerValue:sliderValue];
-                            [moduleTime setStringValue:[ourPlayer getTimeString:[ourPlayer playerTime]]];
+                            if ([self dragTimeline] == YES)
+                            {
+                                NSInteger sliderValue = [ourPlayer playerTime];
+                                [musicSlider setIntegerValue:sliderValue];
+                                [moduleTime setStringValue:[ourPlayer getTimeString:[ourPlayer playerTime]]];
+                            }
                         }
                         [sender setState:NSOffState];
                         [musicSlider setIntegerValue:0];
@@ -115,6 +119,11 @@
     CGFloat out = outMin + (outMax - outMin) * (in - inMin) / (inMax - inMin);
     
     return out;
+}
+
+-(void)setModPosition:(int)ourValue
+{
+    [ourPlayer seekPlayerToTime:ourValue];
 }
 
 -(void)loadModule:(NSInteger)module

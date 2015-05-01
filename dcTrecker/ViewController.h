@@ -19,10 +19,14 @@
     NSInteger currentModule;
     IBOutlet NSTextField *moduleName;
     IBOutlet NSTextField *moduleTime;
+    IBOutlet NSButton *playButton;
     IBOutlet NSSlider *musicSlider;
 }
 
 -(IBAction)volumeSet:(id)sender;
+-(void)setModPosition:(int)ourValue;
+
+@property (assign) BOOL dragTimeline;
 
 @end
 
