@@ -28,8 +28,7 @@
 
 -(IBAction)playbackControl:(id)sender
 {
-    PlaybackOperation *ourPlayOp;
-    
+
     switch ([sender tag]) {
         case 0:
             NSLog(@"Previous Track.");
@@ -46,35 +45,7 @@
             }
             if (![ourPlayer isPlaying])
             {
-                [sender setState:NSOnState];
-                [self setDragTimeline:YES];
-                Module *playModule = [ourPlaylist getModuleAtIndex:currentModule];
-                [moduleName setStringValue:[playModule moduleName]];
-                ourPlayOp = [[PlaybackOperation alloc] initWithModule:playModule modPlayer:ourPlayer];
-                [ourQueue setQualityOfService:NSOperationQualityOfServiceUserInitiated];
-                [ourQueue addOperation:ourPlayOp];
-                usleep(10000);
-                if ([ourPlayer isPlaying])
-                {
-                    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE,0), ^{
-                        NSInteger totalTime = playModule.modTotalTime;
-                        [musicSlider setMaxValue:totalTime];
-                        while([ourPlayer isPlaying])
-                        {
-                            usleep(10000);
-                            if ([self dragTimeline] == YES)
-                            {
-                                NSInteger sliderValue = [ourPlayer playerTime];
-                                [musicSlider setIntegerValue:sliderValue];
-                                [moduleTime setStringValue:[ourPlayer getTimeString:[ourPlayer playerTime]]];
-                            }
-                        }
-                        [sender setState:NSOffState];
-                        [musicSlider setIntegerValue:0];
-                        [moduleTime setStringValue:@""];
-                        [moduleName setStringValue:@""];
-                    });
-                }
+                [self playModule:0];
                 break;
             }
             if ([ourPlayer isPlaying])
@@ -95,6 +66,40 @@
     }
 }
 
+-(void)playModule:(int)moduleIndex
+{
+    PlaybackOperation *ourPlayOp;
+    
+    Module *playModule = [ourPlaylist getModuleAtIndex:currentModule];
+    [moduleName setStringValue:[playModule moduleName]];
+    ourPlayOp = [[PlaybackOperation alloc] initWithModule:playModule modPlayer:ourPlayer];
+    [ourQueue setQualityOfService:NSOperationQualityOfServiceUserInitiated];
+    [ourQueue addOperation:ourPlayOp];
+    usleep(10000);
+    [self setDragTimeline:YES];
+    if ([ourPlayer isPlaying])
+    {
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE,0), ^{
+            NSInteger totalTime = playModule.modTotalTime;
+            [musicSlider setMaxValue:totalTime];
+            while([ourPlayer isPlaying])
+            {
+                usleep(10000);
+                if ([self dragTimeline] == YES)
+                {
+                    NSInteger sliderValue = [ourPlayer playerTime];
+                    [musicSlider setIntegerValue:sliderValue];
+                    [moduleTime setStringValue:[ourPlayer getTimeString:[ourPlayer playerTime]]];
+                }
+            }
+            [playButton setState:NSOffState];
+            [musicSlider setIntegerValue:0];
+            [moduleTime setStringValue:@""];
+            [moduleName setStringValue:@""];
+        });
+    }
+    return;
+}
 
 -(IBAction)volumeSet:(id)sender;
 {

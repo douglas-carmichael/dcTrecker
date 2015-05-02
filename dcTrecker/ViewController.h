@@ -25,6 +25,7 @@
 
 -(IBAction)volumeSet:(id)sender;
 -(void)setModPosition:(int)ourValue;
+-(void)playModule:(int)moduleIndex;
 
 @property (assign) BOOL dragTimeline;
 
