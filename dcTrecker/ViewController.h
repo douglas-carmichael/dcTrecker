@@ -27,7 +27,7 @@
 -(void)setModPosition:(int)ourValue;
 -(void)playModule:(int)moduleIndex;
 
-@property (assign) BOOL dragTimeline;
+@property (assign) BOOL timelineAvailable;
 
 @end
 

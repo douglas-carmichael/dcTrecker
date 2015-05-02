@@ -38,22 +38,8 @@
             break;
         case 2:
             NSLog(@"Play.");
-            if ([ourPlaylist playlistCount] == 0)
-            {
-                [sender setState:NSOffState];
-                break;
-            }
-            if (![ourPlayer isPlaying])
-            {
-                [self playModule:0];
-                break;
-            }
-            if ([ourPlayer isPlaying])
-            {
-                [sender setState:NSOffState];
-                [ourPlayer stopPlayer];
-                break;
-            }
+            [self playModule:0];
+            break;
         case 3:
             [ourPlayer nextPlayPosition];
             break;
@@ -68,36 +54,53 @@
 
 -(void)playModule:(int)moduleIndex
 {
-    PlaybackOperation *ourPlayOp;
+    PlaybackOperation *ourPlaybackOp;
     
-    Module *playModule = [ourPlaylist getModuleAtIndex:currentModule];
-    [moduleName setStringValue:[playModule moduleName]];
-    ourPlayOp = [[PlaybackOperation alloc] initWithModule:playModule modPlayer:ourPlayer];
-    [ourQueue setQualityOfService:NSOperationQualityOfServiceUserInitiated];
-    [ourQueue addOperation:ourPlayOp];
-    usleep(10000);
-    [self setDragTimeline:YES];
+    if ([ourPlaylist playlistCount] == 0)
+    {
+        [playButton setState:NSOffState];
+        return;
+    }
+
+    if (![ourPlayer isPlaying])
+    {
+        Module *playModule = [ourPlaylist getModuleAtIndex:currentModule];
+        [moduleName setStringValue:[playModule moduleName]];
+        ourPlaybackOp = [[PlaybackOperation alloc] initWithModule:playModule modPlayer:ourPlayer];
+        [ourQueue setQualityOfService:NSOperationQualityOfServiceUserInitiated];
+        [ourQueue addOperation:ourPlaybackOp];
+        usleep(10000);
+        [self setTimelineAvailable:YES];
+        if ([ourPlayer isPlaying])
+        {
+            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE,0), ^{
+                NSInteger totalTime = playModule.modTotalTime;
+                [musicSlider setMaxValue:totalTime];
+                while([ourPlayer isPlaying])
+                {
+                    usleep(10000);
+                    if ([self timelineAvailable] == YES)
+                    {
+                        NSInteger sliderValue = [ourPlayer playerTime];
+                        [musicSlider setIntegerValue:sliderValue];
+                        [moduleTime setStringValue:[ourPlayer getTimeString:[ourPlayer playerTime]]];
+                    }
+                }
+                [playButton setState:NSOffState];
+                [musicSlider setIntegerValue:0];
+                [moduleTime setStringValue:@""];
+                [moduleName setStringValue:@""];
+            });
+        }
+        return;
+    }
     if ([ourPlayer isPlaying])
     {
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE,0), ^{
-            NSInteger totalTime = playModule.modTotalTime;
-            [musicSlider setMaxValue:totalTime];
-            while([ourPlayer isPlaying])
-            {
-                usleep(10000);
-                if ([self dragTimeline] == YES)
-                {
-                    NSInteger sliderValue = [ourPlayer playerTime];
-                    [musicSlider setIntegerValue:sliderValue];
-                    [moduleTime setStringValue:[ourPlayer getTimeString:[ourPlayer playerTime]]];
-                }
-            }
-            [playButton setState:NSOffState];
-            [musicSlider setIntegerValue:0];
-            [moduleTime setStringValue:@""];
-            [moduleName setStringValue:@""];
-        });
+        [playButton setState:NSOffState];
+        [ourPlayer stopPlayer];
+        return;
     }
+
     return;
 }
 
@@ -128,6 +131,7 @@
 
 -(void)setModPosition:(int)ourValue
 {
+    NSLog(@"setModPosition viewController.");
     [ourPlayer seekPlayerToTime:ourValue];
 }
 

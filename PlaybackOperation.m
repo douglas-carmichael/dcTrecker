@@ -23,12 +23,12 @@
 
 -(void)main
 {
-        [ourPlayer playModule:nil];
+    [ourPlayer playModule:nil];
 }
 
 -(void)cancel
 {
-    NSLog(@"Cancel method called.");
     [ourPlayer stopPlayer];
 }
+
 @end

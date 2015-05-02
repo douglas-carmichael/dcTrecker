@@ -40,6 +40,7 @@
         struct xmp_test_info moduleTestInfo;
         int status;
         NSURL *moduleURL = [ourPanel URL];
+
         status = xmp_test_module((char *)[moduleURL.path UTF8String], &moduleTestInfo);
         if(status != 0)
         {
