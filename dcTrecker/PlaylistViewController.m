@@ -18,7 +18,7 @@
     [super viewDidLoad];
     // Do view setup here.
     ourPlaylist = [PlaylistManager sharedPlaylist];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable) name:@"dcT_ReloadPlaylist" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable) name:@"dcT_ReloadPlaylist" object:nil];
 }
 
 -(void)reloadTable

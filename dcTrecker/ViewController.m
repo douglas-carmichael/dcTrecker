@@ -18,6 +18,8 @@
     ourPlaylist = [PlaylistManager sharedPlaylist];
     currentModule = 0;
     // Do any additional setup after loading the view.
+    
+
 }
 
 - (void)setRepresentedObject:(id)representedObject {
