@@ -63,7 +63,7 @@
                                                 <action selector="newPlaylist:" target="5hg-fU-Ojh" id="GD1-am-Q1D"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Open…" keyEquivalent="o" id="IAo-SY-fd9">
+                                        <menuItem title="Open Playlist…" keyEquivalent="o" id="IAo-SY-fd9">
                                             <connections>
                                                 <action selector="openDocument:" target="5hg-fU-Ojh" id="gIq-by-TdZ"/>
                                             </connections>
@@ -87,12 +87,12 @@
                                                 <action selector="performClose:" target="Ady-hI-5gd" id="HmO-Ls-i7Q"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Save…" keyEquivalent="s" id="pxx-59-PXV">
+                                        <menuItem title="Save Playlist…" keyEquivalent="s" id="pxx-59-PXV">
                                             <connections>
                                                 <action selector="saveDocument:" target="5hg-fU-Ojh" id="uBK-Hs-Soc"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Save As…" keyEquivalent="S" id="Bw7-FT-i3A">
+                                        <menuItem title="Save Playlist As…" keyEquivalent="S" id="Bw7-FT-i3A">
                                             <connections>
                                                 <action selector="saveDocumentAs:" target="5hg-fU-Ojh" id="heG-7V-vpy"/>
                                             </connections>
@@ -371,7 +371,7 @@
                                                 <action selector="performZoom:" target="Ady-hI-5gd" id="DIl-cC-cCs"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Playlist" id="cca-jQ-g6U">
+                                        <menuItem title="Show Playlist" id="cca-jQ-g6U">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <segue destination="IV9-ci-E66" kind="show" id="Gfc-wc-ZiJ"/>

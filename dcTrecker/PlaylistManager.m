@@ -99,8 +99,37 @@
     for (Module *PLModule in playlistArray)
     {
         NSLog(@"dumped path: %@", [PLModule filePath].path);
-        
     }
+}
+
+-(BOOL)savePlaylist:(NSURL *)myPlaylist
+{
+    if ([self isEmpty])
+    {
+        return NO;
+    }
+    
+    NSXMLElement *playlistRoot = (NSXMLElement *)[NSXMLNode elementWithName:@"Playlist"];
+    NSXMLDocument *playlistDoc = [[NSXMLDocument alloc] initWithRootElement:playlistRoot];
+    [playlistDoc setVersion:@"1.0"];
+    [playlistDoc setCharacterEncoding:@"UTF-8"];
+    for (Module *PLModule in playlistArray)
+    {
+        NSXMLElement *moduleRoot = [[NSXMLElement alloc] initWithName:@"Module"];
+        [moduleRoot addChild:[NSXMLNode elementWithName:@"Title"
+                                            stringValue:[PLModule moduleName]]];
+        [moduleRoot addChild:[NSXMLNode elementWithName:@"URL"
+                                            stringValue:[PLModule filePath].absoluteString]];
+        
+        [playlistRoot addChild:moduleRoot];
+    }
+
+    NSData *playlistData = [playlistDoc XMLDataWithOptions:NSXMLNodePrettyPrint];
+    if(![playlistData writeToFile:myPlaylist.path atomically:YES])
+    {
+        return NO;
+    }
+        return YES;
 }
 
 -(NSInteger)playlistCount
