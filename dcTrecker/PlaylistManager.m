@@ -109,18 +109,20 @@
         return NO;
     }
     
-    NSXMLElement *playlistRoot = (NSXMLElement *)[NSXMLNode elementWithName:@"Playlist"];
+    NSXMLElement *playlistRoot = (NSXMLElement *)[NSXMLNode elementWithName:@"dcPlaylist"];
     NSXMLDocument *playlistDoc = [[NSXMLDocument alloc] initWithRootElement:playlistRoot];
     [playlistDoc setVersion:@"1.0"];
     [playlistDoc setCharacterEncoding:@"UTF-8"];
     for (Module *PLModule in playlistArray)
     {
         NSXMLElement *moduleRoot = [[NSXMLElement alloc] initWithName:@"Module"];
-        [moduleRoot addChild:[NSXMLNode elementWithName:@"Title"
+        [moduleRoot addChild:[NSXMLNode elementWithName:@"modTitle"
                                             stringValue:[PLModule moduleName]]];
-        [moduleRoot addChild:[NSXMLNode elementWithName:@"URL"
+        [moduleRoot addChild:[NSXMLNode elementWithName:@"modURL"
                                             stringValue:[PLModule filePath].absoluteString]];
-        
+        [moduleRoot addChild:[NSXMLNode elementWithName:@"modType"
+                                            stringValue:[PLModule moduleType]]];
+        NSLog(@"moduleRoot: %@", moduleRoot);
         [playlistRoot addChild:moduleRoot];
     }
 
@@ -131,6 +133,56 @@
     }
         return YES;
 }
+
+
+-(BOOL)loadPlaylist:(NSURL *)myPlaylist
+{
+    NSXMLDocument *playlistDoc;
+    NSError *err = nil;
+    playlistDoc = [[NSXMLDocument alloc] initWithContentsOfURL:myPlaylist
+                                                       options:(NSXMLNodePreserveWhitespace|NSXMLDocumentTidyXML) error:&err];
+    if (playlistDoc == nil)
+    {
+        if (err)
+        {
+            NSLog(@"Cannot read XML!");
+            return NO;
+        }
+    }
+    
+    NSXMLNode *playlistNode = [playlistDoc rootElement];
+    NSMutableString *titleString = nil;
+    NSMutableString *urlString = nil;
+    NSMutableString *typeString = nil;
+    if ([[playlistNode name] isNotEqualTo:@"dcPlaylist"])
+    {
+        NSLog(@"Invalid XML file!");
+        return NO;
+    }
+
+    NSArray *moduleNodes = [playlistDoc nodesForXPath:@".//Module" error:nil];
+    for (NSXMLNode *myModule in moduleNodes)
+    {
+        NSXMLNode *titleNode = [[myModule nodesForXPath:@".//modTitle" error:nil] objectAtIndex:0];
+        NSXMLNode *urlNode = [[myModule nodesForXPath:@".//modURL" error:nil] objectAtIndex:0];
+        NSXMLNode *typeNode = [[myModule nodesForXPath:@".//modType" error:nil] objectAtIndex:0];
+        titleString = [[[titleNode stringValue]
+                        substringToIndex:[[titleNode stringValue] length]] mutableCopy];
+        urlString = [[[urlNode stringValue]
+                      substringToIndex:[[urlNode stringValue] length]] mutableCopy];
+        typeString = [[[typeNode stringValue]
+                      substringToIndex:[[typeNode stringValue] length]] mutableCopy];
+
+        Module *playlistModule = [[Module alloc] init];
+        [playlistModule setModuleName:titleString];
+        [playlistModule setModuleType:typeString];
+        [playlistModule setFilePath:[NSURL URLWithString:urlString]];
+        [playlistArray addObject:playlistModule];
+        
+    }
+    return YES;
+}
+
 
 -(NSInteger)playlistCount
 {

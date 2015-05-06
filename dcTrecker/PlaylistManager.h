@@ -21,6 +21,7 @@
 -(void)clearPlaylist;
 -(void)dumpPlaylist;
 -(BOOL)savePlaylist:(NSURL *)myPlaylist;
+-(BOOL)loadPlaylist:(NSURL *)myPlaylist;
 -(void)addModule:(Module *)moduleToAdd;
 -(void)removeModuleAtIndex:(NSInteger)ourRow;
 -(Module *)getModuleAtIndex:(NSInteger)ourRow;

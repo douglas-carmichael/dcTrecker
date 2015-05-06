@@ -21,6 +21,8 @@
 -(IBAction)addToPlaylist:(id)sender;
 -(IBAction)removeFromPlaylist:(id)sender;
 -(IBAction)dumpPlaylist:(id)sender;
+-(IBAction)savePlaylistButton:(id)sender;
+-(IBAction)loadPlaylistButton:(id)sender;
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
 -(void)tableViewSelectionDidChange:(NSNotification *)notification;
 -(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;

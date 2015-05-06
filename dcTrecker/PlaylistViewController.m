@@ -63,7 +63,24 @@
 
 -(IBAction)dumpPlaylist:(id)sender
 {
-    [ourPlaylist dumpPlaylist];
+    [ourPlaylist dumpPlaylist];    
+}
+
+-(IBAction)savePlaylistButton:(id)sender
+{
+    BOOL testMe;
+    NSURL *testURL = [[NSURL alloc] initFileURLWithPath:@"/Users/dcarmich/test.xml"];
+    testMe = [ourPlaylist savePlaylist:testURL];
+    return;
+}
+
+-(IBAction)loadPlaylistButton:(id)sender
+{
+    BOOL testMe;
+    NSURL *testURL = [[NSURL alloc] initFileURLWithPath:@"/Users/dcarmich/test.xml"];
+    testMe = [ourPlaylist loadPlaylist:testURL];
+    [playlistTable reloadData];
+    return;
 }
 
 -(IBAction)removeFromPlaylist:(id)sender
@@ -114,6 +131,11 @@
 {
     NSTableView *tableView = notification.object;
     currentRow = tableView.selectedRow;
-    NSLog(@"Selected row: %li", (long)currentRow);
+    
+    if (currentRow >= 0)
+    {
+        NSLog(@"Selected row: %li", (long)currentRow);
+        
+    }
 }
 @end
