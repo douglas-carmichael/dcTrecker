@@ -131,7 +131,6 @@
 
 -(void)setModPosition:(int)ourValue
 {
-    NSLog(@"setModPosition viewController.");
     [ourPlayer seekPlayerToTime:ourValue];
 }
 

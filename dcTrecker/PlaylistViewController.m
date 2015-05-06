@@ -37,11 +37,13 @@
     [ourPanel setAllowsMultipleSelection:NO];
     if ([ourPanel runModal] == NSModalResponseOK)
     {
-        struct xmp_test_info moduleTestInfo;
+        xmp_context our_context;
+        struct xmp_module_info pModuleInfo;
         int status;
         NSURL *moduleURL = [ourPanel URL];
-
-        status = xmp_test_module((char *)[moduleURL.path UTF8String], &moduleTestInfo);
+        
+        our_context = xmp_create_context();
+        status = xmp_load_module(our_context, (char *)[moduleURL.path UTF8String]);
         if(status != 0)
         {
             NSAlert *alert = [[NSAlert alloc] init];
@@ -52,13 +54,18 @@
             return;
         }
         
+        xmp_get_module_info(our_context, &pModuleInfo);
+        xmp_release_module(our_context);
+        xmp_free_context(our_context);
+        
         [ourModule setFilePath:[ourPanel URL]];
-        [ourModule setModuleName:[NSString stringWithFormat:@"%s", moduleTestInfo.name]];
-        [ourModule setModuleType:[NSString stringWithFormat:@"%s", moduleTestInfo.type]];
+        [ourModule setModuleName:[NSString stringWithFormat:@"%s", pModuleInfo.mod->name]];
+        [ourModule setModuleType:[NSString stringWithFormat:@"%s", pModuleInfo.mod->type]];
+        [ourModule setModTotalTime:pModuleInfo.seq_data[0].duration];
         [ourPlaylist addModule:ourModule];
         [playlistTable reloadData];
     }
-    
+    return;
 }
 
 -(IBAction)dumpPlaylist:(id)sender

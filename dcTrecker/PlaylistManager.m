@@ -56,10 +56,7 @@
 
 -(NSString *)getModuleLength:(NSInteger)ourRow
 {
-    xmp_context our_context;
-    struct xmp_module_info pModuleInfo;
-    int modTotalTime;
-    our_context = xmp_create_context();
+    int ourTime;
     
     // HACK: This could be done a bit more elegantly.
     
@@ -69,20 +66,11 @@
     // Grab the module path from the row
     Module *myModule = [[Module alloc] init];
     myModule = [playlistArray objectAtIndex:ourRow];
-    
-    NSURL *modulePath = [myModule filePath];
-    
-    // Load our module and grab the info we need
-    xmp_load_module(our_context, (char *)[modulePath.path UTF8String]);
-    xmp_get_module_info(our_context, &pModuleInfo);
-    modTotalTime = pModuleInfo.seq_data[0].duration;
-    
-    // Unload the module and destroy our context
-    xmp_release_module(our_context);
-    xmp_free_context(our_context);
+
+    ourTime = myModule.modTotalTime;
     
     // Convert modTotalTime to a string
-    NSString *totalTimeString = [testPlayer getTimeString:modTotalTime];
+    NSString *totalTimeString = [testPlayer getTimeString:ourTime];
     
     // Return it
     return totalTimeString;
