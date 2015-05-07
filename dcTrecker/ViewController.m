@@ -42,7 +42,12 @@
             break;
         case 2:
             NSLog(@"Play.");
-//            [self playModule:0];
+            if ([ourPlayer isPlaying])
+            {
+                [ourPlayer stopPlayer];
+                [self resetView];
+            }
+            [self playModule:(int)currentModule];
             break;
         case 3:
             [ourPlayer nextPlayPosition];
@@ -63,12 +68,14 @@
     [ourPlayer stopPlayer];
     [ourQueue cancelAllOperations];
     [self resetView];
+    usleep(10000);
     Module *myModule = [ourPlaylist getModuleAtIndex:passedRow];
     NSLog(@"passed row: %i", passedRow);
     NSLog(@"module name: %@", [myModule moduleName]);
     [playButton setState:NSOnState];
 
     currentModule = passedRow;
+    usleep(10000);
     [self playModule:passedRow];
 
 }
