@@ -69,9 +69,6 @@
     [ourQueue cancelAllOperations];
     [self resetView];
     usleep(10000);
-    Module *myModule = [ourPlaylist getModuleAtIndex:passedRow];
-    NSLog(@"passed row: %i", passedRow);
-    NSLog(@"module name: %@", [myModule moduleName]);
     [playButton setState:NSOnState];
 
     currentModule = passedRow;
