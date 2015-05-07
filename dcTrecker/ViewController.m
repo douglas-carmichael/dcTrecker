@@ -19,6 +19,8 @@
     currentModule = 0;
     // Do any additional setup after loading the view.
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playFromPlaylist:)
+                                                 name:@"dcT_playFromPlaylist" object:nil];
 
 }
 
@@ -40,7 +42,7 @@
             break;
         case 2:
             NSLog(@"Play.");
-            [self playModule:0];
+//            [self playModule:0];
             break;
         case 3:
             [ourPlayer nextPlayPosition];
@@ -52,6 +54,31 @@
         default:
             break;
     }
+}
+
+-(void)playFromPlaylist:(NSNotification *)ourNotification
+{
+    int passedRow = [[[ourNotification userInfo] valueForKey:@"currRow"] intValue];
+    
+    [ourPlayer stopPlayer];
+    [ourQueue cancelAllOperations];
+    [self resetView];
+    Module *myModule = [ourPlaylist getModuleAtIndex:passedRow];
+    NSLog(@"passed row: %i", passedRow);
+    NSLog(@"module name: %@", [myModule moduleName]);
+    [playButton setState:NSOnState];
+
+    currentModule = passedRow;
+    [self playModule:passedRow];
+
+}
+
+-(void)resetView
+{
+    [playButton setState:NSOffState];
+    [musicSlider setIntegerValue:0];
+    [moduleTime setStringValue:@""];
+    [moduleName setStringValue:@""];
 }
 
 -(void)playModule:(int)moduleIndex
@@ -66,7 +93,7 @@
 
     if (![ourPlayer isPlaying])
     {
-        Module *playModule = [ourPlaylist getModuleAtIndex:currentModule];
+        Module *playModule = [ourPlaylist getModuleAtIndex:moduleIndex];
         [moduleName setStringValue:[playModule moduleName]];
         ourPlaybackOp = [[PlaybackOperation alloc] initWithModule:playModule modPlayer:ourPlayer];
         [ourQueue setQualityOfService:NSOperationQualityOfServiceUserInitiated];
@@ -88,10 +115,7 @@
                         [moduleTime setStringValue:[ourPlayer getTimeString:[ourPlayer playerTime]]];
                     }
                 }
-                [playButton setState:NSOffState];
-                [musicSlider setIntegerValue:0];
-                [moduleTime setStringValue:@""];
-                [moduleName setStringValue:@""];
+                [self resetView];
             });
         }
         return;

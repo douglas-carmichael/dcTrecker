@@ -71,7 +71,7 @@
     
     // Convert modTotalTime to a string
     NSString *totalTimeString = [testPlayer getTimeString:ourTime];
-    
+        
     // Return it
     return totalTimeString;
 }
@@ -110,6 +110,9 @@
                                             stringValue:[PLModule filePath].absoluteString]];
         [moduleRoot addChild:[NSXMLNode elementWithName:@"modType"
                                             stringValue:[PLModule moduleType]]];
+        [moduleRoot addChild:[NSXMLNode elementWithName:@"modTotalTime"
+                                            stringValue:[NSString stringWithFormat:@"%i", [PLModule modTotalTime]]]];
+
         NSLog(@"moduleRoot: %@", moduleRoot);
         [playlistRoot addChild:moduleRoot];
     }
@@ -142,29 +145,38 @@
     NSMutableString *titleString = nil;
     NSMutableString *urlString = nil;
     NSMutableString *typeString = nil;
+    NSMutableString *timeString = nil;
     if ([[playlistNode name] isNotEqualTo:@"dcPlaylist"])
     {
         NSLog(@"Invalid XML file!");
         return NO;
     }
-
+    
+    [playlistArray removeAllObjects];
+    
     NSArray *moduleNodes = [playlistDoc nodesForXPath:@".//Module" error:nil];
     for (NSXMLNode *myModule in moduleNodes)
     {
         NSXMLNode *titleNode = [[myModule nodesForXPath:@".//modTitle" error:nil] objectAtIndex:0];
         NSXMLNode *urlNode = [[myModule nodesForXPath:@".//modURL" error:nil] objectAtIndex:0];
         NSXMLNode *typeNode = [[myModule nodesForXPath:@".//modType" error:nil] objectAtIndex:0];
+        NSXMLNode *timeNode = [[myModule nodesForXPath:@".//modTotalTime" error:nil] objectAtIndex:0];
         titleString = [[[titleNode stringValue]
                         substringToIndex:[[titleNode stringValue] length]] mutableCopy];
         urlString = [[[urlNode stringValue]
                       substringToIndex:[[urlNode stringValue] length]] mutableCopy];
         typeString = [[[typeNode stringValue]
                       substringToIndex:[[typeNode stringValue] length]] mutableCopy];
-
+        timeString = [[[timeNode stringValue]
+                       substringToIndex:[[timeNode stringValue] length]] mutableCopy];
         Module *playlistModule = [[Module alloc] init];
         [playlistModule setModuleName:titleString];
         [playlistModule setModuleType:typeString];
         [playlistModule setFilePath:[NSURL URLWithString:urlString]];
+        
+        NSInteger totalTime = [timeString integerValue];
+        [playlistModule setModTotalTime:(int)totalTime];
+        
         [playlistArray addObject:playlistModule];
         
     }

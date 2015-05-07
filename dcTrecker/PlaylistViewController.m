@@ -141,8 +141,8 @@
     
     if (currentRow >= 0)
     {
-        NSLog(@"Selected row: %li", (long)currentRow);
-        
+        NSDictionary *currRowDict = [NSDictionary dictionaryWithObject:[NSNumber numberWithLong:currentRow] forKey:@"currRow"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"dcT_playFromPlaylist" object:nil userInfo:currRowDict];
     }
 }
 @end
