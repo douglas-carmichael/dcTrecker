@@ -21,7 +21,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playFromPlaylist:)
                                                  name:@"dcT_playFromPlaylist" object:nil];
-
+    
 }
 
 - (void)setRepresentedObject:(id)representedObject {
@@ -32,7 +32,7 @@
 
 -(IBAction)playbackControl:(id)sender
 {
-
+    
     switch ([sender tag]) {
         case 0:
             NSLog(@"Previous Track.");
@@ -46,6 +46,11 @@
             {
                 [ourPlayer stopPlayer];
                 [self resetView];
+                while ([ourPlayer isPlaying])
+                {
+                    
+                }
+                break;
             }
             [self playModule:(int)currentModule];
             break;
@@ -66,15 +71,19 @@
     int passedRow = [[[ourNotification userInfo] valueForKey:@"currRow"] intValue];
     
     [ourPlayer stopPlayer];
+    while([ourPlayer isPlaying])
+    {
+        
+    }
     [ourQueue cancelAllOperations];
     [self resetView];
     usleep(10000);
     [playButton setState:NSOnState];
-
+    
     currentModule = passedRow;
     usleep(10000);
     [self playModule:passedRow];
-
+    
 }
 
 -(void)resetView
@@ -94,7 +103,7 @@
         [playButton setState:NSOffState];
         return;
     }
-
+    
     if (![ourPlayer isPlaying])
     {
         Module *playModule = [ourPlaylist getModuleAtIndex:moduleIndex];
@@ -130,7 +139,7 @@
         [ourPlayer stopPlayer];
         return;
     }
-
+    
     return;
 }
 

@@ -381,7 +381,6 @@
 {
     int err;
     Boolean isRunning;
-    
     if (ourPlayback)
     {
         err = AUGraphIsRunning(myGraph, &isRunning);
@@ -392,8 +391,10 @@
 
 -(void)stopPlayer
 {
+    
     xmp_stop_module(class_context);
     ourClassPlayer.stopped_flag = true;
+    
 }
 
 -(void)setChannelVolume:(NSInteger)ourChannel volume:(NSInteger)ourVolume
