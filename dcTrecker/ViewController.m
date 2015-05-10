@@ -46,10 +46,6 @@
             {
                 [ourPlayer stopPlayer];
                 [self resetView];
-                while ([ourPlayer isPlaying])
-                {
-                    
-                }
                 break;
             }
             [self playModule:(int)currentModule];
@@ -71,17 +67,11 @@
     int passedRow = [[[ourNotification userInfo] valueForKey:@"currRow"] intValue];
     
     [ourPlayer stopPlayer];
-    while([ourPlayer isPlaying])
-    {
-        
-    }
     [ourQueue cancelAllOperations];
     [self resetView];
-    usleep(10000);
     [playButton setState:NSOnState];
     
     currentModule = passedRow;
-    usleep(10000);
     [self playModule:passedRow];
     
 }
@@ -109,9 +99,12 @@
         Module *playModule = [ourPlaylist getModuleAtIndex:moduleIndex];
         [moduleName setStringValue:[playModule moduleName]];
         ourPlaybackOp = [[PlaybackOperation alloc] initWithModule:playModule modPlayer:ourPlayer];
-        [ourQueue setQualityOfService:NSOperationQualityOfServiceUserInitiated];
+        [ourQueue setQualityOfService:NSOperationQualityOfServiceBackground];
         [ourQueue addOperation:ourPlaybackOp];
-        usleep(10000);
+        while (![ourPlayer isPlaying])
+        {
+            // Wait here and do nothing until the AUGraph starts
+        }
         [self setTimelineAvailable:YES];
         if ([ourPlayer isPlaying])
         {
@@ -120,7 +113,7 @@
                 [musicSlider setMaxValue:totalTime];
                 while([ourPlayer isPlaying])
                 {
-                    usleep(10000);
+                    usleep(100000);
                     if ([self timelineAvailable] == YES)
                     {
                         NSInteger sliderValue = [ourPlayer playerTime];
@@ -133,6 +126,7 @@
         }
         return;
     }
+
     if ([ourPlayer isPlaying])
     {
         [playButton setState:NSOffState];

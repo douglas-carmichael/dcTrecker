@@ -391,10 +391,14 @@
 
 -(void)stopPlayer
 {
-    
     xmp_stop_module(class_context);
     ourClassPlayer.stopped_flag = true;
     
+    while ([self isPlaying])
+    {
+        // Wait here and do nothing until the AUGraph stops
+    }
+
 }
 
 -(void)setChannelVolume:(NSInteger)ourChannel volume:(NSInteger)ourVolume
@@ -412,7 +416,6 @@
 -(void)jumpPosition:(NSInteger)positionValue
 {
     int status;
-    NSLog(@"jumpPosition called: %i", (int)positionValue);
     status = xmp_set_position(class_context, (int)positionValue);
     if (status == -XMP_ERROR_STATE)
     {

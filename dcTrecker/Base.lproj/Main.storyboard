@@ -432,7 +432,7 @@
         <!--Window Controller-->
         <scene sceneID="ZZ7-pY-3Li">
             <objects>
-                <windowController id="IV9-ci-E66" sceneMemberID="viewController">
+                <windowController showSeguePresentationStyle="single" id="IV9-ci-E66" sceneMemberID="viewController">
                     <window key="window" title="Playlist" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="rMo-g1-aOR">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
