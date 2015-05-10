@@ -46,6 +46,11 @@
             {
                 [ourPlayer stopPlayer];
                 [self resetView];
+                while ([ourPlayer isPlaying])
+                {
+                    // Wait here and do nothing until the AUGraph stops
+                }
+
                 break;
             }
             [self playModule:(int)currentModule];
@@ -67,11 +72,17 @@
     int passedRow = [[[ourNotification userInfo] valueForKey:@"currRow"] intValue];
     
     [ourPlayer stopPlayer];
+    while ([ourPlayer isPlaying])
+    {
+        // Wait here and do nothing until the AUGraph stops
+    }
     [ourQueue cancelAllOperations];
     [self resetView];
+    [NSThread sleepForTimeInterval:0.10];
     [playButton setState:NSOnState];
     
     currentModule = passedRow;
+    [NSThread sleepForTimeInterval:0.10];
     [self playModule:passedRow];
     
 }
@@ -129,8 +140,12 @@
 
     if ([ourPlayer isPlaying])
     {
-        [playButton setState:NSOffState];
         [ourPlayer stopPlayer];
+        while ([ourPlayer isPlaying])
+        {
+            // Wait here and do nothing until the AUGraph stops
+        }
+        [self resetView];
         return;
     }
     

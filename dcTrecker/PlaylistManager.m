@@ -56,24 +56,38 @@
 
 -(NSString *)getModuleLength:(NSInteger)ourRow
 {
-    int ourTime;
-    
-    // HACK: This could be done a bit more elegantly.
-    
-    // Get an instance of xmpPlayer to get ourselves getTimeString
-    xmpPlayer *testPlayer = [[xmpPlayer alloc] init];
+    int ourTime, minutes, seconds;
     
     // Grab the module path from the row
     Module *myModule = [[Module alloc] init];
     myModule = [playlistArray objectAtIndex:ourRow];
-
     ourTime = myModule.modTotalTime;
-    
+
     // Convert modTotalTime to a string
-    NSString *totalTimeString = [testPlayer getTimeString:ourTime];
+    
+    if (ourTime == 0)
+    {
+        minutes = 0;
+        seconds = 0;
+        NSString *totalTimeString = @"00:00";
+        return totalTimeString;
+    }
+    else
+    {
+        minutes = ((ourTime + 500) / 60000);
+        seconds = ((ourTime + 500) / 1000) % 60;
         
-    // Return it
-    return totalTimeString;
+        // If we're on a 64-bit system, NSInteger is a long.
+        // From: http://stackoverflow.com/questions/4445173/when-to-use-nsinteger-vs-int
+        
+#if __LP64__ || TARGET_OS_EMBEDDED || TARGET_OS_IPHONE || TARGET_OS_WIN32 || NS_BUILD_32_LIKE_64
+        NSString *totalTimeString = [[NSString alloc] initWithFormat:@"%02ld:%02ld", (long)minutes, (long)seconds];
+        return totalTimeString;
+#else
+        NSString *totalTimeString = [[NSString alloc] initWithFormat:@"%02d:%02d", minutes, seconds];
+        return totalTimeString;
+#endif
+    }
 }
 
 -(void)removeModuleAtIndex:(NSInteger)ourRow

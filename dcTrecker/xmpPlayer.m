@@ -393,12 +393,6 @@
 {
     xmp_stop_module(class_context);
     ourClassPlayer.stopped_flag = true;
-    
-    while ([self isPlaying])
-    {
-        // Wait here and do nothing until the AUGraph stops
-    }
-
 }
 
 -(void)setChannelVolume:(NSInteger)ourChannel volume:(NSInteger)ourVolume
