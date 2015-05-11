@@ -83,9 +83,8 @@
     NSString *ourSetName = [[ourNotification userInfo] valueForKey:@"currModName"];
     [NSThread sleepForTimeInterval:0.10];
     [moduleName setStringValue:ourSetName];
-    NSLog(@"%@", ourSetName);
-    
 }
+
 -(void)resetView
 {
     [playButton setState:NSOffState];

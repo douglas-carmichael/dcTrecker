@@ -79,9 +79,12 @@
     return;
 }
 
--(IBAction)dumpPlaylist:(id)sender
+-(IBAction)newPlaylist:(id)sender
 {
-    [ourPlaylist dumpPlaylist];
+    [ourPlaylist clearPlaylist];
+    NSString *notificationName = @"dcT_ReloadPlaylist";
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
+
 }
 
 -(IBAction)savePlaylistButton:(id)sender

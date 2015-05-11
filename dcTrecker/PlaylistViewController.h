@@ -22,7 +22,7 @@
 -(void)doubleClick:(id)object;
 -(IBAction)addToPlaylist:(id)sender;
 -(IBAction)removeFromPlaylist:(id)sender;
--(IBAction)dumpPlaylist:(id)sender;
+-(IBAction)newPlaylist:(id)sender;
 -(IBAction)savePlaylistButton:(id)sender;
 -(IBAction)loadPlaylistButton:(id)sender;
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;

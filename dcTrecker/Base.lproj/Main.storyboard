@@ -456,36 +456,53 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FRa-ba-04M">
-                                <rect key="frame" x="31" y="10" width="28" height="23"/>
+                                <rect key="frame" x="139" y="10" width="28" height="23"/>
                                 <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2Vx-F5-7kp">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="addToPlaylist:" target="eil-7S-fi4" id="LSC-yt-HiD"/>
+                                    <action selector="addToPlaylist:" target="eil-7S-fi4" id="raj-wV-gf2"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IdW-Vv-Wd8">
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="egl-ae-4pk">
+                                <rect key="frame" x="31" y="10" width="28" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="2vR-FH-EjD"/>
+                                    <constraint firstAttribute="width" constant="28" id="n5T-O6-zu1"/>
+                                </constraints>
+                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="new_playlist" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tJb-9L-lhZ">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="newPlaylist:" target="eil-7S-fi4" id="TEV-eu-iCp"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cf1-o1-oSe">
                                 <rect key="frame" x="67" y="10" width="28" height="23"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="28" id="SxS-Wp-CjL"/>
+                                    <constraint firstAttribute="width" constant="28" id="YQC-lg-tOE"/>
                                 </constraints>
-                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="BKk-pI-sdH">
+                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="load_playlist" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HXS-pH-7JL">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="removeFromPlaylist:" target="eil-7S-fi4" id="1lQ-Qo-75Z"/>
+                                    <action selector="loadPlaylistButton:" target="eil-7S-fi4" id="oa2-3N-95w"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ATM-KF-26r">
-                                <rect key="frame" x="199" y="10" width="106" height="23"/>
-                                <buttonCell key="cell" type="smallSquare" title="Dump" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4sG-pM-DTE">
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ItJ-t0-RLA">
+                                <rect key="frame" x="103" y="10" width="28" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="28" id="Tz1-gK-0Px"/>
+                                </constraints>
+                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="save_playlist" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="X1l-mr-uyo">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="dumpPlaylist:" target="eil-7S-fi4" id="aoo-Fz-82r"/>
+                                    <action selector="savePlaylistButton:" target="eil-7S-fi4" id="noz-bZ-i5c"/>
                                 </connections>
                             </button>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0jT-SY-mEZ">
@@ -562,39 +579,40 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c9F-Dv-2PT">
-                                <rect key="frame" x="319" y="4" width="71" height="32"/>
-                                <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dLa-Ao-uCu">
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IdW-Vv-Wd8">
+                                <rect key="frame" x="175" y="10" width="28" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="28" id="SxS-Wp-CjL"/>
+                                </constraints>
+                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="BKk-pI-sdH">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="savePlaylistButton:" target="eil-7S-fi4" id="jY6-am-WNc"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jjY-vd-Rm0">
-                                <rect key="frame" x="383" y="4" width="71" height="32"/>
-                                <buttonCell key="cell" type="push" title="Load" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WMb-s6-7zk">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="loadPlaylistButton:" target="eil-7S-fi4" id="IhF-Xj-Cv2"/>
+                                    <action selector="removeFromPlaylist:" target="eil-7S-fi4" id="ulF-WK-e3d"/>
                                 </connections>
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="IdW-Vv-Wd8" firstAttribute="leading" secondItem="vKq-it-ono" secondAttribute="leading" constant="67" id="1vY-uG-cSu"/>
-                            <constraint firstItem="0jT-SY-mEZ" firstAttribute="leading" secondItem="FRa-ba-04M" secondAttribute="leading" id="8yJ-Dx-fPA"/>
-                            <constraint firstItem="FRa-ba-04M" firstAttribute="top" secondItem="0jT-SY-mEZ" secondAttribute="bottom" constant="8" symbolic="YES" id="B2O-mE-Ajz"/>
-                            <constraint firstAttribute="trailing" secondItem="0jT-SY-mEZ" secondAttribute="trailing" constant="20" symbolic="YES" id="Cdy-4b-gli"/>
-                            <constraint firstItem="0jT-SY-mEZ" firstAttribute="top" secondItem="vKq-it-ono" secondAttribute="top" constant="20" symbolic="YES" id="D0b-8q-dWD"/>
-                            <constraint firstItem="IdW-Vv-Wd8" firstAttribute="top" secondItem="0jT-SY-mEZ" secondAttribute="bottom" constant="8" symbolic="YES" id="GhA-J9-XBB"/>
-                            <constraint firstAttribute="centerX" secondItem="0jT-SY-mEZ" secondAttribute="centerX" constant="-5.5" id="IbT-is-08O"/>
-                            <constraint firstAttribute="bottom" secondItem="IdW-Vv-Wd8" secondAttribute="bottom" constant="11" id="ODf-iC-t6B"/>
-                            <constraint firstAttribute="bottom" secondItem="0jT-SY-mEZ" secondAttribute="bottom" constant="40" id="PJ2-a5-0FI"/>
-                            <constraint firstItem="IdW-Vv-Wd8" firstAttribute="baseline" secondItem="FRa-ba-04M" secondAttribute="baseline" id="Ya4-Bv-Zb8"/>
-                            <constraint firstItem="IdW-Vv-Wd8" firstAttribute="leading" secondItem="FRa-ba-04M" secondAttribute="trailing" constant="8" symbolic="YES" id="xCD-lT-ywm"/>
+                            <constraint firstAttribute="bottom" secondItem="egl-ae-4pk" secondAttribute="bottom" constant="11" id="1SH-fu-o50"/>
+                            <constraint firstItem="FRa-ba-04M" firstAttribute="leading" secondItem="ItJ-t0-RLA" secondAttribute="trailing" constant="8" symbolic="YES" id="3q8-JT-Xe2"/>
+                            <constraint firstItem="egl-ae-4pk" firstAttribute="top" secondItem="0jT-SY-mEZ" secondAttribute="bottom" constant="8" symbolic="YES" id="4o2-Td-ehT"/>
+                            <constraint firstItem="egl-ae-4pk" firstAttribute="top" secondItem="FRa-ba-04M" secondAttribute="top" id="8Jp-PS-QP5"/>
+                            <constraint firstAttribute="trailing" secondItem="0jT-SY-mEZ" secondAttribute="trailing" constant="20" symbolic="YES" id="D1N-Wd-SFZ"/>
+                            <constraint firstItem="egl-ae-4pk" firstAttribute="bottom" secondItem="IdW-Vv-Wd8" secondAttribute="bottom" id="Jyz-gb-zo2"/>
+                            <constraint firstItem="egl-ae-4pk" firstAttribute="top" secondItem="ItJ-t0-RLA" secondAttribute="top" id="KDi-eU-Ugx"/>
+                            <constraint firstItem="ItJ-t0-RLA" firstAttribute="leading" secondItem="cf1-o1-oSe" secondAttribute="trailing" constant="8" symbolic="YES" id="Mq7-kn-Xgk"/>
+                            <constraint firstItem="egl-ae-4pk" firstAttribute="leading" secondItem="0jT-SY-mEZ" secondAttribute="leading" id="QYg-EW-iEP"/>
+                            <constraint firstItem="egl-ae-4pk" firstAttribute="top" secondItem="IdW-Vv-Wd8" secondAttribute="top" id="WPf-SM-a2L"/>
+                            <constraint firstItem="egl-ae-4pk" firstAttribute="leading" secondItem="vKq-it-ono" secondAttribute="leading" constant="31" id="dSi-hh-1gY"/>
+                            <constraint firstItem="egl-ae-4pk" firstAttribute="baseline" secondItem="ItJ-t0-RLA" secondAttribute="baseline" id="dg6-4l-cNy"/>
+                            <constraint firstItem="0jT-SY-mEZ" firstAttribute="top" secondItem="vKq-it-ono" secondAttribute="top" constant="20" symbolic="YES" id="dmc-YK-LBf"/>
+                            <constraint firstItem="egl-ae-4pk" firstAttribute="bottom" secondItem="FRa-ba-04M" secondAttribute="bottom" id="fPS-OM-DWV"/>
+                            <constraint firstItem="cf1-o1-oSe" firstAttribute="leading" secondItem="egl-ae-4pk" secondAttribute="trailing" constant="8" symbolic="YES" id="fS3-h3-5Vz"/>
+                            <constraint firstItem="egl-ae-4pk" firstAttribute="baseline" secondItem="cf1-o1-oSe" secondAttribute="baseline" id="prw-zw-Uix"/>
+                            <constraint firstItem="IdW-Vv-Wd8" firstAttribute="leading" secondItem="FRa-ba-04M" secondAttribute="trailing" constant="8" symbolic="YES" id="qK7-ai-FOf"/>
+                            <constraint firstItem="egl-ae-4pk" firstAttribute="top" secondItem="cf1-o1-oSe" secondAttribute="top" id="u40-gC-eLK"/>
+                            <constraint firstItem="IdW-Vv-Wd8" firstAttribute="leading" secondItem="vKq-it-ono" secondAttribute="leading" constant="175" id="xQd-Ud-TXv"/>
                         </constraints>
                     </view>
                     <connections>
@@ -800,9 +818,12 @@
         <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="back" width="81" height="81"/>
         <image name="forward" width="81" height="81"/>
+        <image name="load_playlist" width="30" height="30"/>
+        <image name="new_playlist" width="30" height="30"/>
         <image name="nextTrack" width="81" height="81"/>
         <image name="play" width="81" height="81"/>
         <image name="prevTrack" width="81" height="81"/>
+        <image name="save_playlist" width="30" height="30"/>
         <image name="stop" width="81" height="81"/>
     </resources>
 </document>
