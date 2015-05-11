@@ -21,6 +21,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable) name:@"dcT_ReloadPlaylist" object:nil];
 }
 
+-(void)awakeFromNib
+{
+    [playlistTable setDoubleAction:@selector(doubleClick:)];
+}
+
 -(void)reloadTable
 {
     [playlistTable reloadData];
@@ -29,12 +34,18 @@
 -(IBAction)addToPlaylist:(id)sender
 {
     NSOpenPanel *ourPanel = [NSOpenPanel openPanel];
+    NSArray *moduleTypes = [NSArray arrayWithObjects:@"mod", @"s3m", @"xm", @"it", @"669",
+                            @"mdl", @"far", @"mtm", @"med", @"ptm", @"rtm", @"amf", @"gmc",
+                            @"psm", @"j2b", @"psm", @"umx", @"amd", @"rad", @"hsc", @"dtm",
+                            @"flx", @"okt", nil];
+    
     Module *ourModule = [[Module alloc] init];
     
     [ourPanel setCanChooseDirectories:NO];
     [ourPanel setCanChooseFiles:YES];
     [ourPanel setCanCreateDirectories:NO];
     [ourPanel setAllowsMultipleSelection:NO];
+    [ourPanel setAllowedFileTypes:moduleTypes];
     if ([ourPanel runModal] == NSModalResponseOK)
     {
         xmp_context our_context;
@@ -70,22 +81,55 @@
 
 -(IBAction)dumpPlaylist:(id)sender
 {
-    [ourPlaylist dumpPlaylist];    
+    [ourPlaylist dumpPlaylist];
 }
 
 -(IBAction)savePlaylistButton:(id)sender
 {
-    BOOL testMe;
-    NSURL *testURL = [[NSURL alloc] initFileURLWithPath:@"/Users/dcarmich/test.xml"];
-    testMe = [ourPlaylist savePlaylist:testURL];
+    NSSavePanel *ourPanel = [NSSavePanel savePanel];
+    
+    [ourPanel setCanCreateDirectories:YES];
+    [ourPanel setCanHide:YES];
+    if ([ourPanel runModal] == NSModalResponseOK)
+    {
+        BOOL saveSuccess;
+        saveSuccess = [ourPlaylist savePlaylist:[ourPanel URL]];
+        if(saveSuccess == NO)
+        {
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert addButtonWithTitle:@"OK"];
+            [alert setMessageText:@"Cannot save playlist."];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert beginSheetModalForWindow:[[self view] window] completionHandler:nil];
+            return;
+        }
+    }
     return;
 }
 
 -(IBAction)loadPlaylistButton:(id)sender
 {
-    BOOL testMe;
-    NSURL *testURL = [[NSURL alloc] initFileURLWithPath:@"/Users/dcarmich/test.xml"];
-    testMe = [ourPlaylist loadPlaylist:testURL];
+    NSOpenPanel *ourPanel = [NSOpenPanel openPanel];
+    [ourPanel setCanChooseDirectories:NO];
+    [ourPanel setCanChooseFiles:YES];
+    [ourPanel setCanCreateDirectories:NO];
+    [ourPanel setAllowsMultipleSelection:NO];
+    [ourPanel setAllowedFileTypes:[NSArray arrayWithObjects:@"xml", nil]];
+    
+    if ([ourPanel runModal] == NSModalResponseOK)
+    {
+        BOOL loadSuccess;
+        loadSuccess = [ourPlaylist loadPlaylist:[ourPanel URL]];
+        if (loadSuccess == NO)
+        {
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert addButtonWithTitle:@"OK"];
+            [alert setMessageText:@"Cannot load playlist."];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert beginSheetModalForWindow:[[self view] window] completionHandler:nil];
+            return;
+        }
+    }
     [playlistTable reloadData];
     return;
 }
@@ -96,8 +140,17 @@
     {
         if ([ourPlaylist isEmpty] == NO)
         {
-            [ourPlaylist removeModuleAtIndex:currentRow];
-            [playlistTable reloadData];
+            if ([ourPlaylist playlistCount] == currentRow)
+            {
+                [ourPlaylist clearPlaylist];
+                [playlistTable reloadData];
+            }
+            
+            if (currentRow < [ourPlaylist playlistCount])
+            {
+                [ourPlaylist removeModuleAtIndex:currentRow];
+                [playlistTable reloadData];
+            }
         }
     }
 }
@@ -118,7 +171,7 @@
     Module *ourObject = [ourPlaylist getModuleAtIndex:row];
     if([tableColumn.identifier isEqualToString:@"Title"])
     {
-            return [ourObject moduleName];
+        return [ourObject moduleName];
     } else
     {
         if([tableColumn.identifier isEqualToString:@"Type"])
@@ -134,9 +187,9 @@
     return nil;
 }
 
--(void)tableViewSelectionDidChange:(NSNotification *)notification
+-(void)doubleClick:(id)object
 {
-    NSTableView *tableView = notification.object;
+    NSTableView *tableView = object;
     currentRow = tableView.selectedRow;
     
     if (currentRow >= 0)
@@ -144,5 +197,6 @@
         NSDictionary *currRowDict = [NSDictionary dictionaryWithObject:[NSNumber numberWithLong:currentRow] forKey:@"currRow"];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"dcT_playFromPlaylist" object:nil userInfo:currRowDict];
     }
+    
 }
 @end

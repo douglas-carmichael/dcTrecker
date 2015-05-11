@@ -15,7 +15,7 @@
     ourPlayer = [[xmpPlayer alloc] init];
     ourModule = [[Module alloc] init];
     ourQueue = [[NSOperationQueue alloc] init];
-//    [ourQueue setMaxConcurrentOperationCount:1];
+    [ourQueue setMaxConcurrentOperationCount:1];
     ourPlaylist = [PlaylistManager sharedPlaylist];
     currentModule = 0;
     // Do any additional setup after loading the view.

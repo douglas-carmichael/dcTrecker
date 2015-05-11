@@ -62,7 +62,7 @@
     Module *myModule = [[Module alloc] init];
     myModule = [playlistArray objectAtIndex:ourRow];
     ourTime = myModule.modTotalTime;
-
+    
     // Convert modTotalTime to a string
     
     if (ourTime == 0)
@@ -126,17 +126,16 @@
                                             stringValue:[PLModule moduleType]]];
         [moduleRoot addChild:[NSXMLNode elementWithName:@"modTotalTime"
                                             stringValue:[NSString stringWithFormat:@"%i", [PLModule modTotalTime]]]];
-
-        NSLog(@"moduleRoot: %@", moduleRoot);
+        
         [playlistRoot addChild:moduleRoot];
     }
-
+    
     NSData *playlistData = [playlistDoc XMLDataWithOptions:NSXMLNodePrettyPrint];
     if(![playlistData writeToFile:myPlaylist.path atomically:YES])
     {
         return NO;
     }
-        return YES;
+    return YES;
 }
 
 
@@ -150,7 +149,6 @@
     {
         if (err)
         {
-            NSLog(@"Cannot read XML!");
             return NO;
         }
     }
@@ -162,13 +160,17 @@
     NSMutableString *timeString = nil;
     if ([[playlistNode name] isNotEqualTo:@"dcPlaylist"])
     {
-        NSLog(@"Invalid XML file!");
         return NO;
     }
     
     [playlistArray removeAllObjects];
     
     NSArray *moduleNodes = [playlistDoc nodesForXPath:@".//Module" error:nil];
+    if ([moduleNodes count] == 0)
+    {
+        return NO;
+    }
+    
     for (NSXMLNode *myModule in moduleNodes)
     {
         NSXMLNode *titleNode = [[myModule nodesForXPath:@".//modTitle" error:nil] objectAtIndex:0];
@@ -180,7 +182,7 @@
         urlString = [[[urlNode stringValue]
                       substringToIndex:[[urlNode stringValue] length]] mutableCopy];
         typeString = [[[typeNode stringValue]
-                      substringToIndex:[[typeNode stringValue] length]] mutableCopy];
+                       substringToIndex:[[typeNode stringValue] length]] mutableCopy];
         timeString = [[[timeNode stringValue]
                        substringToIndex:[[timeNode stringValue] length]] mutableCopy];
         Module *playlistModule = [[Module alloc] init];
