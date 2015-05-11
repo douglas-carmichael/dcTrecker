@@ -15,12 +15,16 @@
     ourPlayer = [[xmpPlayer alloc] init];
     ourModule = [[Module alloc] init];
     ourQueue = [[NSOperationQueue alloc] init];
+//    [ourQueue setMaxConcurrentOperationCount:1];
     ourPlaylist = [PlaylistManager sharedPlaylist];
     currentModule = 0;
     // Do any additional setup after loading the view.
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playFromPlaylist:)
                                                  name:@"dcT_playFromPlaylist" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setModuleField:)
+                                                 name:@"dcT_setModuleName" object:nil];
     
 }
 
@@ -66,18 +70,22 @@
 {
     int passedRow = [[[ourNotification userInfo] valueForKey:@"currRow"] intValue];
     
-    [ourPlayer stopPlayer];
     [ourQueue cancelAllOperations];
     [self resetView];
-    [NSThread sleepForTimeInterval:0.10];
-    [playButton setState:NSOnState];
     
     currentModule = passedRow;
-    [NSThread sleepForTimeInterval:0.10];
     [self playModule:passedRow];
     
 }
 
+-(void)setModuleField:(NSNotification *)ourNotification
+{
+    NSString *ourSetName = [[ourNotification userInfo] valueForKey:@"currModName"];
+    [NSThread sleepForTimeInterval:0.10];
+    [moduleName setStringValue:ourSetName];
+    NSLog(@"%@", ourSetName);
+    
+}
 -(void)resetView
 {
     [playButton setState:NSOffState];
@@ -99,7 +107,6 @@
     if (![ourPlayer isPlaying])
     {
         Module *playModule = [ourPlaylist getModuleAtIndex:moduleIndex];
-        [moduleName setStringValue:[playModule moduleName]];
         ourPlaybackOp = [[PlaybackOperation alloc] initWithModule:playModule modPlayer:ourPlayer];
         [ourQueue setQualityOfService:NSOperationQualityOfServiceBackground];
         [ourQueue addOperation:ourPlaybackOp];
@@ -110,6 +117,7 @@
         [self setTimelineAvailable:YES];
         if ([ourPlayer isPlaying])
         {
+            [playButton setState:NSOnState];
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE,0), ^{
                 NSInteger totalTime = playModule.modTotalTime;
                 [musicSlider setMaxValue:totalTime];
