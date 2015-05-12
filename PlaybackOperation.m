@@ -16,9 +16,18 @@
 {
     self = [super init];
     NSString *ourModuleName = [myModule moduleName];
-    NSDictionary *ourNameDict = [NSDictionary dictionaryWithObject:ourModuleName forKey:@"currModName"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"dcT_setModuleName" object:nil userInfo:ourNameDict];
-    [myPlayer loadModule:myModule error:nil];
+    NSDictionary *ourNameDict = [NSDictionary dictionaryWithObject:ourModuleName
+                                                            forKey:@"currModName"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"dcT_setModuleName"
+                                                        object:nil userInfo:ourNameDict];
+    NSError *ourError = nil;
+    
+    [myPlayer loadModule:myModule error:&ourError];
+    if (ourError)
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"dcT_cannotLoadMod"
+                                                            object:nil userInfo:nil];
+    }
     ourPlayer = myPlayer;
     return self;
 };

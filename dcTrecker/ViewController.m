@@ -26,6 +26,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setModuleField:)
                                                  name:@"dcT_setModuleName" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cannotLoadModule:)
+                                                 name:@"dcT_cannotLoadMod" object:nil];
+    
+    
 }
 
 - (void)setRepresentedObject:(id)representedObject {
@@ -39,13 +43,22 @@
     
     switch ([sender tag]) {
         case 0:
-            NSLog(@"Previous Track.");
+            if (currentModule == 0)
+            {
+                break;
+            }
+            
+            if ((currentModule - 1) <= ([ourPlaylist playlistCount] - 1))
+            {
+                currentModule--;
+                [ourQueue cancelAllOperations];
+                [self playModule:(int)currentModule];
+            }
             break;
         case 1:
             [ourPlayer prevPlayPosition];
             break;
         case 2:
-            NSLog(@"Play.");
             if ([ourPlayer isPlaying])
             {
                 [ourPlayer stopPlayer];
@@ -58,8 +71,12 @@
             [ourPlayer nextPlayPosition];
             break;
         case 4:
-            NSLog(@"Next Track.");
-            [ourQueue cancelAllOperations];
+            if ((currentModule + 1) <= ([ourPlaylist playlistCount] - 1))
+            {
+                currentModule++;
+                [ourQueue cancelAllOperations];
+                [self playModule:(int)currentModule];
+            }
             break;
         default:
             break;
@@ -83,6 +100,12 @@
     NSString *ourSetName = [[ourNotification userInfo] valueForKey:@"currModName"];
     [NSThread sleepForTimeInterval:0.10];
     [moduleName setStringValue:ourSetName];
+}
+
+-(void)cannotLoadModule:(NSNotification *)ourNotification
+{
+    NSLog(@"Cannot load module!");
+    return;
 }
 
 -(void)resetView
@@ -135,7 +158,7 @@
         }
         return;
     }
-
+    
     if ([ourPlayer isPlaying])
     {
         [ourPlayer stopPlayer];
@@ -176,13 +199,4 @@
     [ourPlayer seekPlayerToTime:ourValue];
 }
 
--(void)loadModule:(NSInteger)module
-{
-    NSError *ourError = nil;
-    ourModule = [ourPlaylist getModuleAtIndex:module];
-    [ourPlayer loadModule:ourModule error:&ourError];
-    [moduleName setStringValue:ourModule.moduleName];
-    [moduleTime setStringValue:[ourPlayer getTimeString:ourModule.modTotalTime]];
-    
-}
 @end

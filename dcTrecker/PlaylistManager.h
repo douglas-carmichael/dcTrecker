@@ -19,7 +19,6 @@
 
 +(id)sharedPlaylist;
 -(void)clearPlaylist;
--(void)dumpPlaylist;
 -(BOOL)savePlaylist:(NSURL *)myPlaylist;
 -(BOOL)loadPlaylist:(NSURL *)myPlaylist;
 -(void)addModule:(Module *)moduleToAdd;

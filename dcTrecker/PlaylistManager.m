@@ -95,14 +95,6 @@
     [playlistArray removeObjectAtIndex:ourRow];
 }
 
--(void)dumpPlaylist
-{
-    NSLog(@"%@", playlistArray);
-    for (Module *PLModule in playlistArray)
-    {
-        NSLog(@"dumped path: %@", [PLModule filePath].path);
-    }
-}
 
 -(BOOL)savePlaylist:(NSURL *)myPlaylist
 {
@@ -177,6 +169,7 @@
         NSXMLNode *urlNode = [[myModule nodesForXPath:@".//modURL" error:nil] objectAtIndex:0];
         NSXMLNode *typeNode = [[myModule nodesForXPath:@".//modType" error:nil] objectAtIndex:0];
         NSXMLNode *timeNode = [[myModule nodesForXPath:@".//modTotalTime" error:nil] objectAtIndex:0];
+
         titleString = [[[titleNode stringValue]
                         substringToIndex:[[titleNode stringValue] length]] mutableCopy];
         urlString = [[[urlNode stringValue]
