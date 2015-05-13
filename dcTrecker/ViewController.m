@@ -68,6 +68,12 @@
                 break;
             }
             
+            if ([ourPlaylist isEmpty])
+            {
+                [playButton setState:NSOffState];
+                break;
+            }
+            
             ourModule = [ourPlaylist getModuleAtIndex:currentModule];
             [self playModule:ourModule];
             break;
