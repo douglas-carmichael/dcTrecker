@@ -18,6 +18,7 @@
     }
     return self;
 }
+
 -(IBAction)newPlaylist:(id)sender
 {
     [ourPlaylist clearPlaylist];

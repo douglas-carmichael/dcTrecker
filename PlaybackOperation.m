@@ -25,8 +25,11 @@
     [myPlayer loadModule:myModule error:&ourError];
     if (ourError)
     {
+        NSString *ourFilePath = [[[myModule filePath] path] lastPathComponent];
+        NSDictionary *ourPathDict = [NSDictionary dictionaryWithObject:ourFilePath
+                                                                forKey:@"currFilePath"];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"dcT_cannotLoadMod"
-                                                            object:nil userInfo:nil];
+                                                            object:nil userInfo:ourPathDict];
     }
     ourPlayer = myPlayer;
     return self;

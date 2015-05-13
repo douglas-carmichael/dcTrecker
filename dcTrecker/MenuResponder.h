@@ -12,6 +12,7 @@
 @interface MenuResponder : NSResponder
 {
     PlaylistManager *ourPlaylist;
+    Module *singleModule;
 }
 
 -(IBAction)newPlaylist:(id)sender;

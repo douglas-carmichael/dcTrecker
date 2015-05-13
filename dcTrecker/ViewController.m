@@ -15,8 +15,8 @@
     ourPlayer = [[xmpPlayer alloc] init];
     ourModule = [[Module alloc] init];
     ourQueue = [[NSOperationQueue alloc] init];
-    [ourQueue setMaxConcurrentOperationCount:1];
     ourPlaylist = [PlaylistManager sharedPlaylist];
+    [ourQueue setMaxConcurrentOperationCount:1];
     currentModule = 0;
     // Do any additional setup after loading the view.
     
@@ -52,11 +52,13 @@
             {
                 currentModule--;
                 [ourQueue cancelAllOperations];
-                [self playModule:(int)currentModule];
+                ourModule = [ourPlaylist getModuleAtIndex:currentModule];
+                [self playModule:ourModule];
+                break;
             }
-            break;
         case 1:
             [ourPlayer prevPlayPosition];
+            [self cannotLoadModule:nil];
             break;
         case 2:
             if ([ourPlayer isPlaying])
@@ -65,7 +67,9 @@
                 [self resetView];
                 break;
             }
-            [self playModule:(int)currentModule];
+            
+            ourModule = [ourPlaylist getModuleAtIndex:currentModule];
+            [self playModule:ourModule];
             break;
         case 3:
             [ourPlayer nextPlayPosition];
@@ -75,9 +79,10 @@
             {
                 currentModule++;
                 [ourQueue cancelAllOperations];
-                [self playModule:(int)currentModule];
+                ourModule = [ourPlaylist getModuleAtIndex:currentModule];
+                [self playModule:ourModule];
+                break;
             }
-            break;
         default:
             break;
     }
@@ -91,7 +96,8 @@
     [self resetView];
     
     currentModule = passedRow;
-    [self playModule:passedRow];
+    ourModule = [ourPlaylist getModuleAtIndex:passedRow];
+    [self playModule:ourModule];
     
 }
 
@@ -104,7 +110,17 @@
 
 -(void)cannotLoadModule:(NSNotification *)ourNotification
 {
-    NSLog(@"Cannot load module!");
+    NSAlert *cannotLoadAlert = [[NSAlert alloc] init];
+    NSString *ourFilePath = [[ourNotification userInfo] valueForKey:@"currFilePath"];
+    [cannotLoadAlert addButtonWithTitle:@"OK"];
+    [cannotLoadAlert setMessageText:@"Error"];
+    [cannotLoadAlert setInformativeText:[NSString
+                                         stringWithFormat:@"Cannot load module: %@", ourFilePath]];
+    [cannotLoadAlert setAlertStyle:NSWarningAlertStyle];
+    
+    // Cancel all playback operations to be safe.
+    [ourQueue cancelAllOperations];
+    [cannotLoadAlert beginSheetModalForWindow:[[self view] window] completionHandler:nil];
     return;
 }
 
@@ -116,7 +132,7 @@
     [moduleName setStringValue:@""];
 }
 
--(void)playModule:(int)moduleIndex
+-(void)playModule:(Module *)myModule
 {
     PlaybackOperation *ourPlaybackOp;
     
@@ -128,8 +144,7 @@
     
     if (![ourPlayer isPlaying])
     {
-        Module *playModule = [ourPlaylist getModuleAtIndex:moduleIndex];
-        ourPlaybackOp = [[PlaybackOperation alloc] initWithModule:playModule modPlayer:ourPlayer];
+        ourPlaybackOp = [[PlaybackOperation alloc] initWithModule:myModule modPlayer:ourPlayer];
         [ourQueue setQualityOfService:NSOperationQualityOfServiceBackground];
         [ourQueue addOperation:ourPlaybackOp];
         while (![ourPlayer isPlaying])
@@ -141,7 +156,7 @@
         {
             [playButton setState:NSOnState];
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE,0), ^{
-                NSInteger totalTime = playModule.modTotalTime;
+                NSInteger totalTime = myModule.modTotalTime;
                 [musicSlider setMaxValue:totalTime];
                 while([ourPlayer isPlaying])
                 {

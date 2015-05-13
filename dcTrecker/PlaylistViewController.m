@@ -79,64 +79,6 @@
     return;
 }
 
--(IBAction)newPlaylist:(id)sender
-{
-    [ourPlaylist clearPlaylist];
-    NSString *notificationName = @"dcT_ReloadPlaylist";
-    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
-
-}
-
--(IBAction)savePlaylistButton:(id)sender
-{
-    NSSavePanel *ourPanel = [NSSavePanel savePanel];
-    
-    [ourPanel setCanCreateDirectories:YES];
-    [ourPanel setCanHide:YES];
-    if ([ourPanel runModal] == NSModalResponseOK)
-    {
-        BOOL saveSuccess;
-        saveSuccess = [ourPlaylist savePlaylist:[ourPanel URL]];
-        if(saveSuccess == NO)
-        {
-            NSAlert *alert = [[NSAlert alloc] init];
-            [alert addButtonWithTitle:@"OK"];
-            [alert setMessageText:@"Cannot save playlist."];
-            [alert setAlertStyle:NSWarningAlertStyle];
-            [alert beginSheetModalForWindow:[[self view] window] completionHandler:nil];
-            return;
-        }
-    }
-    return;
-}
-
--(IBAction)loadPlaylistButton:(id)sender
-{
-    NSOpenPanel *ourPanel = [NSOpenPanel openPanel];
-    [ourPanel setCanChooseDirectories:NO];
-    [ourPanel setCanChooseFiles:YES];
-    [ourPanel setCanCreateDirectories:NO];
-    [ourPanel setAllowsMultipleSelection:NO];
-    [ourPanel setAllowedFileTypes:[NSArray arrayWithObjects:@"xml", nil]];
-    
-    if ([ourPanel runModal] == NSModalResponseOK)
-    {
-        BOOL loadSuccess;
-        loadSuccess = [ourPlaylist loadPlaylist:[ourPanel URL]];
-        if (loadSuccess == NO)
-        {
-            NSAlert *alert = [[NSAlert alloc] init];
-            [alert addButtonWithTitle:@"OK"];
-            [alert setMessageText:@"Cannot load playlist."];
-            [alert setAlertStyle:NSWarningAlertStyle];
-            [alert beginSheetModalForWindow:[[self view] window] completionHandler:nil];
-            return;
-        }
-    }
-    [playlistTable reloadData];
-    return;
-}
-
 -(IBAction)removeFromPlaylist:(id)sender
 {
     if (currentRow >= 0)
@@ -156,6 +98,27 @@
             }
         }
     }
+}
+
+-(IBAction)newPlaylist:(id)sender
+{
+    [ourPlaylist clearPlaylist];
+    NSString *notificationName = @"dcT_ReloadPlaylist";
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
+    
+}
+
+-(IBAction)savePlaylistButton:(id)sender
+{
+    [ourPlaylist savePlaylistDialog:[[self view] window]];
+    return;
+}
+
+-(IBAction)loadPlaylistButton:(id)sender
+{
+    [ourPlaylist loadPlaylistDialog:[[self view] window]];
+    [playlistTable reloadData];
+    return;
 }
 
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView

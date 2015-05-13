@@ -192,6 +192,55 @@
     return YES;
 }
 
+-(void)loadPlaylistDialog:(NSWindow *)ourWindow
+{
+    NSOpenPanel *ourPanel = [NSOpenPanel openPanel];
+    [ourPanel setCanChooseDirectories:NO];
+    [ourPanel setCanChooseFiles:YES];
+    [ourPanel setCanCreateDirectories:NO];
+    [ourPanel setAllowsMultipleSelection:NO];
+    [ourPanel setAllowedFileTypes:[NSArray arrayWithObjects:@"xml", nil]];
+    
+    if ([ourPanel runModal] == NSModalResponseOK)
+    {
+        BOOL loadSuccess;
+        loadSuccess = [self loadPlaylist:[ourPanel URL]];
+        if (loadSuccess == NO)
+        {
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert addButtonWithTitle:@"OK"];
+            [alert setMessageText:@"Cannot load playlist."];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert beginSheetModalForWindow:ourWindow completionHandler:nil];
+            return;
+        }
+    }
+    return;
+}
+
+
+-(void)savePlaylistDialog:(NSWindow *)ourWindow
+{
+    NSSavePanel *ourPanel = [NSSavePanel savePanel];
+    
+    [ourPanel setCanCreateDirectories:YES];
+    [ourPanel setCanHide:YES];
+    if ([ourPanel runModal] == NSModalResponseOK)
+    {
+        BOOL saveSuccess;
+        saveSuccess = [self savePlaylist:[ourPanel URL]];
+        if(saveSuccess == NO)
+        {
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert addButtonWithTitle:@"OK"];
+            [alert setMessageText:@"Cannot save playlist."];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert beginSheetModalForWindow:ourWindow completionHandler:nil];
+            return;
+        }
+    }
+    return;
+}
 
 -(NSInteger)playlistCount
 {

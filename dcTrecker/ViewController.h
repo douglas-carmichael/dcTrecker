@@ -28,7 +28,7 @@
 -(void)setModuleField:(NSNotification *)ourNotification;
 -(void)resetView;
 -(void)setModPosition:(int)ourValue;
--(void)playModule:(int)moduleIndex;
+-(void)playModule:(Module *)playModule;
 
 @property (assign) BOOL timelineAvailable;
 
