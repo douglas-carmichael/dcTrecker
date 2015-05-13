@@ -58,7 +58,6 @@
             }
         case 1:
             [ourPlayer prevPlayPosition];
-            [self cannotLoadModule:nil];
             break;
         case 2:
             if ([ourPlayer isPlaying])
