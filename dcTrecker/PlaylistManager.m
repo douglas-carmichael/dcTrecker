@@ -92,7 +92,25 @@
 
 -(void)removeModuleAtIndex:(NSInteger)ourRow
 {
-    [playlistArray removeObjectAtIndex:ourRow];
+    if (ourRow >= 0)
+    {
+        if ([self isEmpty] == NO)
+        {
+            if ([self playlistCount] == ourRow)
+            {
+                [self clearPlaylist];
+                NSString *notificationName = @"dcT_ReloadPlaylist";
+                [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
+            }
+            
+            if (ourRow < [self playlistCount])
+            {
+                [playlistArray removeObjectAtIndex:ourRow];
+                NSString *notificationName = @"dcT_ReloadPlaylist";
+                [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
+            }
+        }
+    }
 }
 
 
@@ -169,7 +187,7 @@
         NSXMLNode *urlNode = [[myModule nodesForXPath:@".//modURL" error:nil] objectAtIndex:0];
         NSXMLNode *typeNode = [[myModule nodesForXPath:@".//modType" error:nil] objectAtIndex:0];
         NSXMLNode *timeNode = [[myModule nodesForXPath:@".//modTotalTime" error:nil] objectAtIndex:0];
-
+        
         titleString = [[[titleNode stringValue]
                         substringToIndex:[[titleNode stringValue] length]] mutableCopy];
         urlString = [[[urlNode stringValue]
@@ -238,6 +256,55 @@
             [alert beginSheetModalForWindow:ourWindow completionHandler:nil];
             return;
         }
+    }
+    return;
+}
+
+-(void)addToPlaylistDialog:(NSWindow *)ourWindow
+{
+    NSOpenPanel *ourPanel = [NSOpenPanel openPanel];
+    NSArray *moduleTypes = [NSArray arrayWithObjects:@"mod", @"s3m", @"xm", @"it", @"669",
+                            @"mdl", @"far", @"mtm", @"med", @"ptm", @"rtm", @"amf", @"gmc",
+                            @"psm", @"j2b", @"psm", @"umx", @"amd", @"rad", @"hsc", @"dtm",
+                            @"flx", @"okt", nil];
+    
+    Module *myModule = [[Module alloc] init];
+    
+    [ourPanel setCanChooseDirectories:NO];
+    [ourPanel setCanChooseFiles:YES];
+    [ourPanel setCanCreateDirectories:NO];
+    [ourPanel setAllowsMultipleSelection:NO];
+    [ourPanel setAllowedFileTypes:moduleTypes];
+    if ([ourPanel runModal] == NSModalResponseOK)
+    {
+        xmp_context our_context;
+        struct xmp_module_info pModuleInfo;
+        int status;
+        NSURL *moduleURL = [ourPanel URL];
+        
+        our_context = xmp_create_context();
+        status = xmp_load_module(our_context, (char *)[moduleURL.path UTF8String]);
+        if(status != 0)
+        {
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert addButtonWithTitle:@"OK"];
+            [alert setMessageText:@"Cannot load module."];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert beginSheetModalForWindow:ourWindow completionHandler:nil];
+            return;
+        }
+        
+        xmp_get_module_info(our_context, &pModuleInfo);
+        xmp_release_module(our_context);
+        xmp_free_context(our_context);
+        
+        [myModule setFilePath:[ourPanel URL]];
+        [myModule setModuleName:[NSString stringWithFormat:@"%s", pModuleInfo.mod->name]];
+        [myModule setModuleType:[NSString stringWithFormat:@"%s", pModuleInfo.mod->type]];
+        [myModule setModTotalTime:pModuleInfo.seq_data[0].duration];
+        [self addModule:myModule];
+        NSString *notificationName = @"dcT_ReloadPlaylist";
+        [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
     }
     return;
 }

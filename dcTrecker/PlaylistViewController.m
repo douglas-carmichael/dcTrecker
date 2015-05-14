@@ -33,71 +33,14 @@
 
 -(IBAction)addToPlaylist:(id)sender
 {
-    NSOpenPanel *ourPanel = [NSOpenPanel openPanel];
-    NSArray *moduleTypes = [NSArray arrayWithObjects:@"mod", @"s3m", @"xm", @"it", @"669",
-                            @"mdl", @"far", @"mtm", @"med", @"ptm", @"rtm", @"amf", @"gmc",
-                            @"psm", @"j2b", @"psm", @"umx", @"amd", @"rad", @"hsc", @"dtm",
-                            @"flx", @"okt", nil];
-    
-    Module *ourModule = [[Module alloc] init];
-    
-    [ourPanel setCanChooseDirectories:NO];
-    [ourPanel setCanChooseFiles:YES];
-    [ourPanel setCanCreateDirectories:NO];
-    [ourPanel setAllowsMultipleSelection:NO];
-    [ourPanel setAllowedFileTypes:moduleTypes];
-    if ([ourPanel runModal] == NSModalResponseOK)
-    {
-        xmp_context our_context;
-        struct xmp_module_info pModuleInfo;
-        int status;
-        NSURL *moduleURL = [ourPanel URL];
-        
-        our_context = xmp_create_context();
-        status = xmp_load_module(our_context, (char *)[moduleURL.path UTF8String]);
-        if(status != 0)
-        {
-            NSAlert *alert = [[NSAlert alloc] init];
-            [alert addButtonWithTitle:@"OK"];
-            [alert setMessageText:@"Cannot load module."];
-            [alert setAlertStyle:NSWarningAlertStyle];
-            [alert beginSheetModalForWindow:[[self view] window] completionHandler:nil];
-            return;
-        }
-        
-        xmp_get_module_info(our_context, &pModuleInfo);
-        xmp_release_module(our_context);
-        xmp_free_context(our_context);
-        
-        [ourModule setFilePath:[ourPanel URL]];
-        [ourModule setModuleName:[NSString stringWithFormat:@"%s", pModuleInfo.mod->name]];
-        [ourModule setModuleType:[NSString stringWithFormat:@"%s", pModuleInfo.mod->type]];
-        [ourModule setModTotalTime:pModuleInfo.seq_data[0].duration];
-        [ourPlaylist addModule:ourModule];
-        [playlistTable reloadData];
-    }
+    [ourPlaylist addToPlaylistDialog:[[self view] window]];
     return;
 }
 
 -(IBAction)removeFromPlaylist:(id)sender
 {
-    if (currentRow >= 0)
-    {
-        if ([ourPlaylist isEmpty] == NO)
-        {
-            if ([ourPlaylist playlistCount] == currentRow)
-            {
-                [ourPlaylist clearPlaylist];
-                [playlistTable reloadData];
-            }
-            
-            if (currentRow < [ourPlaylist playlistCount])
-            {
-                [ourPlaylist removeModuleAtIndex:currentRow];
-                [playlistTable reloadData];
-            }
-        }
-    }
+    [ourPlaylist removeModuleAtIndex:currentRow];
+    return;
 }
 
 -(IBAction)newPlaylist:(id)sender
