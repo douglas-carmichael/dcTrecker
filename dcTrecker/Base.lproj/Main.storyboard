@@ -60,14 +60,10 @@
                                     <items>
                                         <menuItem title="New Playlist" keyEquivalent="n" id="Was-JA-tGl">
                                             <connections>
-                                                <action selector="newPlaylist:" target="5hg-fU-Ojh" id="GD1-am-Q1D"/>
+                                                <action selector="newPlaylist:" target="Voe-Tx-rLC" id="z2k-gB-ZzQ"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Open Playlist…" keyEquivalent="o" id="IAo-SY-fd9">
-                                            <connections>
-                                                <action selector="openDocument:" target="5hg-fU-Ojh" id="gIq-by-TdZ"/>
-                                            </connections>
-                                        </menuItem>
+                                        <menuItem title="Open Playlist…" keyEquivalent="o" id="IAo-SY-fd9"/>
                                         <menuItem title="Open Recent" id="tXI-mr-wws">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Open Recent" systemMenu="recentDocuments" id="oas-Oc-fiZ">
@@ -87,16 +83,8 @@
                                                 <action selector="performClose:" target="Ady-hI-5gd" id="HmO-Ls-i7Q"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Save Playlist…" keyEquivalent="s" id="pxx-59-PXV">
-                                            <connections>
-                                                <action selector="saveDocument:" target="5hg-fU-Ojh" id="uBK-Hs-Soc"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Save Playlist As…" keyEquivalent="S" id="Bw7-FT-i3A">
-                                            <connections>
-                                                <action selector="saveDocumentAs:" target="5hg-fU-Ojh" id="heG-7V-vpy"/>
-                                            </connections>
-                                        </menuItem>
+                                        <menuItem title="Save Playlist…" keyEquivalent="s" id="pxx-59-PXV"/>
+                                        <menuItem title="Save Playlist As…" keyEquivalent="S" id="Bw7-FT-i3A"/>
                                         <menuItem title="Revert to Saved" id="KaW-ft-85H">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -407,7 +395,6 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <customObject id="5hg-fU-Ojh" customClass="MenuResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
         </scene>
@@ -544,7 +531,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
-                                                <tableColumn identifier="Type" editable="NO" width="257.9140625" minWidth="10" maxWidth="3.4028234663852886e+38" id="Tnk-X3-KUh">
+                                                <tableColumn identifier="Type" editable="NO" width="256.96145079177438" minWidth="10" maxWidth="3.4028234663852886e+38" id="Tnk-X3-KUh">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Type">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -566,7 +553,7 @@
                                     </subviews>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="y1J-vs-BPU">
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.25285082127402347" horizontal="YES" id="y1J-vs-BPU">
                                     <rect key="frame" x="1" y="118.99944514036179" width="238" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>

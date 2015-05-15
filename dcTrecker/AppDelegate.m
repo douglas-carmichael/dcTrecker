@@ -14,12 +14,20 @@
 
 @implementation AppDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    // Insert code here to initialize your application
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
+{
+    ourPlaylist = [PlaylistManager sharedPlaylist];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
+}
+
+-(IBAction)newPlaylist:(id)sender
+{
+    [ourPlaylist clearPlaylist];
+    NSString *notificationName = @"dcT_ReloadPlaylist";
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
 }
 
 @end

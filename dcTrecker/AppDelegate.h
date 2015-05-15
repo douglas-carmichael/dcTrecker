@@ -7,10 +7,16 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "PlaylistManager.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
+{
+    PlaylistManager *ourPlaylist;
+    
+}
 
+-(IBAction)newPlaylist:(id)sender;
 
 @end
 
