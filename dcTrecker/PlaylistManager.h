@@ -14,11 +14,10 @@
 @interface PlaylistManager : NSObject
 {
     NSMutableArray *playlistArray;
-    NSURL *currentPlaylist;
 }
 
 +(id)sharedPlaylist;
--(void)clearPlaylist;
+-(void)clearPlaylist:(BOOL)clearCurrentProperty;
 -(void)savePlaylistDialog:(NSWindow *)ourWindow;
 -(void)loadPlaylistDialog:(NSWindow *)ourWindow;
 -(void)addToPlaylistDialog:(NSWindow *)ourWindow;

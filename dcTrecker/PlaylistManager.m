@@ -32,10 +32,13 @@
     return self;
 }
 
--(void)clearPlaylist
+-(void)clearPlaylist:(BOOL)clearCurrentProperty
 {
     [playlistArray removeAllObjects];
-    _currentPlaylist = nil;
+    if (clearCurrentProperty == YES)
+    {
+        _currentPlaylist = nil;
+    }
 }
 
 -(void)addModule:(Module *)moduleToAdd
@@ -61,7 +64,7 @@
 {
     int ourTime, minutes, seconds;
     
-    // Grab the module path from the row
+    // Grab the module path from the row in the playlist
     Module *myModule = [[Module alloc] init];
     myModule = [playlistArray objectAtIndex:ourRow];
     ourTime = myModule.modTotalTime;
@@ -101,7 +104,7 @@
         {
             if ([self playlistCount] == ourRow)
             {
-                [self clearPlaylist];
+                [self clearPlaylist:YES];
                 NSString *notificationName = @"dcT_ReloadPlaylist";
                 [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
             }
@@ -180,12 +183,38 @@
     
     [playlistArray removeAllObjects];
     
+    // Check to see if we've got all our nodes in the XML document we loaded
+    
     NSArray *moduleNodes = [playlistDoc nodesForXPath:@".//Module" error:nil];
     if ([moduleNodes count] == 0)
     {
         return NO;
     }
     
+    NSArray *titleNodes = [playlistDoc nodesForXPath:@".//modTitle" error:nil];
+    if ([titleNodes count] == 0)
+    {
+        return NO;
+    }
+
+    NSArray *urlNodes = [playlistDoc nodesForXPath:@".//modURL" error:nil];
+    if ([urlNodes count] == 0)
+    {
+        return NO;
+    }
+
+    NSArray *typeNodes = [playlistDoc nodesForXPath:@".//modType" error:nil];
+    if ([typeNodes count] == 0)
+    {
+        return NO;
+    }
+
+    NSArray *timeNodes = [playlistDoc nodesForXPath:@".//modTotalTime" error:nil];
+    if ([timeNodes count] == 0)
+    {
+        return NO;
+    }
+
     for (NSXMLNode *myModule in moduleNodes)
     {
         NSXMLNode *titleNode = [[myModule nodesForXPath:@".//modTitle" error:nil] objectAtIndex:0];
@@ -204,13 +233,28 @@
         Module *playlistModule = [[Module alloc] init];
         [playlistModule setModuleName:titleString];
         [playlistModule setModuleType:typeString];
-        [playlistModule setFilePath:[NSURL URLWithString:urlString]];
         
-        NSInteger totalTime = [timeString integerValue];
-        [playlistModule setModTotalTime:(int)totalTime];
+        // Grab the NSURL from the URL string, and check to see if it is vald.
+        NSURL *moduleURL = [NSURL URLWithString:urlString];
+        if (moduleURL == nil)
+        {
+            // Return NO because this URL is invalid.
+            return NO;
+        }
+        [playlistModule setFilePath:moduleURL];
         
-        [playlistArray addObject:playlistModule];
-        
+        // Check to see if the time is a valid integer
+        BOOL timeIsValid = [[NSScanner scannerWithString:timeString] scanInt:nil];
+        if (timeIsValid)
+        {
+            NSInteger totalTime = [timeString integerValue];
+            [playlistModule setModTotalTime:(int)totalTime];
+            [playlistArray addObject:playlistModule];
+        }
+        else
+        {
+            return NO;
+        }
     }
     _currentPlaylist = myPlaylist;
     
@@ -229,6 +273,7 @@
     if ([ourPanel runModal] == NSModalResponseOK)
     {
         BOOL loadSuccess;
+        [self clearPlaylist:YES];
         loadSuccess = [self loadPlaylist:[ourPanel URL]];
         if (loadSuccess == NO)
         {
@@ -240,6 +285,9 @@
             return;
         }
         [[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:[ourPanel URL]];
+        
+        NSString *notificationName = @"dcT_ReloadPlaylist";
+        [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
     }
     
     return;

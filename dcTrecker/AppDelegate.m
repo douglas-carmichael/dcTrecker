@@ -25,7 +25,7 @@
 
 -(IBAction)newPlaylist:(id)sender
 {
-    [ourPlaylist clearPlaylist];
+    [ourPlaylist clearPlaylist:YES];
     NSString *notificationName = @"dcT_ReloadPlaylist";
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
 }
@@ -56,7 +56,7 @@
 
 -(BOOL)application:(NSApplication *)sender openFile:(NSString *)filename
 {
-    [ourPlaylist clearPlaylist];
+    [ourPlaylist clearPlaylist:YES];
     BOOL loadSuccess = [ourPlaylist loadPlaylist:[NSURL fileURLWithPath:filename]];
     if (loadSuccess == NO)
     {

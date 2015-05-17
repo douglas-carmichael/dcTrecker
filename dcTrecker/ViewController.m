@@ -39,7 +39,10 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveAsPlaylistMenu:)
                                                  name:@"dcT_saveAsPlaylistMenu" object:nil];
-    
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(revertToSavedMenu:)
+                                                 name:@"dcT_revertToSavedMenu" object:nil];
+
 }
 
 - (void)setRepresentedObject:(id)representedObject {
@@ -122,13 +125,13 @@
 
 -(void)savePlaylistMenu:(NSNotification *)ourNotification
 {
-    if (ourPlaylist.currentPlaylist != nil)
+    if ([ourPlaylist currentPlaylist] != nil)
     {
-        BOOL saveSuccess = [ourPlaylist savePlaylist:ourPlaylist.currentPlaylist];
+        BOOL saveSuccess = [ourPlaylist savePlaylist:[ourPlaylist currentPlaylist]];
         if (saveSuccess == NO)
         {
             NSAlert *cannotSaveAlert = [[NSAlert alloc] init];
-            NSString *playlistPath = [[ourPlaylist.currentPlaylist path] lastPathComponent];
+            NSString *playlistPath = [[[ourPlaylist currentPlaylist] path] lastPathComponent];
             [cannotSaveAlert addButtonWithTitle:@"OK"];
             [cannotSaveAlert setMessageText:@"Error"];
             [cannotSaveAlert setInformativeText:[NSString
@@ -142,6 +145,29 @@
 -(void)saveAsPlaylistMenu:(NSNotification *)ourNotification
 {
     [ourPlaylist savePlaylistDialog:[[self view] window]];
+    return;
+}
+
+-(void)revertToSavedMenu:(NSNotification *)ourNotification
+{
+    if ([ourPlaylist currentPlaylist] == nil)
+    {
+        return;
+    }
+
+
+    BOOL playlistExists = [[NSFileManager defaultManager] fileExistsAtPath:[[ourPlaylist currentPlaylist] path]];
+    if (playlistExists)
+    {
+        [ourPlaylist clearPlaylist:NO];
+        BOOL loadSuccess = [ourPlaylist loadPlaylist:[ourPlaylist currentPlaylist]];
+        if (loadSuccess == YES)
+        {
+            NSString *notificationName = @"dcT_ReloadPlaylist";
+            [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
+            return;
+        }
+    }
     return;
 }
 

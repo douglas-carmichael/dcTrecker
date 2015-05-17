@@ -31,6 +31,11 @@
     [playlistTable reloadData];
 }
 
+-(void)clearTable
+{
+    [ourPlaylist clearPlaylist:YES];
+}
+
 -(IBAction)addToPlaylist:(id)sender
 {
     [ourPlaylist addToPlaylistDialog:[[self view] window]];
@@ -49,7 +54,7 @@
 
 -(IBAction)newPlaylist:(id)sender
 {
-    [ourPlaylist clearPlaylist];
+    [ourPlaylist clearPlaylist:YES];
     NSString *notificationName = @"dcT_ReloadPlaylist";
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
     
