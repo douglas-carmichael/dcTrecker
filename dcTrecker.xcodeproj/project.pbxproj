@@ -20,8 +20,8 @@
 		A387211F1AD2FFA200A01234 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A387211E1AD2FFA200A01234 /* Images.xcassets */; };
 		A38721221AD2FFA200A01234 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A38721201AD2FFA200A01234 /* Main.storyboard */; };
 		A387212E1AD2FFA200A01234 /* dcTreckerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A387212D1AD2FFA200A01234 /* dcTreckerTests.m */; };
+		A3A97A551B0890E600EEDB19 /* PlaybackOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = A3A97A541B0890E600EEDB19 /* PlaybackOperation.m */; };
 		A3CD4D2F1ADBBF650005F9E3 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3CD4D2E1ADBBF650005F9E3 /* PlaylistViewController.m */; };
-		A3DDEE091AEDEA5F0014530E /* PlaybackOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DDEE081AEDEA5F0014530E /* PlaybackOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,10 +63,10 @@
 		A38721271AD2FFA200A01234 /* dcTreckerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dcTreckerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A387212C1AD2FFA200A01234 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A387212D1AD2FFA200A01234 /* dcTreckerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = dcTreckerTests.m; sourceTree = "<group>"; };
+		A3A97A531B0890E600EEDB19 /* PlaybackOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaybackOperation.h; sourceTree = "<group>"; };
+		A3A97A541B0890E600EEDB19 /* PlaybackOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaybackOperation.m; sourceTree = "<group>"; };
 		A3CD4D2D1ADBBF650005F9E3 /* PlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistViewController.h; sourceTree = "<group>"; };
 		A3CD4D2E1ADBBF650005F9E3 /* PlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistViewController.m; sourceTree = "<group>"; };
-		A3DDEE071AEDEA5F0014530E /* PlaybackOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaybackOperation.h; path = ../PlaybackOperation.h; sourceTree = "<group>"; };
-		A3DDEE081AEDEA5F0014530E /* PlaybackOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaybackOperation.m; path = ../PlaybackOperation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,10 +164,10 @@
 				A32499601AF35B6800E7065A /* TimeScrubberSlider.m */,
 				A308C62E1ADC5485004FD271 /* PlaylistManager.h */,
 				A308C62F1ADC5485004FD271 /* PlaylistManager.m */,
-				A3DDEE071AEDEA5F0014530E /* PlaybackOperation.h */,
-				A3DDEE081AEDEA5F0014530E /* PlaybackOperation.m */,
 				A3CD4D2D1ADBBF650005F9E3 /* PlaylistViewController.h */,
 				A3CD4D2E1ADBBF650005F9E3 /* PlaylistViewController.m */,
+				A3A97A531B0890E600EEDB19 /* PlaybackOperation.h */,
+				A3A97A541B0890E600EEDB19 /* PlaybackOperation.m */,
 				A387211E1AD2FFA200A01234 /* Images.xcassets */,
 				A38721201AD2FFA200A01234 /* Main.storyboard */,
 				A38721141AD2FFA200A01234 /* Supporting Files */,
@@ -316,7 +316,7 @@
 				A36AB1C41AD8D1DF000BA9AB /* Module.m in Sources */,
 				A36AB1BD1AD8D1B6000BA9AB /* TPCircularBuffer.c in Sources */,
 				A38721181AD2FFA200A01234 /* AppDelegate.m in Sources */,
-				A3DDEE091AEDEA5F0014530E /* PlaybackOperation.m in Sources */,
+				A3A97A551B0890E600EEDB19 /* PlaybackOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
