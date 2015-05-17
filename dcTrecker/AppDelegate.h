@@ -13,10 +13,13 @@
 
 {
     PlaylistManager *ourPlaylist;
-    
 }
 
 -(IBAction)newPlaylist:(id)sender;
+-(IBAction)openPlaylist:(id)sender;
+-(IBAction)savePlaylist:(id)sender;
+-(IBAction)saveAsPlaylist:(id)sender;
+-(IBAction)revertToSaved:(id)sender;
 
 @end
 

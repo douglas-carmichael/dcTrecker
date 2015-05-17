@@ -39,7 +39,11 @@
 
 -(IBAction)removeFromPlaylist:(id)sender
 {
-    [ourPlaylist removeModuleAtIndex:currentRow];
+    currentRow = playlistTable.selectedRow;
+    if (currentRow >= 0)
+    {
+        [ourPlaylist removeModuleAtIndex:currentRow];
+    }
     return;
 }
 

@@ -10,6 +10,8 @@
 
 @implementation PlaylistManager
 
+@synthesize currentPlaylist = _currentPlaylist;
+
 +(id)sharedPlaylist
 {
     static PlaylistManager *sharedPlaylist = nil;
@@ -25,7 +27,7 @@
     self = [super init];
     if (self) {
         playlistArray = [[NSMutableArray alloc] init];
-        ourModule = [[Module alloc] init];
+        _currentPlaylist = nil;
     }
     return self;
 }
@@ -33,6 +35,7 @@
 -(void)clearPlaylist
 {
     [playlistArray removeAllObjects];
+    _currentPlaylist = nil;
 }
 
 -(void)addModule:(Module *)moduleToAdd
@@ -145,6 +148,8 @@
     {
         return NO;
     }
+    _currentPlaylist = myPlaylist;
+    
     return YES;
 }
 
@@ -207,6 +212,8 @@
         [playlistArray addObject:playlistModule];
         
     }
+    _currentPlaylist = myPlaylist;
+    
     return YES;
 }
 

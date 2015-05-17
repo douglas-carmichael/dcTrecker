@@ -30,4 +30,28 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
 }
 
+-(IBAction)openPlaylist:(id)sender
+{
+    NSString *notificationName = @"dcT_openPlaylistMenu";
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
+}
+
+-(IBAction)savePlaylist:(id)sender
+{
+    NSString *notificationName = @"dcT_savePlaylistMenu";
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
+}
+
+-(IBAction)saveAsPlaylist:(id)sender
+{
+    NSString *notificationName = @"dcT_saveAsPlaylistMenu";
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
+}
+
+-(IBAction)revertToSaved:(id)sender
+{
+    NSString *notificationName = @"dcT_revertToSavedMenu";
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
+}
+
 @end

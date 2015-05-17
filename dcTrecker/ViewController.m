@@ -29,7 +29,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cannotLoadModule:)
                                                  name:@"dcT_cannotLoadMod" object:nil];
     
+    // Set up some notifications for the File menu options we need
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openPlaylistMenu:)
+                                                 name:@"dcT_openPlaylistMenu" object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(savePlaylistMenu:)
+                                                 name:@"dcT_savePlaylistMenu" object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveAsPlaylistMenu:)
+                                                 name:@"dcT_saveAsPlaylistMenu" object:nil];
+
 }
 
 - (void)setRepresentedObject:(id)representedObject {
@@ -90,6 +100,37 @@
         default:
             break;
     }
+}
+
+-(void)openPlaylistMenu:(NSNotification *)ourNotification
+{
+    [ourPlaylist loadPlaylistDialog:[[self view] window]];
+    return;
+}
+
+-(void)savePlaylistMenu:(NSNotification *)ourNotification
+{
+    if (ourPlaylist.currentPlaylist != nil)
+    {
+        BOOL saveSuccess = [ourPlaylist savePlaylist:ourPlaylist.currentPlaylist];
+        if (saveSuccess == NO)
+        {
+            NSAlert *cannotSaveAlert = [[NSAlert alloc] init];
+            NSString *playlistPath = [[ourPlaylist.currentPlaylist path] lastPathComponent];
+            [cannotSaveAlert addButtonWithTitle:@"OK"];
+            [cannotSaveAlert setMessageText:@"Error"];
+            [cannotSaveAlert setInformativeText:[NSString
+                                                 stringWithFormat:@"Cannot save playlist: %@", playlistPath]];
+            [cannotSaveAlert setAlertStyle:NSWarningAlertStyle];
+        }
+    }
+    return;
+}
+
+-(void)saveAsPlaylistMenu:(NSNotification *)ourNotification
+{
+    [ourPlaylist savePlaylistDialog:[[self view] window]];
+    return;
 }
 
 -(void)playFromPlaylist:(NSNotification *)ourNotification

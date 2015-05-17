@@ -14,7 +14,7 @@
 @interface PlaylistManager : NSObject
 {
     NSMutableArray *playlistArray;
-    Module *ourModule;
+    NSURL *currentPlaylist;
 }
 
 +(id)sharedPlaylist;
@@ -30,5 +30,7 @@
 -(NSString *)getModuleLength:(NSInteger)ourRow;
 -(NSInteger)playlistCount;
 -(BOOL)isEmpty;
+
+@property (readonly) NSURL *currentPlaylist;
 
 @end

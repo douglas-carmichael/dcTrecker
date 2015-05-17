@@ -24,9 +24,12 @@
 }
 
 -(IBAction)volumeSet:(id)sender;
--(void)playFromPlaylist:(NSNotification *)ourNotification;
--(void)setModuleField:(NSNotification *)ourNotification;
 -(void)resetView;
+-(void)playFromPlaylist:(NSNotification *)ourNotification;
+-(void)openPlaylistMenu:(NSNotification *)ourNotification;
+-(void)savePlaylistMenu:(NSNotification *)ourNotification;
+-(void)saveAsPlaylistMenu:(NSNotification *)ourNotification;
+-(void)setModuleField:(NSNotification *)ourNotification;
 -(void)setModPosition:(int)ourValue;
 -(void)playModule:(Module *)playModule;
 
