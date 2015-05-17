@@ -239,7 +239,9 @@
             [alert beginSheetModalForWindow:ourWindow completionHandler:nil];
             return;
         }
+        [[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:[ourPanel URL]];
     }
+    
     return;
 }
 

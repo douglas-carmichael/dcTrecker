@@ -54,4 +54,15 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
 }
 
+-(BOOL)application:(NSApplication *)sender openFile:(NSString *)filename
+{
+    [ourPlaylist clearPlaylist];
+    BOOL loadSuccess = [ourPlaylist loadPlaylist:[NSURL fileURLWithPath:filename]];
+    if (loadSuccess == NO)
+    {
+        return NO;
+    }
+    return YES;
+};
+
 @end

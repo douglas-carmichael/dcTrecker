@@ -33,13 +33,13 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openPlaylistMenu:)
                                                  name:@"dcT_openPlaylistMenu" object:nil];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(savePlaylistMenu:)
                                                  name:@"dcT_savePlaylistMenu" object:nil];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveAsPlaylistMenu:)
                                                  name:@"dcT_saveAsPlaylistMenu" object:nil];
-
+    
 }
 
 - (void)setRepresentedObject:(id)representedObject {
@@ -52,21 +52,27 @@
     
     switch ([sender tag]) {
         case 0:
-            if (currentModule == 0)
+            if ([ourPlayer isPlaying])
             {
-                break;
-            }
-            
-            if ((currentModule - 1) <= ([ourPlaylist playlistCount] - 1))
-            {
-                currentModule--;
-                [ourQueue cancelAllOperations];
-                ourModule = [ourPlaylist getModuleAtIndex:currentModule];
-                [self playModule:ourModule];
-                break;
+                if (currentModule == 0)
+                {
+                    break;
+                }
+                
+                if ((currentModule - 1) <= ([ourPlaylist playlistCount] - 1))
+                {
+                    currentModule--;
+                    [ourQueue cancelAllOperations];
+                    ourModule = [ourPlaylist getModuleAtIndex:currentModule];
+                    [self playModule:ourModule];
+                    break;
+                }
             }
         case 1:
-            [ourPlayer prevPlayPosition];
+            if ([ourPlayer isPlaying])
+            {
+                [ourPlayer prevPlayPosition];
+            }
             break;
         case 2:
             if ([ourPlayer isPlaying])
@@ -86,16 +92,22 @@
             [self playModule:ourModule];
             break;
         case 3:
-            [ourPlayer nextPlayPosition];
+            if ([ourPlayer isPlaying])
+            {
+                [ourPlayer nextPlayPosition];
+            }
             break;
         case 4:
-            if ((currentModule + 1) <= ([ourPlaylist playlistCount] - 1))
+            if ([ourPlayer isPlaying])
             {
-                currentModule++;
-                [ourQueue cancelAllOperations];
-                ourModule = [ourPlaylist getModuleAtIndex:currentModule];
-                [self playModule:ourModule];
-                break;
+                if ((currentModule + 1) <= ([ourPlaylist playlistCount] - 1))
+                {
+                    currentModule++;
+                    [ourQueue cancelAllOperations];
+                    ourModule = [ourPlaylist getModuleAtIndex:currentModule];
+                    [self playModule:ourModule];
+                    break;
+                }
             }
         default:
             break;
