@@ -73,6 +73,31 @@
     return;
 }
 
+-(NSString *)newPlaylistToolTip
+{
+    return @"Create new playlist.";
+}
+
+-(NSString *)openPlaylistToolTip
+{
+    return @"Open a saved playlist.";
+}
+
+-(NSString *)savePlaylistToolTip
+{
+    return @"Save a playlist to disk.";
+}
+
+-(NSString *)addModuleToolTip
+{
+    return @"Add module to playlist.";
+}
+
+-(NSString *)removeModuleToolTip
+{
+    return @"Remove selected module from playlist.";
+}
+
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
     return [ourPlaylist playlistCount];
