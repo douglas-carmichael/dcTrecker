@@ -43,6 +43,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(revertToSavedMenu:)
                                                  name:@"dcT_revertToSavedMenu" object:nil];
     
+    
+    // Set up some notifications for our Playlist menu options
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addModuleMenu:)
                                                  name:@"dcT_addModuleMenu" object:nil];
 
@@ -123,7 +126,9 @@
 
 -(void)openPlaylistMenu:(NSNotification *)ourNotification
 {
-    [ourPlaylist loadPlaylistDialog:[[self view] window]];
+    [self performSegueWithIdentifier:@"playlistSegue" sender:self];
+    NSString *notificationName = @"dcT_loadPlaylist";
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
     return;
 }
 
@@ -156,7 +161,9 @@
 
 -(void)saveAsPlaylistMenu:(NSNotification *)ourNotification
 {
-    [ourPlaylist savePlaylistDialog:[[self view] window]];
+    [self performSegueWithIdentifier:@"playlistSegue" sender:self];
+    NSString *notificationName = @"dcT_savePlaylist";
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
     return;
 }
 

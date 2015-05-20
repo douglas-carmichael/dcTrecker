@@ -18,9 +18,6 @@
 
 +(id)sharedPlaylist;
 -(void)clearPlaylist:(BOOL)clearCurrentProperty;
--(void)savePlaylistDialog:(NSWindow *)ourWindow;
--(void)loadPlaylistDialog:(NSWindow *)ourWindow;
--(void)addToPlaylistDialog:(NSWindow *)ourWindow;
 -(BOOL)savePlaylist:(NSURL *)myPlaylist;
 -(BOOL)loadPlaylist:(NSURL *)myPlaylist;
 -(void)addModule:(Module *)moduleToAdd;

@@ -20,6 +20,11 @@
     ourPlaylist = [PlaylistManager sharedPlaylist];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable) name:@"dcT_reloadPlaylist" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addToPlaylist:) name:@"dcT_addPlaylist" object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadPlaylistButton:)
+                                                name:@"dcT_loadPlaylist" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(savePlaylistButton:)
+                                                 name:@"dcT_savePlaylist" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeFromPlaylist:)
                                                  name:@"dcT_removePlaylist" object:nil];
     
@@ -42,7 +47,49 @@
 
 -(IBAction)addToPlaylist:(id)sender
 {
-    [ourPlaylist addToPlaylistDialog:[[self view] window]];
+    NSOpenPanel *ourPanel = [NSOpenPanel openPanel];
+    NSArray *moduleTypes = [NSArray arrayWithObjects:@"mod", @"s3m", @"xm", @"it", @"669",
+                            @"mdl", @"far", @"mtm", @"med", @"ptm", @"rtm", @"amf", @"gmc",
+                            @"psm", @"j2b", @"psm", @"umx", @"amd", @"rad", @"hsc", @"dtm",
+                            @"flx", @"okt", nil];
+    
+    Module *myModule = [[Module alloc] init];
+    
+    [ourPanel setCanChooseDirectories:NO];
+    [ourPanel setCanChooseFiles:YES];
+    [ourPanel setCanCreateDirectories:NO];
+    [ourPanel setAllowsMultipleSelection:NO];
+    [ourPanel setAllowedFileTypes:moduleTypes];
+    if ([ourPanel runModal] == NSModalResponseOK)
+    {
+        xmp_context our_context;
+        struct xmp_module_info pModuleInfo;
+        int status;
+        NSURL *moduleURL = [ourPanel URL];
+        
+        our_context = xmp_create_context();
+        status = xmp_load_module(our_context, (char *)[moduleURL.path UTF8String]);
+        if(status != 0)
+        {
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert addButtonWithTitle:@"OK"];
+            [alert setMessageText:@"Cannot load module."];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert beginSheetModalForWindow:[[self view] window] completionHandler:nil];
+            return;
+        }
+        
+        xmp_get_module_info(our_context, &pModuleInfo);
+        xmp_release_module(our_context);
+        xmp_free_context(our_context);
+        
+        [myModule setFilePath:[ourPanel URL]];
+        [myModule setModuleName:[NSString stringWithFormat:@"%s", pModuleInfo.mod->name]];
+        [myModule setModuleType:[NSString stringWithFormat:@"%s", pModuleInfo.mod->type]];
+        [myModule setModTotalTime:pModuleInfo.seq_data[0].duration];
+        [ourPlaylist addModule:myModule];
+        [self reloadTable];
+    }
     return;
 }
 
@@ -66,14 +113,55 @@
 
 -(IBAction)savePlaylistButton:(id)sender
 {
-    [ourPlaylist savePlaylistDialog:[[self view] window]];
+    NSSavePanel *ourPanel = [NSSavePanel savePanel];
+    
+    [ourPanel setCanCreateDirectories:YES];
+    [ourPanel setAllowedFileTypes:[NSArray arrayWithObject:@"xml"]];
+    [ourPanel setCanHide:YES];
+    
+    if ([ourPanel runModal] == NSModalResponseOK)
+    {
+        BOOL saveSuccess;
+        saveSuccess = [ourPlaylist savePlaylist:[ourPanel URL]];
+        if(saveSuccess == NO)
+        {
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert addButtonWithTitle:@"OK"];
+            [alert setMessageText:@"Cannot save playlist."];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert beginSheetModalForWindow:[[self view] window] completionHandler:nil];
+            return;
+        }
+    }
     return;
 }
 
 -(IBAction)loadPlaylistButton:(id)sender
 {
-    [ourPlaylist loadPlaylistDialog:[[self view] window]];
-    [playlistTable reloadData];
+    NSOpenPanel *ourPanel = [NSOpenPanel openPanel];
+    [ourPanel setCanChooseDirectories:NO];
+    [ourPanel setCanChooseFiles:YES];
+    [ourPanel setCanCreateDirectories:NO];
+    [ourPanel setAllowsMultipleSelection:NO];
+    [ourPanel setAllowedFileTypes:[NSArray arrayWithObjects:@"xml", nil]];
+    
+    if ([ourPanel runModal] == NSModalResponseOK)
+    {
+        BOOL loadSuccess;
+        [ourPlaylist clearPlaylist:YES];
+        loadSuccess = [ourPlaylist loadPlaylist:[ourPanel URL]];
+        if (loadSuccess == NO)
+        {
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert addButtonWithTitle:@"OK"];
+            [alert setMessageText:@"Cannot load playlist."];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert beginSheetModalForWindow:[[self view] window] completionHandler:nil];
+            return;
+        }
+        [[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:[ourPanel URL]];
+        [self reloadTable];
+    }
     return;
 }
 
