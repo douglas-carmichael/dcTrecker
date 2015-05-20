@@ -26,7 +26,7 @@
 -(IBAction)newPlaylist:(id)sender
 {
     [ourPlaylist clearPlaylist:YES];
-    NSString *notificationName = @"dcT_ReloadPlaylist";
+    NSString *notificationName = @"dcT_reloadPlaylist";
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
 }
 
@@ -51,6 +51,18 @@
 -(IBAction)revertToSaved:(id)sender
 {
     NSString *notificationName = @"dcT_revertToSavedMenu";
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
+}
+
+-(IBAction)addModule:(id)sender
+{
+    NSString *notificationName = @"dcT_addModuleMenu";
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
+}
+
+-(IBAction)removeModule:(id)sender
+{
+    NSString *notificationName = @"dcT_removePlaylist";
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
 }
 

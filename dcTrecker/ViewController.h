@@ -30,6 +30,7 @@
 -(void)savePlaylistMenu:(NSNotification *)ourNotification;
 -(void)saveAsPlaylistMenu:(NSNotification *)ourNotification;
 -(void)revertToSavedMenu:(NSNotification *)ourNotification;
+-(void)addModuleMenu:(NSNotification *)ourNotification;
 -(void)setModuleField:(NSNotification *)ourNotification;
 -(void)setModPosition:(int)ourValue;
 -(void)playModule:(Module *)playModule;

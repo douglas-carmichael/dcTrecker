@@ -106,26 +106,39 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="View" id="H8h-7b-M4v">
+                            <menuItem title="Playlist" id="H8h-7b-M4v">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="View" id="HyV-fh-RgO">
+                                <menu key="submenu" title="Playlist" id="HyV-fh-RgO">
                                     <items>
-                                        <menuItem title="Show Toolbar" keyEquivalent="t" id="snW-S8-Cw5">
+                                        <menuItem title="Add Module..." keyEquivalent="m" id="ooh-bu-xZ0">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
-                                                <action selector="toggleToolbarShown:" target="Ady-hI-5gd" id="BXY-wc-z0C"/>
+                                                <action selector="addModule:" target="Voe-Tx-rLC" id="6ni-Hd-Mhf"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Customize Toolbar…" id="1UK-8n-QPP">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menuItem title="Remove Selected Module" keyEquivalent="r" id="cxT-LX-2TF">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
-                                                <action selector="runToolbarCustomizationPalette:" target="Ady-hI-5gd" id="pQI-g3-MTW"/>
+                                                <action selector="removeModule:" target="Voe-Tx-rLC" id="62E-2m-wJ5"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Show Playlist" id="cca-jQ-g6U">
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="View" id="dR9-jh-huj">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="View" id="UgL-p2-RRi">
+                                    <items>
+                                        <menuItem title="Show Toolbar" keyEquivalent="t" id="ZXM-cP-PQP">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                        </menuItem>
+                                        <menuItem title="Customize Toolbar…" id="rcf-nL-AcR">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Show Playlist" id="1P2-Kr-JoO">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <segue destination="IV9-ci-E66" kind="show" id="Gfc-wc-ZiJ"/>
+                                                <segue destination="IV9-ci-E66" kind="show" identifier="" id="qNI-Vx-UlH"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -580,11 +593,12 @@
                         <outlet property="moduleTime" destination="rDf-AM-kqz" id="vA3-Uv-cM8"/>
                         <outlet property="musicSlider" destination="FMn-oW-uB7" id="UGX-SB-BAG"/>
                         <outlet property="playButton" destination="aIL-vk-fS2" id="Go6-DK-m7c"/>
+                        <segue destination="IV9-ci-E66" kind="show" identifier="playlistSegue" id="dlc-ip-Deq"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="632"/>
+            <point key="canvasLocation" x="74" y="626"/>
         </scene>
     </scenes>
     <resources>
@@ -600,4 +614,7 @@
         <image name="save_playlist" width="30" height="30"/>
         <image name="stop" width="81" height="81"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="qNI-Vx-UlH"/>
+    </inferredMetricsTieBreakers>
 </document>

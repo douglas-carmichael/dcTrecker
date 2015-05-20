@@ -105,14 +105,14 @@
             if ([self playlistCount] == ourRow)
             {
                 [self clearPlaylist:YES];
-                NSString *notificationName = @"dcT_ReloadPlaylist";
+                NSString *notificationName = @"dcT_reloadPlaylist";
                 [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
             }
             
             if (ourRow < [self playlistCount])
             {
                 [playlistArray removeObjectAtIndex:ourRow];
-                NSString *notificationName = @"dcT_ReloadPlaylist";
+                NSString *notificationName = @"dcT_reloadPlaylist";
                 [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
             }
         }
@@ -286,7 +286,7 @@
         }
         [[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:[ourPanel URL]];
         
-        NSString *notificationName = @"dcT_ReloadPlaylist";
+        NSString *notificationName = @"dcT_reloadPlaylist";
         [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
     }
     
@@ -360,7 +360,7 @@
         [myModule setModuleType:[NSString stringWithFormat:@"%s", pModuleInfo.mod->type]];
         [myModule setModTotalTime:pModuleInfo.seq_data[0].duration];
         [self addModule:myModule];
-        NSString *notificationName = @"dcT_ReloadPlaylist";
+        NSString *notificationName = @"dcT_reloadPlaylist";
         [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
     }
     return;

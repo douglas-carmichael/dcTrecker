@@ -42,6 +42,10 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(revertToSavedMenu:)
                                                  name:@"dcT_revertToSavedMenu" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addModuleMenu:)
+                                                 name:@"dcT_addModuleMenu" object:nil];
+
 
 }
 
@@ -142,6 +146,14 @@
     return;
 }
 
+-(void)addModuleMenu:(NSNotification *)ourNotification
+{
+    [self performSegueWithIdentifier:@"playlistSegue" sender:self];
+    NSString *notificationName = @"dcT_addPlaylist";
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
+    return;
+}
+
 -(void)saveAsPlaylistMenu:(NSNotification *)ourNotification
 {
     [ourPlaylist savePlaylistDialog:[[self view] window]];
@@ -163,7 +175,7 @@
         BOOL loadSuccess = [ourPlaylist loadPlaylist:[ourPlaylist currentPlaylist]];
         if (loadSuccess == YES)
         {
-            NSString *notificationName = @"dcT_ReloadPlaylist";
+            NSString *notificationName = @"dcT_reloadPlaylist";
             [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
             return;
         }
