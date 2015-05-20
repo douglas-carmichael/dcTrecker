@@ -68,7 +68,18 @@
 
 -(BOOL)application:(NSApplication *)sender openFile:(NSString *)filename
 {
-    NSLog(@"filename: %@", filename);
+    if ([[filename pathExtension] isEqual: @"xml"])
+    {
+        [ourPlaylist clearPlaylist:YES];
+        BOOL loadSuccess = [ourPlaylist loadPlaylist:[NSURL fileURLWithPath:filename]];
+        if (loadSuccess == NO)
+        {
+            return NO;
+        }
+        return YES;
+    }
+    
+    // If this isn't an XML playlist, treat it as a module
     Module *droppedModule = [[Module alloc] init];
     [droppedModule setFilePath:[NSURL fileURLWithPath:filename]];
     BOOL addSuccess = [ourPlaylist addModule:droppedModule];
@@ -78,13 +89,6 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
         return YES;
     }
-//    [ourPlaylist clearPlaylist:YES];
-//    BOOL loadSuccess = [ourPlaylist loadPlaylist:[NSURL fileURLWithPath:filename]];
-//    if (loadSuccess == NO)
-//    {
-//        return NO;
-//    }
-//    return YES;
     return NO;
 };
 
