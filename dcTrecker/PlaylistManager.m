@@ -299,7 +299,9 @@
     NSSavePanel *ourPanel = [NSSavePanel savePanel];
     
     [ourPanel setCanCreateDirectories:YES];
+    [ourPanel setAllowedFileTypes:[NSArray arrayWithObject:@"xml"]];
     [ourPanel setCanHide:YES];
+    
     if ([ourPanel runModal] == NSModalResponseOK)
     {
         BOOL saveSuccess;
