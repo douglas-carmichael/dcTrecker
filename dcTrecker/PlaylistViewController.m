@@ -144,7 +144,7 @@
             [alert beginSheetModalForWindow:[[self view] window] completionHandler:nil];
             return;
         }
-//        [[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:[ourPanel URL]];
+        [[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:[ourPanel URL]];
         [self reloadTable];
     }
     return;

@@ -276,7 +276,6 @@
         }
     }
     _currentPlaylist = myPlaylist;
-    
     return YES;
 }
 
