@@ -41,9 +41,28 @@
     }
 }
 
--(void)addModule:(Module *)moduleToAdd
+-(BOOL)addModule:(Module *)moduleToAdd
 {
+    xmp_context our_context;
+    struct xmp_module_info pModuleInfo;
+    int status;
+
+    our_context = xmp_create_context();
+    status = xmp_load_module(our_context, (char *)[[moduleToAdd.filePath path] UTF8String]);
+    if(status != 0)
+    {
+        return NO;
+    }
+    
+    xmp_get_module_info(our_context, &pModuleInfo);
+    xmp_release_module(our_context);
+    xmp_free_context(our_context);
+    
+    [moduleToAdd setModuleName:[NSString stringWithFormat:@"%s", pModuleInfo.mod->name]];
+    [moduleToAdd setModuleType:[NSString stringWithFormat:@"%s", pModuleInfo.mod->type]];
+    [moduleToAdd setModTotalTime:pModuleInfo.seq_data[0].duration];
     [playlistArray addObject:moduleToAdd];
+    return YES;
 }
 
 -(Module *)getModuleAtIndex:(NSInteger)ourRow

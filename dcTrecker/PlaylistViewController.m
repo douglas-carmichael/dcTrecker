@@ -62,14 +62,9 @@
     [ourPanel setAllowedFileTypes:moduleTypes];
     if ([ourPanel runModal] == NSModalResponseOK)
     {
-        xmp_context our_context;
-        struct xmp_module_info pModuleInfo;
-        int status;
-        NSURL *moduleURL = [ourPanel URL];
-        
-        our_context = xmp_create_context();
-        status = xmp_load_module(our_context, (char *)[moduleURL.path UTF8String]);
-        if(status != 0)
+        [myModule setFilePath:[ourPanel URL]];
+        BOOL addSuccess = [ourPlaylist addModule:myModule];
+        if(addSuccess == NO)
         {
             NSAlert *alert = [[NSAlert alloc] init];
             [alert addButtonWithTitle:@"OK"];
@@ -78,16 +73,6 @@
             [alert beginSheetModalForWindow:[[self view] window] completionHandler:nil];
             return;
         }
-        
-        xmp_get_module_info(our_context, &pModuleInfo);
-        xmp_release_module(our_context);
-        xmp_free_context(our_context);
-        
-        [myModule setFilePath:[ourPanel URL]];
-        [myModule setModuleName:[NSString stringWithFormat:@"%s", pModuleInfo.mod->name]];
-        [myModule setModuleType:[NSString stringWithFormat:@"%s", pModuleInfo.mod->type]];
-        [myModule setModTotalTime:pModuleInfo.seq_data[0].duration];
-        [ourPlaylist addModule:myModule];
         [self reloadTable];
     }
     return;
@@ -159,7 +144,7 @@
             [alert beginSheetModalForWindow:[[self view] window] completionHandler:nil];
             return;
         }
-        [[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:[ourPanel URL]];
+//        [[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:[ourPanel URL]];
         [self reloadTable];
     }
     return;

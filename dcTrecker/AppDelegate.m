@@ -68,13 +68,24 @@
 
 -(BOOL)application:(NSApplication *)sender openFile:(NSString *)filename
 {
-    [ourPlaylist clearPlaylist:YES];
-    BOOL loadSuccess = [ourPlaylist loadPlaylist:[NSURL fileURLWithPath:filename]];
-    if (loadSuccess == NO)
+    NSLog(@"filename: %@", filename);
+    Module *droppedModule = [[Module alloc] init];
+    [droppedModule setFilePath:[NSURL fileURLWithPath:filename]];
+    BOOL addSuccess = [ourPlaylist addModule:droppedModule];
+    if (addSuccess == YES)
     {
-        return NO;
+        NSString *notificationName = @"dcT_reloadPlaylist";
+        [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
+        return YES;
     }
-    return YES;
+//    [ourPlaylist clearPlaylist:YES];
+//    BOOL loadSuccess = [ourPlaylist loadPlaylist:[NSURL fileURLWithPath:filename]];
+//    if (loadSuccess == NO)
+//    {
+//        return NO;
+//    }
+//    return YES;
+    return NO;
 };
 
 @end

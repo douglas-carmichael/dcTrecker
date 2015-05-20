@@ -20,7 +20,7 @@
 -(void)clearPlaylist:(BOOL)clearCurrentProperty;
 -(BOOL)savePlaylist:(NSURL *)myPlaylist;
 -(BOOL)loadPlaylist:(NSURL *)myPlaylist;
--(void)addModule:(Module *)moduleToAdd;
+-(BOOL)addModule:(Module *)moduleToAdd;
 -(void)removeModuleAtIndex:(NSInteger)ourRow;
 -(Module *)getModuleAtIndex:(NSInteger)ourRow;
 -(NSString *)getModuleLength:(NSInteger)ourRow;
