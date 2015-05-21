@@ -89,6 +89,8 @@
     BOOL addSuccess = [ourPlaylist addModule:droppedModule];
     if (addSuccess == YES)
     {
+        
+        // Reload the playlist
         NSString *notificationName = @"dcT_reloadPlaylist";
         [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
         return YES;

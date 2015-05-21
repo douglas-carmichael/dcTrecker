@@ -49,6 +49,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addModuleMenu:)
                                                  name:@"dcT_addModuleMenu" object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nextSong:)
+                                                 name:@"dcT_nextSong" object:nil];
+
 
 }
 
@@ -68,15 +71,12 @@
                 {
                     break;
                 }
-                
                 if ((currentModule - 1) <= ([ourPlaylist playlistCount] - 1))
                 {
-                    currentModule--;
-                    [ourQueue cancelAllOperations];
-                    ourModule = [ourPlaylist getModuleAtIndex:currentModule];
-                    [self playModule:ourModule];
-                    break;
+                    [self setSongPlaybackFlag:kPlayPreviousSong];
+                    [ourPlayer stopPlayer];
                 }
+                break;
             }
         case 1:
             if ([ourPlayer isPlaying])
@@ -87,7 +87,8 @@
         case 2:
             if ([ourPlayer isPlaying])
             {
-                [ourPlayer stopPlayer];
+                [self setSongPlaybackFlag:kPlayNormal];
+                [ourQueue cancelAllOperations];
                 [self resetView];
                 break;
             }
@@ -108,20 +109,46 @@
             }
             break;
         case 4:
-            if ([ourPlayer isPlaying])
+            if ((currentModule + 1) <= ([ourPlaylist playlistCount] - 1))
             {
-                if ((currentModule + 1) <= ([ourPlaylist playlistCount] - 1))
-                {
-                    currentModule++;
-                    [ourQueue cancelAllOperations];
-                    ourModule = [ourPlaylist getModuleAtIndex:currentModule];
-                    [self playModule:ourModule];
-                    break;
-                }
+                [self setSongPlaybackFlag:kPlayNextSong];
+                [ourPlayer stopPlayer];
             }
+            break;
         default:
             break;
     }
+}
+
+-(void)nextSong:(NSNotification *)ourNotification
+{
+    switch ([self songPlaybackFlag])
+    {
+        case kPlayNextSong:
+        {
+                currentModule++;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    ourModule = [ourPlaylist getModuleAtIndex:currentModule];
+                    [self playModule:ourModule];
+                });
+            break;
+        }
+        case kPlayPreviousSong:
+        {
+                currentModule--;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    ourModule = [ourPlaylist getModuleAtIndex:currentModule];
+                    [self setSongPlaybackFlag:kPlayNextSong];
+                    [self playModule:ourModule];
+                });
+            break;
+        }
+        default:
+        {
+            break;
+        }
+    }
+    return;
 }
 
 -(void)openPlaylistMenu:(NSNotification *)ourNotification

@@ -23,6 +23,13 @@
     IBOutlet NSSlider *musicSlider;
 }
 
+typedef enum {
+    kPlayPreviousSong = 1,
+    kPlayNextSong,
+    kStopPlayback,
+    kPlayNormal
+} kSongPlayback;
+
 -(IBAction)volumeSet:(id)sender;
 -(void)resetView;
 -(void)playFromPlaylist:(NSNotification *)ourNotification;
@@ -36,6 +43,7 @@
 -(void)playModule:(Module *)playModule;
 
 @property (assign) BOOL timelineAvailable;
+@property (assign) kSongPlayback songPlaybackFlag;
 
 @end
 

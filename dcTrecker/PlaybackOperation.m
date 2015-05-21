@@ -38,6 +38,9 @@
 -(void)main
 {
     [ourPlayer playModule:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"dcT_nextSong"
+                                                        object:nil userInfo:nil];
+
 }
 
 -(void)cancel
