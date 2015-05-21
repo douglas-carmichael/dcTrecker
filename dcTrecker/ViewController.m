@@ -39,7 +39,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveAsPlaylistMenu:)
                                                  name:@"dcT_saveAsPlaylistMenu" object:nil];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(revertToSavedMenu:)
                                                  name:@"dcT_revertToSavedMenu" object:nil];
     
@@ -48,11 +48,11 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addModuleMenu:)
                                                  name:@"dcT_addModuleMenu" object:nil];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nextSong:)
                                                  name:@"dcT_nextSong" object:nil];
-
-
+    
+    
 }
 
 - (void)setRepresentedObject:(id)representedObject {
@@ -126,21 +126,29 @@
     {
         case kPlayNextSong:
         {
+            // Checking again here when we go through the playlist automatically
+            
+            if ((currentModule + 1) <= ([ourPlaylist playlistCount] - 1))
+            {
                 currentModule++;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     ourModule = [ourPlaylist getModuleAtIndex:currentModule];
                     [self playModule:ourModule];
                 });
+            }
             break;
         }
         case kPlayPreviousSong:
         {
+            if ((currentModule - 1) <= ([ourPlaylist playlistCount] - 1))
+            {
                 currentModule--;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     ourModule = [ourPlaylist getModuleAtIndex:currentModule];
                     [self setSongPlaybackFlag:kPlayNextSong];
                     [self playModule:ourModule];
                 });
+            }
             break;
         }
         default:
@@ -200,8 +208,8 @@
     {
         return;
     }
-
-
+    
+    
     BOOL playlistExists = [[NSFileManager defaultManager] fileExistsAtPath:[[ourPlaylist currentPlaylist] path]];
     if (playlistExists)
     {
