@@ -229,11 +229,13 @@
 {
     int passedRow = [[[ourNotification userInfo] valueForKey:@"currRow"] intValue];
     
+    [self setSongPlaybackFlag:kPlayNormal];
     [ourQueue cancelAllOperations];
     [self resetView];
     
     currentModule = passedRow;
     ourModule = [ourPlaylist getModuleAtIndex:passedRow];
+    [self setSongPlaybackFlag:kPlayNextSong];
     [self playModule:ourModule];
     
 }
