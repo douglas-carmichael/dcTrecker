@@ -20,9 +20,9 @@
     ourPlaylist = [PlaylistManager sharedPlaylist];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable) name:@"dcT_reloadPlaylist" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addToPlaylist:) name:@"dcT_addPlaylist" object:nil];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadPlaylistButton:)
-                                                name:@"dcT_loadPlaylist" object:nil];
+                                                 name:@"dcT_loadPlaylist" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(savePlaylistButton:)
                                                  name:@"dcT_savePlaylist" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeFromPlaylist:)
@@ -33,6 +33,7 @@
 -(void)awakeFromNib
 {
     [playlistTable setDoubleAction:@selector(doubleClick:)];
+    [playlistTable registerForDraggedTypes:[NSArray arrayWithObject:(NSString *)kUTTypeFileURL]];
 }
 
 -(void)reloadTable
@@ -45,6 +46,57 @@
     [ourPlaylist clearPlaylist:YES];
 }
 
+-(NSDragOperation)tableView:(NSTableView *)tableView validateDrop:(id<NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)dropOperation
+{
+    
+    // Based on example from:
+    // http://stackoverflow.com/questions/10308008/nstableview-and-drag-and-drop-from-finder/10309544#10309544
+    
+    // Get the file URLs from the pasteboard
+    NSPasteboard *ourPasteboard = [info draggingPasteboard];
+    // List the file type UTIs we want to accept
+    NSArray *acceptedTypes = [NSArray arrayWithObject:(NSString *)kUTTypeAudio];
+    NSArray *ourURLs = [ourPasteboard readObjectsForClasses:[NSArray arrayWithObject:[NSURL class]]
+                                                    options:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                             [NSNumber numberWithBool:YES],NSPasteboardURLReadingFileURLsOnlyKey,
+                                                             acceptedTypes, NSPasteboardURLReadingContentsConformToTypesKey,
+                                                             nil]];
+    
+    if (ourURLs.count != 1)
+    {
+        return NSDragOperationNone;
+    }
+    
+    return NSDragOperationCopy;
+}
+
+-(BOOL)tableView:(NSTableView *)tableView acceptDrop:(id<NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation
+{
+    // Get the file URLs from the pasteboard
+    NSPasteboard *ourPasteboard = [info draggingPasteboard];
+    
+    NSArray *acceptedTypes = [NSArray arrayWithObject:(NSString *)kUTTypeAudio];
+    NSArray *ourURLs = [ourPasteboard readObjectsForClasses:[NSArray arrayWithObject:[NSURL class]]
+                                                    options:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                             [NSNumber numberWithBool:YES],NSPasteboardURLReadingFileURLsOnlyKey,
+                                                             acceptedTypes, NSPasteboardURLReadingContentsConformToTypesKey,
+                                                             nil]];
+    for (NSURL *myURL in ourURLs)
+    {
+        Module *myModule = [[Module alloc] init];
+        [myModule setFilePath:[myURL filePathURL]];
+        BOOL addSuccess = [ourPlaylist addModule:myModule];
+        if (addSuccess == NO)
+        {
+            [playlistTable reloadData];
+            return NO;
+        }
+    }
+    
+    [playlistTable reloadData];
+    return YES;
+    
+}
 -(IBAction)addToPlaylist:(id)sender
 {
     NSOpenPanel *ourPanel = [NSOpenPanel openPanel];
