@@ -46,7 +46,7 @@
     xmp_context our_context;
     struct xmp_module_info pModuleInfo;
     int status;
-
+    
     our_context = xmp_create_context();
     status = xmp_load_module(our_context, (char *)[[moduleToAdd.filePath path] UTF8String]);
     if(status != 0)
@@ -155,8 +155,8 @@
         NSXMLElement *moduleRoot = [[NSXMLElement alloc] initWithName:@"Module"];
         [moduleRoot addChild:[NSXMLNode elementWithName:@"modTitle"
                                             stringValue:[PLModule moduleName]]];
-        [moduleRoot addChild:[NSXMLNode elementWithName:@"modURL"
-                                            stringValue:[PLModule filePath].absoluteString]];
+        [moduleRoot addChild:[NSXMLNode elementWithName:@"modFilename"
+                                            stringValue:[[PLModule filePath] lastPathComponent]]];
         [moduleRoot addChild:[NSXMLNode elementWithName:@"modType"
                                             stringValue:[PLModule moduleType]]];
         [moduleRoot addChild:[NSXMLNode elementWithName:@"modTotalTime"
@@ -190,9 +190,12 @@
         }
     }
     
+    // Get the path to the playlist to infer where the modules are
+    NSURL *playlistRoot = [myPlaylist URLByDeletingLastPathComponent];
+    
     NSXMLNode *playlistNode = [playlistDoc rootElement];
     NSMutableString *titleString = nil;
-    NSMutableString *urlString = nil;
+    NSMutableString *fileString = nil;
     NSMutableString *typeString = nil;
     NSMutableString *timeString = nil;
     if ([[playlistNode name] isNotEqualTo:@"dcPlaylist"])
@@ -203,6 +206,7 @@
     [playlistArray removeAllObjects];
     
     // Check to see if we've got all our nodes in the XML document we loaded
+    // NOTE: moduleNodes is important because each member of this NSArray is a module in the playlist.
     
     NSArray *moduleNodes = [playlistDoc nodesForXPath:@".//Module" error:nil];
     if ([moduleNodes count] == 0)
@@ -210,41 +214,27 @@
         return NO;
     }
     
-    NSArray *titleNodes = [playlistDoc nodesForXPath:@".//modTitle" error:nil];
-    if ([titleNodes count] == 0)
+    NSArray *tagPaths = [NSArray arrayWithObjects:@".//modTitle", @".//modFilename", @".//modType", @".//modTotalTime", nil];
+    
+    for (NSString *ourTag in tagPaths)
     {
-        return NO;
+        if ([self checkForTags:playlistDoc XPathToCheck:ourTag] == NO)
+        {
+            return NO;
+        }
     }
-
-    NSArray *urlNodes = [playlistDoc nodesForXPath:@".//modURL" error:nil];
-    if ([urlNodes count] == 0)
-    {
-        return NO;
-    }
-
-    NSArray *typeNodes = [playlistDoc nodesForXPath:@".//modType" error:nil];
-    if ([typeNodes count] == 0)
-    {
-        return NO;
-    }
-
-    NSArray *timeNodes = [playlistDoc nodesForXPath:@".//modTotalTime" error:nil];
-    if ([timeNodes count] == 0)
-    {
-        return NO;
-    }
-
+    
     for (NSXMLNode *myModule in moduleNodes)
     {
         NSXMLNode *titleNode = [[myModule nodesForXPath:@".//modTitle" error:nil] objectAtIndex:0];
-        NSXMLNode *urlNode = [[myModule nodesForXPath:@".//modURL" error:nil] objectAtIndex:0];
+        NSXMLNode *fileNode = [[myModule nodesForXPath:@".//modFilename" error:nil] objectAtIndex:0];
         NSXMLNode *typeNode = [[myModule nodesForXPath:@".//modType" error:nil] objectAtIndex:0];
         NSXMLNode *timeNode = [[myModule nodesForXPath:@".//modTotalTime" error:nil] objectAtIndex:0];
         
         titleString = [[[titleNode stringValue]
                         substringToIndex:[[titleNode stringValue] length]] mutableCopy];
-        urlString = [[[urlNode stringValue]
-                      substringToIndex:[[urlNode stringValue] length]] mutableCopy];
+        fileString = [[[fileNode stringValue]
+                       substringToIndex:[[fileNode stringValue] length]] mutableCopy];
         typeString = [[[typeNode stringValue]
                        substringToIndex:[[typeNode stringValue] length]] mutableCopy];
         timeString = [[[timeNode stringValue]
@@ -253,8 +243,9 @@
         [playlistModule setModuleName:titleString];
         [playlistModule setModuleType:typeString];
         
-        // Grab the NSURL from the URL string, and check to see if it is vald.
-        NSURL *moduleURL = [NSURL URLWithString:urlString];
+        
+        // Grab the NSURL from the URL string, and check to see if it is valid.
+        NSURL *moduleURL = [NSURL URLWithString:fileString relativeToURL:playlistRoot];
         if (moduleURL == nil)
         {
             // Return NO because this URL is invalid.
@@ -279,6 +270,15 @@
     return YES;
 }
 
+-(BOOL)checkForTags:(NSXMLDocument *)ourDocument XPathToCheck:(NSString *)tagPath
+{
+    NSArray *tagNodes = [ourDocument nodesForXPath:tagPath error:nil];
+    if ([tagNodes count] == 0)
+    {
+        return NO;
+    }
+    return YES;
+};
 
 -(NSInteger)playlistCount
 {

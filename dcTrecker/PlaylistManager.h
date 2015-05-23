@@ -20,6 +20,7 @@
 -(void)clearPlaylist:(BOOL)clearCurrentProperty;
 -(BOOL)savePlaylist:(NSURL *)myPlaylist;
 -(BOOL)loadPlaylist:(NSURL *)myPlaylist;
+-(BOOL)checkForTags:(NSXMLDocument *)ourDocument XPathToCheck:(NSString *)tagPath;
 -(BOOL)addModule:(Module *)moduleToAdd;
 -(void)removeModuleAtIndex:(NSInteger)ourRow;
 -(Module *)getModuleAtIndex:(NSInteger)ourRow;
