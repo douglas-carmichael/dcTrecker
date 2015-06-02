@@ -309,7 +309,9 @@
                         });
                     }
                 }
-                [self resetView];
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [self resetView];
+                });
             });
         }
         return;
