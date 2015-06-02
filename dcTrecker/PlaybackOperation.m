@@ -15,11 +15,6 @@
 -(id)initWithModule:(Module *)myModule modPlayer:(xmpPlayer *)myPlayer
 {
     self = [super init];
-    NSString *ourModuleName = [myModule moduleName];
-    NSDictionary *ourNameDict = [NSDictionary dictionaryWithObject:ourModuleName
-                                                            forKey:@"currModName"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"dcT_setModuleName"
-                                                        object:nil userInfo:ourNameDict];
     NSError *ourError = nil;
     
     [myPlayer loadModule:myModule error:&ourError];

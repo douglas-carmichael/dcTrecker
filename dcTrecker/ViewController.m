@@ -23,9 +23,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playFromPlaylist:)
                                                  name:@"dcT_playFromPlaylist" object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setModuleField:)
-                                                 name:@"dcT_setModuleName" object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cannotLoadModule:)
                                                  name:@"dcT_cannotLoadMod" object:nil];
     
@@ -240,13 +237,6 @@
     
 }
 
--(void)setModuleField:(NSNotification *)ourNotification
-{
-    NSString *ourSetName = [[ourNotification userInfo] valueForKey:@"currModName"];
-    [NSThread sleepForTimeInterval:0.10];
-    [moduleName setStringValue:ourSetName];
-}
-
 -(void)cannotLoadModule:(NSNotification *)ourNotification
 {
     NSAlert *cannotLoadAlert = [[NSAlert alloc] init];
@@ -291,9 +281,11 @@
             // Wait here and do nothing until the AUGraph starts
         }
         [self setTimelineAvailable:YES];
+        [moduleName setStringValue:[myModule moduleName]];
         if ([ourPlayer isPlaying])
         {
             NSInteger totalTime = myModule.modTotalTime;
+            [NSThread sleepForTimeInterval:0.05];
             [playButton setState:NSOnState];
             [musicSlider setMaxValue:totalTime];
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE,0), ^{
