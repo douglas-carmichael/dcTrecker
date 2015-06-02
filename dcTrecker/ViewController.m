@@ -293,18 +293,20 @@
         [self setTimelineAvailable:YES];
         if ([ourPlayer isPlaying])
         {
+            NSInteger totalTime = myModule.modTotalTime;
             [playButton setState:NSOnState];
+            [musicSlider setMaxValue:totalTime];
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE,0), ^{
-                NSInteger totalTime = myModule.modTotalTime;
-                [musicSlider setMaxValue:totalTime];
                 while([ourPlayer isPlaying])
                 {
                     usleep(100000);
                     if ([self timelineAvailable] == YES)
                     {
                         NSInteger sliderValue = [ourPlayer playerTime];
-                        [musicSlider setIntegerValue:sliderValue];
-                        [moduleTime setStringValue:[ourPlayer getTimeString:[ourPlayer playerTime]]];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [musicSlider setIntegerValue:sliderValue];
+                            [moduleTime setStringValue:[ourPlayer getTimeString:[ourPlayer playerTime]]];
+                        });
                     }
                 }
                 [self resetView];
