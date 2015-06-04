@@ -21,7 +21,10 @@
 
 -(void)mouseDown:(NSEvent *)theEvent
 {
-    [delegate setTimelineAvailable:NO];
+    if (![delegate isPaused])
+    {
+        [delegate setTimelineAvailable:NO];
+    }
     [super mouseDown:theEvent];
     [self mouseUp:theEvent];
 }
@@ -29,8 +32,11 @@
 
 -(void)mouseUp:(NSEvent *)theEvent
 {
-    [delegate setModPosition:[self intValue]];
-    [delegate setTimelineAvailable:YES];
+    if (![delegate isPaused])
+    {
+        [delegate setModPosition:[self intValue]];
+        [delegate setTimelineAvailable:YES];
+    }
 }
 
 @end

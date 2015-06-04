@@ -214,8 +214,8 @@
     
     ourModule.moduleName = [NSString stringWithUTF8String:pModuleInfo.mod->name];
     
-//    Note: Removed this due to the difference in types between xmp_test_module() and xmp_load_module()
-//    ourModule.moduleType = [NSString stringWithUTF8String:pModuleInfo.mod->type];
+    //    Note: Removed this due to the difference in types between xmp_test_module() and xmp_load_module()
+    //    ourModule.moduleType = [NSString stringWithUTF8String:pModuleInfo.mod->type];
     ourModule.numPatterns = pModuleInfo.mod->pat;
     ourModule.numTracks = pModuleInfo.mod->trk;
     ourModule.numChannels = pModuleInfo.mod->chn;
@@ -384,6 +384,10 @@
     if (ourPlayback)
     {
         err = AUGraphIsRunning(myGraph, &isRunning);
+        if (_isPaused == YES)
+        {
+            return YES;
+        }
         return isRunning;
     }
     return NO;
@@ -391,13 +395,26 @@
 
 -(void)stopPlayer
 {
+    int err;
+    Boolean isRunning;
     xmp_stop_module(class_context);
     ourClassPlayer.stopped_flag = true;
+    
+    // If we've been paused, kickstart the AUGraph to make sure we have it available.
+    if (_isPaused == YES)
+    {
+        err = AUGraphIsRunning(myGraph, &isRunning);
+        if (!isRunning)
+        {
+            AUGraphStart(myGraph);
+        }
+    }
+    
     while ([self isPlaying])
     {
         // Wait here and do nothing until the AUGraph stops
     }
-
+    
 }
 
 -(void)setChannelVolume:(NSInteger)ourChannel volume:(NSInteger)ourVolume

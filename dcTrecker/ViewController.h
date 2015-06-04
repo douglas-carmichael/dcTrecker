@@ -40,6 +40,7 @@ typedef enum {
 -(void)addModuleMenu:(NSNotification *)ourNotification;
 -(void)setModPosition:(int)ourValue;
 -(void)playModule:(Module *)playModule;
+-(BOOL)isPaused;
 
 @property (assign) BOOL timelineAvailable;
 @property (assign) kSongPlayback songPlaybackFlag;

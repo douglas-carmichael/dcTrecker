@@ -516,7 +516,7 @@
                                                     </button>
                                                     <button fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="aIL-vk-fS2">
                                                         <rect key="frame" x="94" y="7" width="38" height="36"/>
-                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="play" imagePosition="only" alignment="center" alternateImage="stop" imageScaling="proportionallyDown" inset="2" id="Xlv-ZG-x1U">
+                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="play" imagePosition="only" alignment="center" alternateImage="pause" imageScaling="proportionallyDown" inset="2" id="Xlv-ZG-x1U">
                                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
@@ -609,12 +609,12 @@
         <image name="load_playlist" width="30" height="30"/>
         <image name="new_playlist" width="30" height="30"/>
         <image name="nextTrack" width="81" height="81"/>
+        <image name="pause" width="81" height="81"/>
         <image name="play" width="81" height="81"/>
         <image name="prevTrack" width="81" height="81"/>
         <image name="save_playlist" width="30" height="30"/>
-        <image name="stop" width="81" height="81"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qNI-Vx-UlH"/>
+        <segue reference="dlc-ip-Deq"/>
     </inferredMetricsTieBreakers>
 </document>

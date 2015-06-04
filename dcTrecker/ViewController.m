@@ -57,6 +57,7 @@
     // Update the view, if already loaded.
 }
 
+
 -(IBAction)playbackControl:(id)sender
 {
     
@@ -85,8 +86,7 @@
             if ([ourPlayer isPlaying])
             {
                 [self setSongPlaybackFlag:kPlayNormal];
-                [ourQueue cancelAllOperations];
-                [self resetView];
+                [ourPlayer pauseResume];
                 break;
             }
             
@@ -154,6 +154,11 @@
         }
     }
     return;
+}
+
+-(BOOL)isPaused
+{
+    return [ourPlayer isPaused];
 }
 
 -(void)openPlaylistMenu:(NSNotification *)ourNotification
