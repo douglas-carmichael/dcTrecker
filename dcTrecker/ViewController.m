@@ -79,7 +79,10 @@
         case 1:
             if ([ourPlayer isPlaying])
             {
-                [ourPlayer prevPlayPosition];
+                if (![ourPlayer isPaused])
+                {
+                    [ourPlayer prevPlayPosition];
+                }
             }
             break;
         case 2:
@@ -102,7 +105,10 @@
         case 3:
             if ([ourPlayer isPlaying])
             {
-                [ourPlayer nextPlayPosition];
+                if (![ourPlayer isPaused])
+                {
+                    [ourPlayer nextPlayPosition];
+                }
             }
             break;
         case 4:
