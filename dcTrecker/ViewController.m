@@ -233,7 +233,6 @@
     
     [self setSongPlaybackFlag:kPlayNormal];
     [ourQueue cancelAllOperations];
-    [self resetView];
     
     currentModule = passedRow;
     ourModule = [ourPlaylist getModuleAtIndex:passedRow];
@@ -258,14 +257,6 @@
     return;
 }
 
--(void)resetView
-{
-    [playButton setState:NSOffState];
-    [musicSlider setIntegerValue:0];
-    [moduleTime setStringValue:@""];
-    [moduleName setStringValue:@""];
-}
-
 -(void)playModule:(Module *)myModule
 {
     PlaybackOperation *ourPlaybackOp;
@@ -286,12 +277,11 @@
             // Wait here and do nothing until the AUGraph starts
         }
         [self setTimelineAvailable:YES];
-        [moduleName setStringValue:[myModule moduleName]];
         if ([ourPlayer isPlaying])
         {
             NSInteger totalTime = myModule.modTotalTime;
-            [NSThread sleepForTimeInterval:0.05];
             [playButton setState:NSOnState];
+            [moduleName setStringValue:[myModule moduleName]];
             [musicSlider setMaxValue:totalTime];
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE,0), ^{
                 while([ourPlayer isPlaying])
@@ -306,18 +296,8 @@
                         });
                     }
                 }
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    [self resetView];
-                });
             });
         }
-        return;
-    }
-    
-    if ([ourPlayer isPlaying])
-    {
-        [ourPlayer stopPlayer];
-        [self resetView];
         return;
     }
     

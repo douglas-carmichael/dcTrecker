@@ -31,7 +31,6 @@ typedef enum {
 } kSongPlayback;
 
 -(IBAction)volumeSet:(id)sender;
--(void)resetView;
 -(void)playFromPlaylist:(NSNotification *)ourNotification;
 -(void)openPlaylistMenu:(NSNotification *)ourNotification;
 -(void)savePlaylistMenu:(NSNotification *)ourNotification;
