@@ -212,10 +212,11 @@
     struct xmp_module_info pModuleInfo;
     xmp_get_module_info(class_context, &pModuleInfo);
     
-    ourModule.moduleName = [NSString stringWithUTF8String:pModuleInfo.mod->name];
+    if ([ourModule.moduleName isNotEqualTo:@"<unnamed>"])
+    {
+        ourModule.moduleName = [NSString stringWithUTF8String:pModuleInfo.mod->name];
+    }
     
-    //    Note: Removed this due to the difference in types between xmp_test_module() and xmp_load_module()
-    //    ourModule.moduleType = [NSString stringWithUTF8String:pModuleInfo.mod->type];
     ourModule.numPatterns = pModuleInfo.mod->pat;
     ourModule.numTracks = pModuleInfo.mod->trk;
     ourModule.numChannels = pModuleInfo.mod->chn;

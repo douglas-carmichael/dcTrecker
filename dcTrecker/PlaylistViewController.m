@@ -164,7 +164,7 @@
         {
             NSAlert *alert = [[NSAlert alloc] init];
             [alert addButtonWithTitle:@"OK"];
-            [alert setMessageText:@"Cannot save playlist."];
+            [alert setMessageText:@"Cannot save library."];
             [alert setAlertStyle:NSWarningAlertStyle];
             [alert beginSheetModalForWindow:[[self view] window] completionHandler:nil];
             return;
@@ -191,7 +191,7 @@
         {
             NSAlert *alert = [[NSAlert alloc] init];
             [alert addButtonWithTitle:@"OK"];
-            [alert setMessageText:@"Cannot load playlist."];
+            [alert setMessageText:@"Cannot load library."];
             [alert setAlertStyle:NSWarningAlertStyle];
             [alert beginSheetModalForWindow:[[self view] window] completionHandler:nil];
             return;
@@ -204,27 +204,27 @@
 
 -(NSString *)newPlaylistToolTip
 {
-    return @"Create new playlist.";
+    return @"Create new library.";
 }
 
 -(NSString *)openPlaylistToolTip
 {
-    return @"Open a saved playlist.";
+    return @"Open a saved library.";
 }
 
 -(NSString *)savePlaylistToolTip
 {
-    return @"Save a playlist to disk.";
+    return @"Save a library to disk.";
 }
 
 -(NSString *)addModuleToolTip
 {
-    return @"Add module to playlist.";
+    return @"Add module to library.";
 }
 
 -(NSString *)removeModuleToolTip
 {
-    return @"Remove selected module from playlist.";
+    return @"Remove selected module from library.";
 }
 
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView

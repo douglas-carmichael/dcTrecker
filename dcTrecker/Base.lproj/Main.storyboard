@@ -58,12 +58,12 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="File" id="bib-Uj-vzu">
                                     <items>
-                                        <menuItem title="New Playlist" keyEquivalent="n" id="Was-JA-tGl">
+                                        <menuItem title="New Library" keyEquivalent="n" id="Was-JA-tGl">
                                             <connections>
                                                 <action selector="newPlaylist:" target="Voe-Tx-rLC" id="z2k-gB-ZzQ"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Open Playlist…" keyEquivalent="o" id="IAo-SY-fd9">
+                                        <menuItem title="Open Library…" keyEquivalent="o" id="IAo-SY-fd9">
                                             <connections>
                                                 <action selector="openPlaylist:" target="Voe-Tx-rLC" id="Pzq-in-Coy"/>
                                             </connections>
@@ -87,12 +87,12 @@
                                                 <action selector="performClose:" target="Ady-hI-5gd" id="HmO-Ls-i7Q"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Save Playlist…" keyEquivalent="s" id="pxx-59-PXV">
+                                        <menuItem title="Save Library…" keyEquivalent="s" id="pxx-59-PXV">
                                             <connections>
                                                 <action selector="savePlaylist:" target="Voe-Tx-rLC" id="UL8-cc-BNC"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Save Playlist As…" keyEquivalent="S" id="Bw7-FT-i3A">
+                                        <menuItem title="Save Library As…" keyEquivalent="S" id="Bw7-FT-i3A">
                                             <connections>
                                                 <action selector="saveAsPlaylist:" target="Voe-Tx-rLC" id="kom-XO-gXH"/>
                                             </connections>
@@ -106,9 +106,9 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Playlist" id="H8h-7b-M4v">
+                            <menuItem title="Library" id="H8h-7b-M4v">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Playlist" id="HyV-fh-RgO">
+                                <menu key="submenu" title="Library" id="HyV-fh-RgO">
                                     <items>
                                         <menuItem title="Add Module..." keyEquivalent="m" id="ooh-bu-xZ0">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
@@ -122,7 +122,7 @@
                                                 <action selector="removeModule:" target="Voe-Tx-rLC" id="62E-2m-wJ5"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Show Playlist Window" id="1P2-Kr-JoO">
+                                        <menuItem title="Show Library Window" id="1P2-Kr-JoO">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <segue destination="IV9-ci-E66" kind="show" identifier="" id="qNI-Vx-UlH"/>
@@ -201,7 +201,7 @@
         <scene sceneID="ZZ7-pY-3Li">
             <objects>
                 <windowController showSeguePresentationStyle="single" id="IV9-ci-E66" sceneMemberID="viewController">
-                    <window key="window" title="Playlist" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="rMo-g1-aOR">
+                    <window key="window" title="Library" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="rMo-g1-aOR">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="294" y="362" width="581" height="363"/>
