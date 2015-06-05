@@ -115,8 +115,7 @@
             if ((currentModule + 1) <= ([ourPlaylist playlistCount] - 1))
             {
                 [self setSongPlaybackFlag:kPlayNextSong];
-//                [ourPlayer stopPlayer];
-                [ourQueue cancelAllOperations];
+                [ourPlayer stopPlayer];
             }
             break;
         default:
