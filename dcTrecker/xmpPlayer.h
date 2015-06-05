@@ -64,6 +64,7 @@
 -(void)setChannelVolume:(NSInteger)ourChannel volume:(NSInteger)ourVolume;
 -(NSString*)getTimeString:(int)timeValue;
 -(BOOL)isLoaded;
+-(BOOL)isGraphRunning;
 -(BOOL)isPlaying;
 
 OSStatus renderModuleCallback(void *inRefCon, AudioUnitRenderActionFlags *ioActionFlags,

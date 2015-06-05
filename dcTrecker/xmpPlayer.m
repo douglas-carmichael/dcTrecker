@@ -368,13 +368,11 @@
     {
         _isPaused = YES;
         AUGraphStop(myGraph);
-        ourClassPlayer.paused_flag = true;
     }
     else
     {
         _isPaused = NO;
         AUGraphStart(myGraph);
-        ourClassPlayer.paused_flag = false;
     }
 }
 
@@ -392,6 +390,14 @@
         return isRunning;
     }
     return NO;
+}
+
+-(BOOL)isGraphRunning
+{
+    int err;
+    Boolean isRunning;
+    err = AUGraphIsRunning(myGraph, &isRunning);
+    return isRunning;
 }
 
 -(void)stopPlayer

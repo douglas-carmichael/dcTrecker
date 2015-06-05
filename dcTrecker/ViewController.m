@@ -115,7 +115,8 @@
             if ((currentModule + 1) <= ([ourPlaylist playlistCount] - 1))
             {
                 [self setSongPlaybackFlag:kPlayNextSong];
-                [ourPlayer stopPlayer];
+//                [ourPlayer stopPlayer];
+                [ourQueue cancelAllOperations];
             }
             break;
         default:
@@ -162,9 +163,9 @@
     return;
 }
 
--(BOOL)isPaused
+-(BOOL)isGraphRunning
 {
-    return [ourPlayer isPaused];
+    return [ourPlayer isGraphRunning];
 }
 
 -(void)openPlaylistMenu:(NSNotification *)ourNotification

@@ -21,7 +21,7 @@
 
 -(void)mouseDown:(NSEvent *)theEvent
 {
-    if (![delegate isPaused])
+    if ([delegate isGraphRunning])
     {
         [delegate setTimelineAvailable:NO];
     }
@@ -32,7 +32,7 @@
 
 -(void)mouseUp:(NSEvent *)theEvent
 {
-    if (![delegate isPaused])
+    if ([delegate isGraphRunning])
     {
         [delegate setModPosition:[self intValue]];
         [delegate setTimelineAvailable:YES];
