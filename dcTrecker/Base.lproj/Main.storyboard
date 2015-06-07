@@ -365,6 +365,16 @@
                                     <binding destination="eil-7S-fi4" name="toolTip" keyPath="self.removeModuleToolTip" id="w09-4h-8JS"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yaK-AP-hZc">
+                                <rect key="frame" x="211" y="10" width="106" height="23"/>
+                                <buttonCell key="cell" type="smallSquare" title="Write Module" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="E45-KB-mbp">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="writeModuleButton:" target="eil-7S-fi4" id="Jz0-aM-oJs"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="egl-ae-4pk" secondAttribute="bottom" constant="11" id="1SH-fu-o50"/>

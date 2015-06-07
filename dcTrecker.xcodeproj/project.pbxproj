@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A308C6301ADC5485004FD271 /* PlaylistManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A308C62F1ADC5485004FD271 /* PlaylistManager.m */; };
 		A32499611AF35B6800E7065A /* TimeScrubberSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = A32499601AF35B6800E7065A /* TimeScrubberSlider.m */; };
+		A3475F451B2460AE001785AD /* xmpWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = A3475F431B2460AE001785AD /* xmpWriter.m */; };
 		A36AB1BC1AD8D1B6000BA9AB /* xmpPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A36AB1B61AD8D1B6000BA9AB /* xmpPlayer.m */; };
 		A36AB1BD1AD8D1B6000BA9AB /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = A36AB1B81AD8D1B6000BA9AB /* TPCircularBuffer.c */; };
 		A36AB1BE1AD8D1B6000BA9AB /* libxmp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A36AB1BB1AD8D1B6000BA9AB /* libxmp.a */; };
@@ -38,6 +39,9 @@
 		A308C62F1ADC5485004FD271 /* PlaylistManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistManager.m; sourceTree = "<group>"; };
 		A324995F1AF35B6800E7065A /* TimeScrubberSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeScrubberSlider.h; sourceTree = "<group>"; };
 		A32499601AF35B6800E7065A /* TimeScrubberSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeScrubberSlider.m; sourceTree = "<group>"; };
+		A3475F421B2460AE001785AD /* xmpWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmpWriter.h; sourceTree = "<group>"; };
+		A3475F431B2460AE001785AD /* xmpWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = xmpWriter.m; sourceTree = "<group>"; };
+		A3475F441B2460AE001785AD /* xmpWriterErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmpWriterErrors.h; sourceTree = "<group>"; };
 		A36AB1B51AD8D1B6000BA9AB /* xmpPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmpPlayer.h; sourceTree = "<group>"; };
 		A36AB1B61AD8D1B6000BA9AB /* xmpPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = xmpPlayer.m; sourceTree = "<group>"; };
 		A36AB1B71AD8D1B6000BA9AB /* xmpPlayerErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmpPlayerErrors.h; sourceTree = "<group>"; };
@@ -84,6 +88,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A3475F461B2460B0001785AD /* xmpWriter */ = {
+			isa = PBXGroup;
+			children = (
+				A3475F421B2460AE001785AD /* xmpWriter.h */,
+				A3475F431B2460AE001785AD /* xmpWriter.m */,
+				A3475F441B2460AE001785AD /* xmpWriterErrors.h */,
+			);
+			name = xmpWriter;
+			sourceTree = "<group>";
+		};
 		A36AB1BF1AD8D1BC000BA9AB /* xmpPlayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -167,6 +181,7 @@
 				A36AB1C01AD8D1C8000BA9AB /* TPCircularBuffer */,
 				A36AB1C11AD8D1D0000BA9AB /* libxmp */,
 				A36AB1BF1AD8D1BC000BA9AB /* xmpPlayer */,
+				A3475F461B2460B0001785AD /* xmpWriter */,
 				A36AB1C51AD8D1E2000BA9AB /* Module */,
 				A38721151AD2FFA200A01234 /* Info.plist */,
 				A38721191AD2FFA200A01234 /* main.m */,
@@ -298,6 +313,7 @@
 				A3CD4D2F1ADBBF650005F9E3 /* PlaylistViewController.m in Sources */,
 				A387211A1AD2FFA200A01234 /* main.m in Sources */,
 				A36AB1C41AD8D1DF000BA9AB /* Module.m in Sources */,
+				A3475F451B2460AE001785AD /* xmpWriter.m in Sources */,
 				A36AB1BD1AD8D1B6000BA9AB /* TPCircularBuffer.c in Sources */,
 				A38721181AD2FFA200A01234 /* AppDelegate.m in Sources */,
 				A3A97A551B0890E600EEDB19 /* PlaybackOperation.m in Sources */,

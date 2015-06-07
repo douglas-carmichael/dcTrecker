@@ -202,6 +202,33 @@
     return;
 }
 
+-(IBAction)writeModuleButton:(id)sender
+{
+    xmpWriter *myWriter;
+    Module *myModule;
+    NSLog(@"current row: %ld", (long)currentRow);
+    myWriter = [[xmpWriter alloc] init];
+    
+    if (currentRow >= 0 && ([ourPlaylist isEmpty] == NO))
+    {
+        NSSavePanel *ourPanel = [NSSavePanel savePanel];
+        [ourPanel setCanCreateDirectories:YES];
+        [ourPanel setAllowedFileTypes:[NSArray arrayWithObject:@"wav"]];
+        [ourPanel setCanHide:YES];
+        if ([ourPanel runModal] == NSModalResponseOK)
+        {
+            myModule = [ourPlaylist getModuleAtIndex:currentRow];
+            [myWriter loadModule:myModule error:nil];
+            dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
+                [myWriter writeModuleWAV:[ourPanel URL] error:nil];
+                NSArray *audioURL = [NSArray arrayWithObjects:[ourPanel URL], nil];
+                [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:audioURL];
+            });
+        }
+    }
+    return;
+}
+
 -(NSString *)newPlaylistToolTip
 {
     return @"Create new library.";
@@ -259,16 +286,23 @@
     return nil;
 }
 
+-(void)tableViewSelectionDidChange:(NSNotification *)notification
+{
+    NSTableView *tableView = notification.object;
+    currentRow = tableView.selectedRow;
+}
+
 -(void)doubleClick:(id)object
 {
-    NSTableView *tableView = object;
-    currentRow = tableView.selectedRow;
-    
     if (currentRow >= 0)
     {
-        NSDictionary *currRowDict = [NSDictionary dictionaryWithObject:[NSNumber numberWithLong:currentRow] forKey:@"currRow"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"dcT_playFromPlaylist" object:nil userInfo:currRowDict];
+        if ([ourPlaylist isEmpty] == NO)
+        {
+            NSDictionary *currRowDict = [NSDictionary dictionaryWithObject:[NSNumber numberWithLong:currentRow] forKey:@"currRow"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"dcT_playFromPlaylist" object:nil userInfo:currRowDict];
+        }
     }
     
 }
+
 @end

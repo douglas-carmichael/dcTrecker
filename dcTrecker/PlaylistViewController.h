@@ -25,6 +25,8 @@
 -(IBAction)newPlaylist:(id)sender;
 -(IBAction)savePlaylistButton:(id)sender;
 -(IBAction)loadPlaylistButton:(id)sender;
+-(IBAction)writeModuleButton:(id)sender;
+
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
 -(NSString *)newPlaylistToolTip;
 -(NSString *)openPlaylistToolTip;

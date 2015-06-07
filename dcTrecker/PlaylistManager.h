@@ -10,6 +10,7 @@
 #import <Cocoa/Cocoa.h>
 #import "Module.h"
 #import "xmpPlayer.h"
+#import "xmpWriter.h"
 
 @interface PlaylistManager : NSObject
 {
