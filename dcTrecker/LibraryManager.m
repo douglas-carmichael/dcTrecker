@@ -1,5 +1,5 @@
 //
-//  PlaylistManager.m
+//  LibraryManager.m
 //  dcTrecker
 //
 //  Created by Douglas Carmichael on 4/13/15.

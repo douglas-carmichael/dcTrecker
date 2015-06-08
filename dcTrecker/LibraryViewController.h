@@ -1,5 +1,5 @@
 //
-//  PlaylistViewController.h
+//  LibraryViewController.h
 //  dcTrecker
 //
 //  Created by Douglas Carmichael on 4/13/15.
