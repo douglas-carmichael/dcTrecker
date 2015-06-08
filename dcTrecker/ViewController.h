@@ -7,14 +7,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "PlaylistManager.h"
+#import "LibraryManager.h"
 #import "PlaybackOperation.h"
 
 @interface ViewController : NSViewController
 {
     xmpPlayer *ourPlayer;
     Module *ourModule;
-    PlaylistManager *ourPlaylist;
+    LibraryManager *ourLibrary;
     NSOperationQueue *ourQueue;
     NSInteger currentModule;
     IBOutlet NSTextField *moduleName;
@@ -31,10 +31,10 @@ typedef enum {
 } kSongPlayback;
 
 -(IBAction)volumeSet:(id)sender;
--(void)playFromPlaylist:(NSNotification *)ourNotification;
--(void)openPlaylistMenu:(NSNotification *)ourNotification;
--(void)savePlaylistMenu:(NSNotification *)ourNotification;
--(void)saveAsPlaylistMenu:(NSNotification *)ourNotification;
+-(void)playFromLibrary:(NSNotification *)ourNotification;
+-(void)openLibraryMenu:(NSNotification *)ourNotification;
+-(void)saveLibraryMenu:(NSNotification *)ourNotification;
+-(void)saveAsLibraryMenu:(NSNotification *)ourNotification;
 -(void)revertToSavedMenu:(NSNotification *)ourNotification;
 -(void)addModuleMenu:(NSNotification *)ourNotification;
 -(void)setModPosition:(int)ourValue;

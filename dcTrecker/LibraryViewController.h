@@ -8,12 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 #import "Module.h"
-#import "PlaylistManager.h"
+#import "LibraryManager.h"
 
-@interface PlaylistViewController : NSViewController <NSTableViewDataSource, NSTableViewDelegate>
+@interface LibraryViewController : NSViewController <NSTableViewDataSource, NSTableViewDelegate>
 
 {
-    PlaylistManager *ourPlaylist;
+    LibraryManager *ourPlaylist;
     IBOutlet NSTableView *playlistTable;
     NSInteger currentRow;
 }

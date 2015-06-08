@@ -6,15 +6,15 @@
 //  Copyright (c) 2015 Douglas Carmichael. All rights reserved.
 //
 
-#import "PlaylistManager.h"
+#import "LibraryManager.h"
 
-@implementation PlaylistManager
+@implementation LibraryManager
 
-@synthesize currentPlaylist = _currentPlaylist;
+@synthesize currentLibrary = _currentLibrary;
 
-+(id)sharedPlaylist
++(id)sharedLibrary
 {
-    static PlaylistManager *sharedPlaylist = nil;
+    static LibraryManager *sharedPlaylist = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedPlaylist = [[self alloc] init];
@@ -27,17 +27,17 @@
     self = [super init];
     if (self) {
         playlistArray = [[NSMutableArray alloc] init];
-        _currentPlaylist = nil;
+        _currentLibrary = nil;
     }
     return self;
 }
 
--(void)clearPlaylist:(BOOL)clearCurrentProperty
+-(void)clearLibrary:(BOOL)clearCurrentProperty
 {
     [playlistArray removeAllObjects];
     if (clearCurrentProperty == YES)
     {
-        _currentPlaylist = nil;
+        _currentLibrary = nil;
     }
 }
 
@@ -128,15 +128,15 @@
         {
             if ([self playlistCount] == ourRow)
             {
-                [self clearPlaylist:YES];
-                NSString *notificationName = @"dcT_reloadPlaylist";
+                [self clearLibrary:YES];
+                NSString *notificationName = @"dcT_reloadLibrary";
                 [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
             }
             
             if (ourRow < [self playlistCount])
             {
                 [playlistArray removeObjectAtIndex:ourRow];
-                NSString *notificationName = @"dcT_reloadPlaylist";
+                NSString *notificationName = @"dcT_reloadLibrary";
                 [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
             }
         }
@@ -175,7 +175,7 @@
     {
         return NO;
     }
-    _currentPlaylist = myPlaylist;
+    _currentLibrary = myPlaylist;
     
     return YES;
 }
@@ -268,7 +268,7 @@
             return NO;
         }
     }
-    _currentPlaylist = myPlaylist;
+    _currentLibrary = myPlaylist;
     return YES;
 }
 

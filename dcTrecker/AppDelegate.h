@@ -7,18 +7,18 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "PlaylistManager.h"
+#import "LibraryManager.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
 {
-    PlaylistManager *ourPlaylist;
+    LibraryManager *ourLibrary;
 }
 
--(IBAction)newPlaylist:(id)sender;
--(IBAction)openPlaylist:(id)sender;
--(IBAction)savePlaylist:(id)sender;
--(IBAction)saveAsPlaylist:(id)sender;
+-(IBAction)newLibrary:(id)sender;
+-(IBAction)openLibrary:(id)sender;
+-(IBAction)saveLibrary:(id)sender;
+-(IBAction)saveAsLibrary:(id)sender;
 -(IBAction)revertToSaved:(id)sender;
 
 @end

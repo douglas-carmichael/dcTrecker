@@ -16,35 +16,35 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    ourPlaylist = [PlaylistManager sharedPlaylist];
+    ourLibrary = [LibraryManager sharedLibrary];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
 }
 
--(IBAction)newPlaylist:(id)sender
+-(IBAction)newLibrary:(id)sender
 {
-    [ourPlaylist clearPlaylist:YES];
-    NSString *notificationName = @"dcT_reloadPlaylist";
+    [ourLibrary clearLibrary:YES];
+    NSString *notificationName = @"dcT_reloadLibrary";
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
 }
 
--(IBAction)openPlaylist:(id)sender
+-(IBAction)openLibrary:(id)sender
 {
-    NSString *notificationName = @"dcT_openPlaylistMenu";
+    NSString *notificationName = @"dcT_openLibraryMenu";
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
 }
 
--(IBAction)savePlaylist:(id)sender
+-(IBAction)saveLibrary:(id)sender
 {
-    NSString *notificationName = @"dcT_savePlaylistMenu";
+    NSString *notificationName = @"dcT_saveLibraryMenu";
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
 }
 
--(IBAction)saveAsPlaylist:(id)sender
+-(IBAction)saveAsLibrary:(id)sender
 {
-    NSString *notificationName = @"dcT_saveAsPlaylistMenu";
+    NSString *notificationName = @"dcT_saveAsLibraryMenu";
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
 }
 
@@ -62,7 +62,7 @@
 
 -(IBAction)removeModule:(id)sender
 {
-    NSString *notificationName = @"dcT_removePlaylist";
+    NSString *notificationName = @"dcT_removeLibrary";
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
 }
 
@@ -70,15 +70,15 @@
 {
     if ([[filename pathExtension] isEqual: @"xml"])
     {
-        [ourPlaylist clearPlaylist:YES];
-        BOOL loadSuccess = [ourPlaylist loadPlaylist:[NSURL fileURLWithPath:filename]];
+        [ourLibrary clearLibrary:YES];
+        BOOL loadSuccess = [ourLibrary loadPlaylist:[NSURL fileURLWithPath:filename]];
         if (loadSuccess == NO)
         {
             return NO;
         }
         
         // Reload the playlist
-        NSString *notificationName = @"dcT_reloadPlaylist";
+        NSString *notificationName = @"dcT_reloadLibrary";
         [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
         return YES;
     }
@@ -86,12 +86,12 @@
     // If this isn't an XML playlist, treat it as a module
     Module *droppedModule = [[Module alloc] init];
     [droppedModule setFilePath:[NSURL fileURLWithPath:filename]];
-    BOOL addSuccess = [ourPlaylist addModule:droppedModule];
+    BOOL addSuccess = [ourLibrary addModule:droppedModule];
     if (addSuccess == YES)
     {
         
         // Reload the playlist
-        NSString *notificationName = @"dcT_reloadPlaylist";
+        NSString *notificationName = @"dcT_reloadLibrary";
         [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
         return YES;
     }

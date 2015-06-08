@@ -60,12 +60,12 @@
                                     <items>
                                         <menuItem title="New Library" keyEquivalent="n" id="Was-JA-tGl">
                                             <connections>
-                                                <action selector="newPlaylist:" target="Voe-Tx-rLC" id="z2k-gB-ZzQ"/>
+                                                <action selector="newLibrary:" target="Voe-Tx-rLC" id="Wgn-NW-TRY"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Open Library…" keyEquivalent="o" id="IAo-SY-fd9">
                                             <connections>
-                                                <action selector="openPlaylist:" target="Voe-Tx-rLC" id="Pzq-in-Coy"/>
+                                                <action selector="openLibrary:" target="Voe-Tx-rLC" id="kxi-Rk-AVt"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Open Recent" id="tXI-mr-wws">
@@ -89,12 +89,12 @@
                                         </menuItem>
                                         <menuItem title="Save Library…" keyEquivalent="s" id="pxx-59-PXV">
                                             <connections>
-                                                <action selector="savePlaylist:" target="Voe-Tx-rLC" id="UL8-cc-BNC"/>
+                                                <action selector="saveLibrary:" target="Voe-Tx-rLC" id="VfP-FC-ivb"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Save Library As…" keyEquivalent="S" id="Bw7-FT-i3A">
                                             <connections>
-                                                <action selector="saveAsPlaylist:" target="Voe-Tx-rLC" id="kom-XO-gXH"/>
+                                                <action selector="saveAsLibrary:" target="Voe-Tx-rLC" id="Xct-44-VK9"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Revert to Saved" id="KaW-ft-85H">
@@ -215,10 +215,10 @@
             </objects>
             <point key="canvasLocation" x="780" y="49.5"/>
         </scene>
-        <!--Playlist View Controller-->
+        <!--Library View Controller-->
         <scene sceneID="Vz0-Pl-bqe">
             <objects>
-                <viewController id="eil-7S-fi4" customClass="PlaylistViewController" sceneMemberID="viewController">
+                <viewController id="eil-7S-fi4" customClass="LibraryViewController" sceneMemberID="viewController">
                     <view key="view" id="vKq-it-ono">
                         <rect key="frame" x="0.0" y="0.0" width="581" height="363"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -403,7 +403,7 @@
                     </connections>
                 </viewController>
                 <customObject id="omR-uL-j47" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <customObject id="LM6-aQ-nWl" customClass="PlaylistManager"/>
+                <customObject id="LM6-aQ-nWl" customClass="LibraryManager"/>
                 <userDefaultsController representsSharedInstance="YES" id="asW-jJ-KYq"/>
             </objects>
             <point key="canvasLocation" x="917.5" y="570.5"/>

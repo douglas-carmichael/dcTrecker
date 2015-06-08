@@ -12,13 +12,13 @@
 #import "xmpPlayer.h"
 #import "xmpWriter.h"
 
-@interface PlaylistManager : NSObject
+@interface LibraryManager : NSObject
 {
     NSMutableArray *playlistArray;
 }
 
-+(id)sharedPlaylist;
--(void)clearPlaylist:(BOOL)clearCurrentProperty;
++(id)sharedLibrary;
+-(void)clearLibrary:(BOOL)clearCurrentProperty;
 -(BOOL)savePlaylist:(NSURL *)myPlaylist;
 -(BOOL)loadPlaylist:(NSURL *)myPlaylist;
 -(BOOL)checkForTags:(NSXMLDocument *)ourDocument XPathToCheck:(NSString *)tagPath;
@@ -29,6 +29,6 @@
 -(NSInteger)playlistCount;
 -(BOOL)isEmpty;
 
-@property (readonly) NSURL *currentPlaylist;
+@property (readonly) NSURL *currentLibrary;
 
 @end

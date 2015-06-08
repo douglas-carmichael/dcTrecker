@@ -6,27 +6,27 @@
 //  Copyright (c) 2015 Douglas Carmichael. All rights reserved.
 //
 
-#import "PlaylistViewController.h"
+#import "LibraryViewController.h"
 
-@interface PlaylistViewController ()
+@interface LibraryViewController ()
 
 @end
 
-@implementation PlaylistViewController
+@implementation LibraryViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
-    ourPlaylist = [PlaylistManager sharedPlaylist];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable) name:@"dcT_reloadPlaylist" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addToPlaylist:) name:@"dcT_addPlaylist" object:nil];
+    ourPlaylist = [LibraryManager sharedLibrary];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable) name:@"dcT_reloadLibrary" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addToPlaylist:) name:@"dcT_addLibrary" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadPlaylistButton:)
-                                                 name:@"dcT_loadPlaylist" object:nil];
+                                                 name:@"dcT_loadLibrary" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(savePlaylistButton:)
-                                                 name:@"dcT_savePlaylist" object:nil];
+                                                 name:@"dcT_saveLibrary" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeFromPlaylist:)
-                                                 name:@"dcT_removePlaylist" object:nil];
+                                                 name:@"dcT_removeLibrary" object:nil];
     
 }
 
@@ -43,7 +43,7 @@
 
 -(void)clearTable
 {
-    [ourPlaylist clearPlaylist:YES];
+    [ourPlaylist clearLibrary:YES];
 }
 
 -(NSDragOperation)tableView:(NSTableView *)tableView validateDrop:(id<NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)dropOperation
@@ -142,7 +142,7 @@
 
 -(IBAction)newPlaylist:(id)sender
 {
-    [ourPlaylist clearPlaylist:YES];
+    [ourPlaylist clearLibrary:YES];
     NSString *notificationName = @"dcT_ReloadPlaylist";
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
     
@@ -185,7 +185,7 @@
     if ([ourPanel runModal] == NSModalResponseOK)
     {
         BOOL loadSuccess;
-        [ourPlaylist clearPlaylist:YES];
+        [ourPlaylist clearLibrary:YES];
         loadSuccess = [ourPlaylist loadPlaylist:[ourPanel URL]];
         if (loadSuccess == NO)
         {
@@ -299,7 +299,7 @@
         if ([ourPlaylist isEmpty] == NO)
         {
             NSDictionary *currRowDict = [NSDictionary dictionaryWithObject:[NSNumber numberWithLong:currentRow] forKey:@"currRow"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"dcT_playFromPlaylist" object:nil userInfo:currRowDict];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"dcT_playFromLibrary" object:nil userInfo:currRowDict];
         }
     }
     
