@@ -26,7 +26,7 @@
 {
     self = [super init];
     if (self) {
-        playlistArray = [[NSMutableArray alloc] init];
+        libraryArray = [[NSMutableArray alloc] init];
         _currentLibrary = nil;
     }
     return self;
@@ -34,7 +34,7 @@
 
 -(void)clearLibrary:(BOOL)clearCurrentProperty
 {
-    [playlistArray removeAllObjects];
+    [libraryArray removeAllObjects];
     if (clearCurrentProperty == YES)
     {
         _currentLibrary = nil;
@@ -66,18 +66,18 @@
     [moduleToAdd setModuleName:moduleName];
     [moduleToAdd setModuleType:[NSString stringWithFormat:@"%s", pModuleInfo.mod->type]];
     [moduleToAdd setModTotalTime:pModuleInfo.seq_data[0].duration];
-    [playlistArray addObject:moduleToAdd];
+    [libraryArray addObject:moduleToAdd];
     return YES;
 }
 
 -(Module *)getModuleAtIndex:(NSInteger)ourRow
 {
-    return [playlistArray objectAtIndex:ourRow];
+    return [libraryArray objectAtIndex:ourRow];
 }
 
 -(BOOL)isEmpty
 {
-    if ([playlistArray count] == 0)
+    if ([libraryArray count] == 0)
     {
         return YES;
     }
@@ -88,9 +88,9 @@
 {
     int ourTime, minutes, seconds;
     
-    // Grab the module path from the row in the playlist
+    // Grab the module path from the row in the library
     Module *myModule = [[Module alloc] init];
-    myModule = [playlistArray objectAtIndex:ourRow];
+    myModule = [libraryArray objectAtIndex:ourRow];
     ourTime = myModule.modTotalTime;
     
     // Convert modTotalTime to a string
@@ -126,16 +126,16 @@
     {
         if ([self isEmpty] == NO)
         {
-            if ([self playlistCount] == ourRow)
+            if ([self libraryCount] == ourRow)
             {
                 [self clearLibrary:YES];
                 NSString *notificationName = @"dcT_reloadLibrary";
                 [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
             }
             
-            if (ourRow < [self playlistCount])
+            if (ourRow < [self libraryCount])
             {
-                [playlistArray removeObjectAtIndex:ourRow];
+                [libraryArray removeObjectAtIndex:ourRow];
                 NSString *notificationName = @"dcT_reloadLibrary";
                 [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
             }
@@ -144,18 +144,18 @@
 }
 
 
--(BOOL)savePlaylist:(NSURL *)myPlaylist
+-(BOOL)saveLibrary:(NSURL *)myPlaylist
 {
     if ([self isEmpty])
     {
         return NO;
     }
     
-    NSXMLElement *playlistRoot = (NSXMLElement *)[NSXMLNode elementWithName:@"dcPlaylist"];
-    NSXMLDocument *playlistDoc = [[NSXMLDocument alloc] initWithRootElement:playlistRoot];
-    [playlistDoc setVersion:@"1.0"];
-    [playlistDoc setCharacterEncoding:@"UTF-8"];
-    for (Module *PLModule in playlistArray)
+    NSXMLElement *libraryRoot = (NSXMLElement *)[NSXMLNode elementWithName:@"dcPlaylist"];
+    NSXMLDocument *libraryDocument = [[NSXMLDocument alloc] initWithRootElement:libraryRoot];
+    [libraryDocument setVersion:@"1.0"];
+    [libraryDocument setCharacterEncoding:@"UTF-8"];
+    for (Module *PLModule in libraryArray)
     {
         NSXMLElement *moduleRoot = [[NSXMLElement alloc] initWithName:@"Module"];
         [moduleRoot addChild:[NSXMLNode elementWithName:@"modTitle"
@@ -167,11 +167,11 @@
         [moduleRoot addChild:[NSXMLNode elementWithName:@"modTotalTime"
                                             stringValue:[NSString stringWithFormat:@"%i", [PLModule modTotalTime]]]];
         
-        [playlistRoot addChild:moduleRoot];
+        [libraryRoot addChild:moduleRoot];
     }
     
-    NSData *playlistData = [playlistDoc XMLDataWithOptions:NSXMLNodePrettyPrint];
-    if(![playlistData writeToFile:myPlaylist.path atomically:YES])
+    NSData *libraryData = [libraryDocument XMLDataWithOptions:NSXMLNodePrettyPrint];
+    if(![libraryData writeToFile:myPlaylist.path atomically:YES])
     {
         return NO;
     }
@@ -181,13 +181,13 @@
 }
 
 
--(BOOL)loadPlaylist:(NSURL *)myPlaylist
+-(BOOL)loadLibrary:(NSURL *)myPlaylist
 {
-    NSXMLDocument *playlistDoc;
+    NSXMLDocument *libraryDocument;
     NSError *err = nil;
-    playlistDoc = [[NSXMLDocument alloc] initWithContentsOfURL:myPlaylist
+    libraryDocument = [[NSXMLDocument alloc] initWithContentsOfURL:myPlaylist
                                                        options:(NSXMLNodePreserveWhitespace|NSXMLDocumentTidyXML) error:&err];
-    if (playlistDoc == nil)
+    if (libraryDocument == nil)
     {
         if (err)
         {
@@ -195,22 +195,22 @@
         }
     }
         
-    NSXMLNode *playlistNode = [playlistDoc rootElement];
+    NSXMLNode *libraryNode = [libraryDocument rootElement];
     NSMutableString *titleString = nil;
     NSMutableString *urlString = nil;
     NSMutableString *typeString = nil;
     NSMutableString *timeString = nil;
-    if ([[playlistNode name] isNotEqualTo:@"dcPlaylist"])
+    if ([[libraryNode name] isNotEqualTo:@"dcPlaylist"])
     {
         return NO;
     }
     
-    [playlistArray removeAllObjects];
+    [libraryArray removeAllObjects];
     
     // Check to see if we've got all our nodes in the XML document we loaded
-    // NOTE: moduleNodes is important because each member of this NSArray is a module in the playlist.
+    // NOTE: moduleNodes is important because each member of this NSArray is a module in the library.
     
-    NSArray *moduleNodes = [playlistDoc nodesForXPath:@".//Module" error:nil];
+    NSArray *moduleNodes = [libraryDocument nodesForXPath:@".//Module" error:nil];
     if ([moduleNodes count] == 0)
     {
         return NO;
@@ -220,7 +220,7 @@
     
     for (NSString *ourTag in tagPaths)
     {
-        if ([self checkForTags:playlistDoc XPathToCheck:ourTag] == NO)
+        if ([self checkForTags:libraryDocument XPathToCheck:ourTag] == NO)
         {
             return NO;
         }
@@ -241,9 +241,9 @@
                        substringToIndex:[[typeNode stringValue] length]] mutableCopy];
         timeString = [[[timeNode stringValue]
                        substringToIndex:[[timeNode stringValue] length]] mutableCopy];
-        Module *playlistModule = [[Module alloc] init];
-        [playlistModule setModuleName:titleString];
-        [playlistModule setModuleType:typeString];
+        Module *currentLibraryModule = [[Module alloc] init];
+        [currentLibraryModule setModuleName:titleString];
+        [currentLibraryModule setModuleType:typeString];
         
         
         // Grab the NSURL from the URL string, and check to see if it is valid.
@@ -253,15 +253,15 @@
             // Return NO because this URL is invalid.
             return NO;
         }
-        [playlistModule setFilePath:moduleURL];
+        [currentLibraryModule setFilePath:moduleURL];
         
         // Check to see if the time is a valid integer
         BOOL timeIsValid = [[NSScanner scannerWithString:timeString] scanInt:nil];
         if (timeIsValid)
         {
             NSInteger totalTime = [timeString integerValue];
-            [playlistModule setModTotalTime:(int)totalTime];
-            [playlistArray addObject:playlistModule];
+            [currentLibraryModule setModTotalTime:(int)totalTime];
+            [libraryArray addObject:currentLibraryModule];
         }
         else
         {
@@ -282,9 +282,9 @@
     return YES;
 };
 
--(NSInteger)playlistCount
+-(NSInteger)libraryCount
 {
-    return playlistArray.count;
+    return libraryArray.count;
 }
 
 @end

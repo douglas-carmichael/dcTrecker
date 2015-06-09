@@ -39,6 +39,7 @@ typedef enum {
 -(void)addModuleMenu:(NSNotification *)ourNotification;
 -(void)setModPosition:(int)ourValue;
 -(void)playModule:(Module *)playModule;
+-(void)resetView;
 -(BOOL)isGraphRunning;
 
 @property (assign) BOOL timelineAvailable;

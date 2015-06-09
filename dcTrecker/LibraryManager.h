@@ -14,19 +14,19 @@
 
 @interface LibraryManager : NSObject
 {
-    NSMutableArray *playlistArray;
+    NSMutableArray *libraryArray;
 }
 
 +(id)sharedLibrary;
 -(void)clearLibrary:(BOOL)clearCurrentProperty;
--(BOOL)savePlaylist:(NSURL *)myPlaylist;
--(BOOL)loadPlaylist:(NSURL *)myPlaylist;
+-(BOOL)saveLibrary:(NSURL *)myPlaylist;
+-(BOOL)loadLibrary:(NSURL *)myPlaylist;
 -(BOOL)checkForTags:(NSXMLDocument *)ourDocument XPathToCheck:(NSString *)tagPath;
 -(BOOL)addModule:(Module *)moduleToAdd;
 -(void)removeModuleAtIndex:(NSInteger)ourRow;
 -(Module *)getModuleAtIndex:(NSInteger)ourRow;
 -(NSString *)getModuleLength:(NSInteger)ourRow;
--(NSInteger)playlistCount;
+-(NSInteger)libraryCount;
 -(BOOL)isEmpty;
 
 @property (readonly) NSURL *currentLibrary;

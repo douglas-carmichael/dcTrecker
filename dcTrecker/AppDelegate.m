@@ -71,26 +71,26 @@
     if ([[filename pathExtension] isEqual: @"xml"])
     {
         [ourLibrary clearLibrary:YES];
-        BOOL loadSuccess = [ourLibrary loadPlaylist:[NSURL fileURLWithPath:filename]];
+        BOOL loadSuccess = [ourLibrary loadLibrary:[NSURL fileURLWithPath:filename]];
         if (loadSuccess == NO)
         {
             return NO;
         }
         
-        // Reload the playlist
+        // Reload the library
         NSString *notificationName = @"dcT_reloadLibrary";
         [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
         return YES;
     }
     
-    // If this isn't an XML playlist, treat it as a module
+    // If this isn't an XML library, treat it as a module
     Module *droppedModule = [[Module alloc] init];
     [droppedModule setFilePath:[NSURL fileURLWithPath:filename]];
     BOOL addSuccess = [ourLibrary addModule:droppedModule];
     if (addSuccess == YES)
     {
         
-        // Reload the playlist
+        // Reload the library
         NSString *notificationName = @"dcT_reloadLibrary";
         [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
         return YES;

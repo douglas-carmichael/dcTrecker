@@ -17,33 +17,33 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
-    ourPlaylist = [LibraryManager sharedLibrary];
+    ourLibrary = [LibraryManager sharedLibrary];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable) name:@"dcT_reloadLibrary" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addToPlaylist:) name:@"dcT_addLibrary" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addToLibrary:) name:@"dcT_addLibrary" object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadPlaylistButton:)
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadLibraryButton:)
                                                  name:@"dcT_loadLibrary" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(savePlaylistButton:)
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveLibraryButton:)
                                                  name:@"dcT_saveLibrary" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeFromPlaylist:)
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeFromLibrary:)
                                                  name:@"dcT_removeLibrary" object:nil];
     
 }
 
 -(void)awakeFromNib
 {
-    [playlistTable setDoubleAction:@selector(doubleClick:)];
-    [playlistTable registerForDraggedTypes:[NSArray arrayWithObject:(NSString *)kUTTypeFileURL]];
+    [libraryTable setDoubleAction:@selector(doubleClick:)];
+    [libraryTable registerForDraggedTypes:[NSArray arrayWithObject:(NSString *)kUTTypeFileURL]];
 }
 
 -(void)reloadTable
 {
-    [playlistTable reloadData];
+    [libraryTable reloadData];
 }
 
 -(void)clearTable
 {
-    [ourPlaylist clearLibrary:YES];
+    [ourLibrary clearLibrary:YES];
 }
 
 -(NSDragOperation)tableView:(NSTableView *)tableView validateDrop:(id<NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)dropOperation
@@ -85,19 +85,19 @@
     {
         Module *myModule = [[Module alloc] init];
         [myModule setFilePath:[myURL filePathURL]];
-        BOOL addSuccess = [ourPlaylist addModule:myModule];
+        BOOL addSuccess = [ourLibrary addModule:myModule];
         if (addSuccess == NO)
         {
-            [playlistTable reloadData];
+            [libraryTable reloadData];
             return NO;
         }
     }
     
-    [playlistTable reloadData];
+    [libraryTable reloadData];
     return YES;
     
 }
--(IBAction)addToPlaylist:(id)sender
+-(IBAction)addToLibrary:(id)sender
 {
     NSOpenPanel *ourPanel = [NSOpenPanel openPanel];
     NSArray *moduleTypes = [NSArray arrayWithObjects:@"mod", @"s3m", @"xm", @"it", @"669",
@@ -115,7 +115,7 @@
     if ([ourPanel runModal] == NSModalResponseOK)
     {
         [myModule setFilePath:[ourPanel URL]];
-        BOOL addSuccess = [ourPlaylist addModule:myModule];
+        BOOL addSuccess = [ourLibrary addModule:myModule];
         if(addSuccess == NO)
         {
             NSAlert *alert = [[NSAlert alloc] init];
@@ -130,25 +130,25 @@
     return;
 }
 
--(IBAction)removeFromPlaylist:(id)sender
+-(IBAction)removeFromLibrary:(id)sender
 {
-    currentRow = playlistTable.selectedRow;
+    currentRow = libraryTable.selectedRow;
     if (currentRow >= 0)
     {
-        [ourPlaylist removeModuleAtIndex:currentRow];
+        [ourLibrary removeModuleAtIndex:currentRow];
     }
     return;
 }
 
--(IBAction)newPlaylist:(id)sender
+-(IBAction)newLibrary:(id)sender
 {
-    [ourPlaylist clearLibrary:YES];
+    [ourLibrary clearLibrary:YES];
     NSString *notificationName = @"dcT_ReloadPlaylist";
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
     
 }
 
--(IBAction)savePlaylistButton:(id)sender
+-(IBAction)saveLibraryButton:(id)sender
 {
     NSSavePanel *ourPanel = [NSSavePanel savePanel];
     
@@ -159,7 +159,7 @@
     if ([ourPanel runModal] == NSModalResponseOK)
     {
         BOOL saveSuccess;
-        saveSuccess = [ourPlaylist savePlaylist:[ourPanel URL]];
+        saveSuccess = [ourLibrary saveLibrary:[ourPanel URL]];
         if(saveSuccess == NO)
         {
             NSAlert *alert = [[NSAlert alloc] init];
@@ -173,7 +173,7 @@
     return;
 }
 
--(IBAction)loadPlaylistButton:(id)sender
+-(IBAction)loadLibraryButton:(id)sender
 {
     NSOpenPanel *ourPanel = [NSOpenPanel openPanel];
     [ourPanel setCanChooseDirectories:NO];
@@ -185,8 +185,8 @@
     if ([ourPanel runModal] == NSModalResponseOK)
     {
         BOOL loadSuccess;
-        [ourPlaylist clearLibrary:YES];
-        loadSuccess = [ourPlaylist loadPlaylist:[ourPanel URL]];
+        [ourLibrary clearLibrary:YES];
+        loadSuccess = [ourLibrary loadLibrary:[ourPanel URL]];
         if (loadSuccess == NO)
         {
             NSAlert *alert = [[NSAlert alloc] init];
@@ -209,7 +209,7 @@
     NSLog(@"current row: %ld", (long)currentRow);
     myWriter = [[xmpWriter alloc] init];
     
-    if (currentRow >= 0 && ([ourPlaylist isEmpty] == NO))
+    if (currentRow >= 0 && ([ourLibrary isEmpty] == NO))
     {
         NSSavePanel *ourPanel = [NSSavePanel savePanel];
         [ourPanel setCanCreateDirectories:YES];
@@ -217,7 +217,7 @@
         [ourPanel setCanHide:YES];
         if ([ourPanel runModal] == NSModalResponseOK)
         {
-            myModule = [ourPlaylist getModuleAtIndex:currentRow];
+            myModule = [ourLibrary getModuleAtIndex:currentRow];
             [myWriter loadModule:myModule error:nil];
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
                 [myWriter writeModuleWAV:[ourPanel URL] error:nil];
@@ -229,17 +229,17 @@
     return;
 }
 
--(NSString *)newPlaylistToolTip
+-(NSString *)newLibraryToolTip
 {
     return @"Create new library.";
 }
 
--(NSString *)openPlaylistToolTip
+-(NSString *)openLibraryToolTip
 {
     return @"Open a saved library.";
 }
 
--(NSString *)savePlaylistToolTip
+-(NSString *)saveLibraryToolTip
 {
     return @"Save a library to disk.";
 }
@@ -256,18 +256,18 @@
 
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
-    return [ourPlaylist playlistCount];
+    return [ourLibrary libraryCount];
 }
 
 -(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
     // Check for an empty array, and return nil if it is
-    if ([ourPlaylist isEmpty] == YES)
+    if ([ourLibrary isEmpty] == YES)
     {
         return nil;
     }
     
-    Module *ourObject = [ourPlaylist getModuleAtIndex:row];
+    Module *ourObject = [ourLibrary getModuleAtIndex:row];
     if([tableColumn.identifier isEqualToString:@"Title"])
     {
         return [ourObject moduleName];
@@ -279,7 +279,7 @@
         }
         if ([tableColumn.identifier isEqualToString:@"Time"])
         {
-            NSString *ourModuleLength = [ourPlaylist getModuleLength:row];
+            NSString *ourModuleLength = [ourLibrary getModuleLength:row];
             return ourModuleLength;
         }
     }
@@ -296,7 +296,7 @@
 {
     if (currentRow >= 0)
     {
-        if ([ourPlaylist isEmpty] == NO)
+        if ([ourLibrary isEmpty] == NO)
         {
             NSDictionary *currRowDict = [NSDictionary dictionaryWithObject:[NSNumber numberWithLong:currentRow] forKey:@"currRow"];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"dcT_playFromLibrary" object:nil userInfo:currRowDict];

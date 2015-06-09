@@ -13,24 +13,24 @@
 @interface LibraryViewController : NSViewController <NSTableViewDataSource, NSTableViewDelegate>
 
 {
-    LibraryManager *ourPlaylist;
-    IBOutlet NSTableView *playlistTable;
+    LibraryManager *ourLibrary;
+    IBOutlet NSTableView *libraryTable;
     NSInteger currentRow;
 }
 
 -(void)reloadTable;
 -(void)doubleClick:(id)object;
--(IBAction)addToPlaylist:(id)sender;
--(IBAction)removeFromPlaylist:(id)sender;
--(IBAction)newPlaylist:(id)sender;
--(IBAction)savePlaylistButton:(id)sender;
--(IBAction)loadPlaylistButton:(id)sender;
+-(IBAction)addToLibrary:(id)sender;
+-(IBAction)removeFromLibrary:(id)sender;
+-(IBAction)newLibrary:(id)sender;
+-(IBAction)saveLibraryButton:(id)sender;
+-(IBAction)loadLibraryButton:(id)sender;
 -(IBAction)writeModuleButton:(id)sender;
 
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
--(NSString *)newPlaylistToolTip;
--(NSString *)openPlaylistToolTip;
--(NSString *)savePlaylistToolTip;
+-(NSString *)newLibraryToolTip;
+-(NSString *)openLibraryToolTip;
+-(NSString *)saveLibraryToolTip;
 -(NSString *)addModuleToolTip;
 -(NSString *)removeModuleToolTip;
 -(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;

@@ -230,7 +230,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="addToPlaylist:" target="eil-7S-fi4" id="raj-wV-gf2"/>
+                                    <action selector="addToLibrary:" target="eil-7S-fi4" id="RjL-42-QLi"/>
                                     <binding destination="eil-7S-fi4" name="toolTip" keyPath="self.addModuleToolTip" id="hFJ-cK-Anx"/>
                                 </connections>
                             </button>
@@ -240,12 +240,12 @@
                                     <constraint firstAttribute="height" constant="21" id="2vR-FH-EjD"/>
                                     <constraint firstAttribute="width" constant="28" id="n5T-O6-zu1"/>
                                 </constraints>
-                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="new_playlist" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tJb-9L-lhZ">
+                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="new_library" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tJb-9L-lhZ">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="newPlaylist:" target="eil-7S-fi4" id="TEV-eu-iCp"/>
+                                    <action selector="newLibrary:" target="eil-7S-fi4" id="s9n-L3-JEK"/>
                                     <binding destination="eil-7S-fi4" name="toolTip" keyPath="self.newPlaylistToolTip" id="eog-fJ-I7C"/>
                                 </connections>
                             </button>
@@ -254,12 +254,12 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="28" id="YQC-lg-tOE"/>
                                 </constraints>
-                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="load_playlist" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HXS-pH-7JL">
+                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="load_library" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HXS-pH-7JL">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="loadPlaylistButton:" target="eil-7S-fi4" id="oa2-3N-95w"/>
+                                    <action selector="loadLibraryButton:" target="eil-7S-fi4" id="6Py-k7-EGY"/>
                                     <binding destination="eil-7S-fi4" name="toolTip" keyPath="self.openPlaylistToolTip" id="dOT-zF-HAu"/>
                                 </connections>
                             </button>
@@ -268,12 +268,12 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="28" id="Tz1-gK-0Px"/>
                                 </constraints>
-                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="save_playlist" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="X1l-mr-uyo">
+                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="save_library" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="X1l-mr-uyo">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="savePlaylistButton:" target="eil-7S-fi4" id="noz-bZ-i5c"/>
+                                    <action selector="saveLibraryButton:" target="eil-7S-fi4" id="gdS-hB-cZw"/>
                                     <binding destination="eil-7S-fi4" name="toolTip" keyPath="self.savePlaylistToolTip" id="vJI-dC-RWE"/>
                                 </connections>
                             </button>
@@ -361,7 +361,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="removeFromPlaylist:" target="eil-7S-fi4" id="ulF-WK-e3d"/>
+                                    <action selector="removeFromLibrary:" target="eil-7S-fi4" id="0iC-3Z-JDL"/>
                                     <binding destination="eil-7S-fi4" name="toolTip" keyPath="self.removeModuleToolTip" id="w09-4h-8JS"/>
                                 </connections>
                             </button>
@@ -399,7 +399,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="playlistTable" destination="1P6-Tw-kee" id="ycp-E1-NAf"/>
+                        <outlet property="libraryTable" destination="1P6-Tw-kee" id="lE1-jp-2VL"/>
                     </connections>
                 </viewController>
                 <customObject id="omR-uL-j47" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -593,7 +593,7 @@ IA
                         <outlet property="moduleTime" destination="rDf-AM-kqz" id="vA3-Uv-cM8"/>
                         <outlet property="musicSlider" destination="FMn-oW-uB7" id="UGX-SB-BAG"/>
                         <outlet property="playButton" destination="aIL-vk-fS2" id="Go6-DK-m7c"/>
-                        <segue destination="IV9-ci-E66" kind="show" identifier="playlistSegue" id="dlc-ip-Deq"/>
+                        <segue destination="IV9-ci-E66" kind="show" identifier="librarySegue" id="dlc-ip-Deq"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -606,13 +606,13 @@ IA
         <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="back" width="81" height="81"/>
         <image name="forward" width="81" height="81"/>
-        <image name="load_playlist" width="30" height="30"/>
-        <image name="new_playlist" width="30" height="30"/>
+        <image name="load_library" width="128" height="128"/>
+        <image name="new_library" width="128" height="128"/>
         <image name="nextTrack" width="81" height="81"/>
         <image name="pause" width="81" height="81"/>
         <image name="play" width="81" height="81"/>
         <image name="prevTrack" width="81" height="81"/>
-        <image name="save_playlist" width="30" height="30"/>
+        <image name="save_library" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="qNI-Vx-UlH"/>

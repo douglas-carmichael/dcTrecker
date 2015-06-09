@@ -69,7 +69,7 @@
                 {
                     break;
                 }
-                if ((currentModule - 1) <= ([ourLibrary playlistCount] - 1))
+                if ((currentModule - 1) <= ([ourLibrary libraryCount] - 1))
                 {
                     [self setSongPlaybackFlag:kPlayPreviousSong];
                     [ourPlayer stopPlayer];
@@ -112,7 +112,7 @@
             }
             break;
         case 4:
-            if ((currentModule + 1) <= ([ourLibrary playlistCount] - 1))
+            if ((currentModule + 1) <= ([ourLibrary libraryCount] - 1))
             {
                 [self setSongPlaybackFlag:kPlayNextSong];
                 [ourPlayer stopPlayer];
@@ -129,9 +129,9 @@
     {
         case kPlayNextSong:
         {
-            // Checking again here when we go through the playlist automatically
-            
-            if ((currentModule + 1) <= ([ourLibrary playlistCount] - 1))
+            // Checking again here when we go through the library automatically
+            NSLog(@"Playing next song.");
+            if ((currentModule + 1) <= ([ourLibrary libraryCount] - 1))
             {
                 currentModule++;
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -143,7 +143,8 @@
         }
         case kPlayPreviousSong:
         {
-            if ((currentModule - 1) <= ([ourLibrary playlistCount] - 1))
+            NSLog(@"Playing previous song.");
+            if ((currentModule - 1) <= ([ourLibrary libraryCount] - 1))
             {
                 currentModule--;
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -152,6 +153,14 @@
                     [self playModule:ourModule];
                 });
             }
+            break;
+        }
+        case kStopPlayback:
+        {
+            NSLog(@"Stopping playback.");
+            [ourPlayer stopPlayer];
+            [self setTimelineAvailable:NO];
+            [self resetView];
             break;
         }
         default:
@@ -167,9 +176,17 @@
     return [ourPlayer isGraphRunning];
 }
 
+-(void)resetView
+{
+    [playButton setState:NSOffState];
+    [musicSlider setIntegerValue:0];
+    [moduleName setStringValue:@""];
+    [moduleTime setStringValue:@""];
+}
+
 -(void)openLibraryMenu:(NSNotification *)ourNotification
 {
-    [self performSegueWithIdentifier:@"playlistSegue" sender:self];
+    [self performSegueWithIdentifier:@"librarySegue" sender:self];
     NSString *notificationName = @"dcT_loadLibrary";
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
     return;
@@ -179,15 +196,15 @@
 {
     if ([ourLibrary currentLibrary] != nil)
     {
-        BOOL saveSuccess = [ourLibrary savePlaylist:[ourLibrary currentLibrary]];
+        BOOL saveSuccess = [ourLibrary saveLibrary:[ourLibrary currentLibrary]];
         if (saveSuccess == NO)
         {
             NSAlert *cannotSaveAlert = [[NSAlert alloc] init];
-            NSString *playlistPath = [[[ourLibrary currentLibrary] path] lastPathComponent];
+            NSString *libraryPath = [[[ourLibrary currentLibrary] path] lastPathComponent];
             [cannotSaveAlert addButtonWithTitle:@"OK"];
             [cannotSaveAlert setMessageText:@"Error"];
             [cannotSaveAlert setInformativeText:[NSString
-                                                 stringWithFormat:@"Cannot save playlist: %@", playlistPath]];
+                                                 stringWithFormat:@"Cannot save library: %@", libraryPath]];
             [cannotSaveAlert setAlertStyle:NSWarningAlertStyle];
         }
     }
@@ -196,7 +213,7 @@
 
 -(void)addModuleMenu:(NSNotification *)ourNotification
 {
-    [self performSegueWithIdentifier:@"playlistSegue" sender:self];
+    [self performSegueWithIdentifier:@"librarySegue" sender:self];
     NSString *notificationName = @"dcT_addLibrary";
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
     return;
@@ -204,7 +221,7 @@
 
 -(void)saveAsLibraryMenu:(NSNotification *)ourNotification
 {
-    [self performSegueWithIdentifier:@"playlistSegue" sender:self];
+    [self performSegueWithIdentifier:@"librarySegue" sender:self];
     NSString *notificationName = @"dcT_saveLibrary";
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
     return;
@@ -218,11 +235,11 @@
     }
     
     
-    BOOL playlistExists = [[NSFileManager defaultManager] fileExistsAtPath:[[ourLibrary currentLibrary] path]];
-    if (playlistExists)
+    BOOL libraryExists = [[NSFileManager defaultManager] fileExistsAtPath:[[ourLibrary currentLibrary] path]];
+    if (libraryExists)
     {
         [ourLibrary clearLibrary:NO];
-        BOOL loadSuccess = [ourLibrary loadPlaylist:[ourLibrary currentLibrary]];
+        BOOL loadSuccess = [ourLibrary loadLibrary:[ourLibrary currentLibrary]];
         if (loadSuccess == YES)
         {
             NSString *notificationName = @"dcT_reloadLibrary";
@@ -242,7 +259,14 @@
     
     currentModule = passedRow;
     ourModule = [ourLibrary getModuleAtIndex:passedRow];
-    [self setSongPlaybackFlag:kPlayNextSong];
+    if ((currentModule + 1) > ([ourLibrary libraryCount] - 1))
+    {
+        [self setSongPlaybackFlag:kStopPlayback];
+    }
+    else
+    {
+        [self setSongPlaybackFlag:kPlayNextSong];
+    }
     [self playModule:ourModule];
     
 }
@@ -267,7 +291,7 @@
 {
     PlaybackOperation *ourPlaybackOp;
     
-    if ([ourLibrary playlistCount] == 0)
+    if ([ourLibrary libraryCount] == 0)
     {
         [playButton setState:NSOffState];
         return;
