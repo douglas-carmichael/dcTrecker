@@ -436,19 +436,6 @@
                           kAudioUnitScope_Output, 0, volume, 0);
 }
 
--(void)jumpPosition:(NSInteger)positionValue
-{
-    int status;
-    status = xmp_set_position(class_context, (int)positionValue);
-    if (status == -XMP_ERROR_STATE)
-    {
-        NSLog(@"Not in playing state.");
-    }
-    if (status == -XMP_ERROR_INVALID)
-    {
-        NSLog(@"Position invalid.");
-    }
-}
 
 -(void)seekPlayerToTime:(NSInteger)seekValue
 {

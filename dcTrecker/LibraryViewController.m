@@ -206,7 +206,6 @@
 {
     xmpWriter *myWriter;
     Module *myModule;
-    NSLog(@"current row: %ld", (long)currentRow);
     myWriter = [[xmpWriter alloc] init];
     
     if (currentRow >= 0 && ([ourLibrary isEmpty] == NO))

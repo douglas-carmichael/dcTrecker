@@ -151,7 +151,7 @@
         return NO;
     }
     
-    NSXMLElement *libraryRoot = (NSXMLElement *)[NSXMLNode elementWithName:@"dcPlaylist"];
+    NSXMLElement *libraryRoot = (NSXMLElement *)[NSXMLNode elementWithName:@"dcLibrary"];
     NSXMLDocument *libraryDocument = [[NSXMLDocument alloc] initWithRootElement:libraryRoot];
     [libraryDocument setVersion:@"1.0"];
     [libraryDocument setCharacterEncoding:@"UTF-8"];

@@ -130,7 +130,6 @@
         case kPlayNextSong:
         {
             // Checking again here when we go through the library automatically
-            NSLog(@"Playing next song.");
             if ((currentModule + 1) <= ([ourLibrary libraryCount] - 1))
             {
                 currentModule++;
@@ -143,7 +142,6 @@
         }
         case kPlayPreviousSong:
         {
-            NSLog(@"Playing previous song.");
             if ((currentModule - 1) <= ([ourLibrary libraryCount] - 1))
             {
                 currentModule--;
@@ -157,7 +155,6 @@
         }
         case kStopPlayback:
         {
-            NSLog(@"Stopping playback.");
             [ourPlayer stopPlayer];
             [self setTimelineAvailable:NO];
             [self resetView];

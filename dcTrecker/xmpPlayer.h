@@ -58,7 +58,6 @@
 -(void)nextPlayPosition;
 -(void)prevPlayPosition;
 
--(void)jumpPosition:(NSInteger)positionValue;
 -(void)seekPlayerToTime:(NSInteger)seekValue;
 -(void)setMasterVolume:(float)volume;
 -(void)setChannelVolume:(NSInteger)ourChannel volume:(NSInteger)ourVolume;
