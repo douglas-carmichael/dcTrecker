@@ -207,16 +207,17 @@
     xmpWriter *myWriter;
     Module *myModule;
     myWriter = [[xmpWriter alloc] init];
-    
+    myModule = [ourLibrary getModuleAtIndex:currentRow];
+
     if (currentRow >= 0 && ([ourLibrary isEmpty] == NO))
     {
         NSSavePanel *ourPanel = [NSSavePanel savePanel];
         [ourPanel setCanCreateDirectories:YES];
         [ourPanel setAllowedFileTypes:[NSArray arrayWithObject:@"wav"]];
         [ourPanel setCanHide:YES];
+        [ourPanel setNameFieldStringValue:[myModule moduleName]];
         if ([ourPanel runModal] == NSModalResponseOK)
         {
-            myModule = [ourLibrary getModuleAtIndex:currentRow];
             [myWriter loadModule:myModule error:nil];
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
                 [myWriter writeModuleWAV:[ourPanel URL] error:nil];
