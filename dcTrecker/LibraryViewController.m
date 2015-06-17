@@ -213,14 +213,21 @@
     {
         NSSavePanel *ourPanel = [NSSavePanel savePanel];
         [ourPanel setCanCreateDirectories:YES];
-        [ourPanel setAllowedFileTypes:[NSArray arrayWithObject:@"wav"]];
+        [ourPanel setAllowedFileTypes:[NSArray arrayWithObject:@"aiff"]];
         [ourPanel setCanHide:YES];
         [ourPanel setNameFieldStringValue:[myModule moduleName]];
         if ([ourPanel runModal] == NSModalResponseOK)
         {
             [myWriter loadModule:myModule error:nil];
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
-                [myWriter writeModuleWAV:[ourPanel URL] error:nil];
+                NSError *error = nil;
+                [myWriter writeModuleAIFF:[ourPanel URL] error:&error];
+                if(error)
+                {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [NSApp presentError:error];
+                    });
+                };
                 NSArray *audioURL = [NSArray arrayWithObjects:[ourPanel URL], nil];
                 [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:audioURL];
             });

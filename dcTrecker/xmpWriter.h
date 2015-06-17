@@ -23,5 +23,6 @@
 
 -(void)loadModule:(Module *)ourModule error:(NSError *__autoreleasing *)error;
 -(void)writeModuleWAV:(NSURL *)moduleWriteURL error:(NSError *__autoreleasing *)error;
+-(void)writeModuleAIFF:(NSURL *)moduleWritePath error:(NSError *__autoreleasing *)error;
 
 @end
