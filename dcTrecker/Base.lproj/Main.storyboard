@@ -71,6 +71,11 @@
                                                 </items>
                                             </menu>
                                         </menuItem>
+                                        <menuItem title="Save Library" keyEquivalent="s" id="pxx-59-PXV">
+                                            <connections>
+                                                <action selector="saveLibrary:" target="Voe-Tx-rLC" id="VfP-FC-ivb"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Save Library As…" keyEquivalent="S" id="Bw7-FT-i3A">
                                             <connections>
                                                 <action selector="saveAsLibrary:" target="Voe-Tx-rLC" id="Xct-44-VK9"/>
@@ -99,12 +104,6 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="openLibrary:" target="Voe-Tx-rLC" id="kxi-Rk-AVt"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Save Library" id="pxx-59-PXV">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="saveLibrary:" target="Voe-Tx-rLC" id="VfP-FC-ivb"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Remove Module" keyEquivalent="r" id="cxT-LX-2TF">
@@ -607,6 +606,6 @@ IA
         <image name="save_library" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dlc-ip-Deq"/>
+        <segue reference="qNI-Vx-UlH"/>
     </inferredMetricsTieBreakers>
 </document>
