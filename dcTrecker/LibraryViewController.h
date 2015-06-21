@@ -31,6 +31,7 @@
 -(NSString *)newLibraryToolTip;
 -(NSString *)openLibraryToolTip;
 -(NSString *)saveLibraryToolTip;
+-(NSString *)saveModuleToolTip;
 -(NSString *)addModuleToolTip;
 -(NSString *)removeModuleToolTip;
 -(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;

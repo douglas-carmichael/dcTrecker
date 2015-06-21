@@ -356,13 +356,14 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yaK-AP-hZc">
-                                <rect key="frame" x="211" y="10" width="106" height="23"/>
-                                <buttonCell key="cell" type="smallSquare" title="Save AIFF" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="E45-KB-mbp">
+                                <rect key="frame" x="211" y="10" width="32" height="23"/>
+                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="save_module" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="E45-KB-mbp">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="writeModuleButton:" target="eil-7S-fi4" id="Jz0-aM-oJs"/>
+                                    <binding destination="eil-7S-fi4" name="toolTip" keyPath="self.saveModuleToolTip" id="iAe-ey-Kys"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -604,6 +605,7 @@ IA
         <image name="play" width="81" height="81"/>
         <image name="prevTrack" width="81" height="81"/>
         <image name="save_library" width="30" height="30"/>
+        <image name="save_module" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="qNI-Vx-UlH"/>

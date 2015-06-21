@@ -251,6 +251,11 @@
     return @"Save a library to disk.";
 }
 
+-(NSString *)saveModuleToolTip
+{
+    return @"Save the selected module to an AIFF file.";
+}
+
 -(NSString *)addModuleToolTip
 {
     return @"Add module to library.";
