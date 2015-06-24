@@ -17,6 +17,7 @@
 
 -(IBAction)newLibrary:(id)sender;
 -(IBAction)openLibrary:(id)sender;
+-(IBAction)openModule:(id)sender;
 -(IBAction)saveLibrary:(id)sender;
 -(IBAction)saveAsLibrary:(id)sender;
 -(IBAction)revertToSaved:(id)sender;

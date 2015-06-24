@@ -36,6 +36,12 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
 }
 
+-(IBAction)openModule:(id)sender
+{
+    [self newLibrary:nil];
+    [self addModule:nil];
+}
+
 -(IBAction)saveLibrary:(id)sender
 {
     NSString *notificationName = @"dcT_saveLibraryMenu";
