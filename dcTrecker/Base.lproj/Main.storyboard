@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
     </dependencies>
@@ -21,7 +21,11 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
+                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
+                                            <connections>
+                                                <segue destination="vto-bv-U1S" kind="show" id="AKM-sw-P6b"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                                         <menuItem title="Hide dcTrecker" keyEquivalent="h" id="Olw-nP-bQN">
                                             <connections>
@@ -75,6 +79,11 @@
                                                     </menuItem>
                                                 </items>
                                             </menu>
+                                        </menuItem>
+                                        <menuItem title="Close" keyEquivalent="w" id="DbT-g2-bWv">
+                                            <connections>
+                                                <action selector="performClose:" target="Ady-hI-5gd" id="AlQ-jS-ieN"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title="Save Library" keyEquivalent="s" id="pxx-59-PXV">
                                             <connections>
@@ -173,6 +182,19 @@
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="45.5" y="-133"/>
+        </scene>
+        <!--Preferences-->
+        <scene sceneID="Ubs-fc-xin">
+            <objects>
+                <viewController title="Preferences" id="vto-bv-U1S" sceneMemberID="viewController">
+                    <view key="view" id="7uz-Sk-JY5">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="6I8-AR-q9G" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-424" y="285"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
