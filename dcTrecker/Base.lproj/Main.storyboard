@@ -21,11 +21,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
-                                            <connections>
-                                                <segue destination="vto-bv-U1S" kind="show" id="AKM-sw-P6b"/>
-                                            </connections>
-                                        </menuItem>
+                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                                         <menuItem title="Hide dcTrecker" keyEquivalent="h" id="Olw-nP-bQN">
                                             <connections>
@@ -182,19 +178,6 @@
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="45.5" y="-133"/>
-        </scene>
-        <!--Preferences-->
-        <scene sceneID="Ubs-fc-xin">
-            <objects>
-                <viewController title="Preferences" id="vto-bv-U1S" sceneMemberID="viewController">
-                    <view key="view" id="7uz-Sk-JY5">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </view>
-                </viewController>
-                <customObject id="6I8-AR-q9G" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-424" y="285"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
